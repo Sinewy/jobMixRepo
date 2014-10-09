@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+www.backslash.gr	TRUE	/	FALSE	1999999999	PHPSESSID	22c92c985d10ede47928a57f19b7f219
+www.backslash.gr	TRUE	/	FALSE	1999999999	dhsite_visitor	member-5a58f9
+

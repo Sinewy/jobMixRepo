@@ -1,0 +1,12 @@
+HTTrack3.48-19 launched on Tue, 07 Oct 2014 14:17:26 at http://www.backslash.gr/demos/contenthover-jquery-plugin/
+(/usr/local/bin/httrack http://www.backslash.gr/demos/contenthover-jquery-plugin/ -O /Users/jurez/Desktop/TestPageDl )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+14:17:27	Warning: 	Note: due to www.backslash.gr remote robots.txt rules, links beginning with these path will be forbidden: /admin, /js (see in the options to disable this)
+
+HTTrack Website Copier/3.48-19 mirror complete in 6 seconds : 8 links scanned, 7 files written (120679 bytes overall) [112796 bytes received at 18799 bytes/sec], 14224 bytes transferred using HTTP compression in 1 files, ratio 24%
+(No errors, 1 warnings, 0 messages)
