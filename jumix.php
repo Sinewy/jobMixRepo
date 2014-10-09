@@ -49,12 +49,30 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
 <?php include("includes/header.php"); ?>
 
 <section class="mainSection left">
+
     <div class="selectedColorDetails">
         <div class="priceAndInfo left">
-            <?php echo "<p>$1.234,44</p>>"; ?>
-            <?php echo "<p>Product name is displayed here</p>>"; ?>
-            <div class="priceDetails">
-
+            <?php echo "<p>$1.234,44</p>"; ?>
+            <?php echo "<p>Product name is displayed here</p>"; ?>
+            <div class="priceDetails right">
+                <table>
+                    <tr>
+                        <td class="rowTitle">Excluding VAT</td>
+                        <td class="rowValue">$45.11</td>
+                    </tr>
+                    <tr>
+                        <td class="rowTitle">Including VAT</td>
+                        <td class="rowValue">$55.11</td>
+                    </tr>
+                    <tr>
+                        <td class="rowTitle">Price Group</td>
+                        <td class="rowValue">I - IV</td>
+                    </tr>
+                    <tr>
+                        <td class="rowTitle">Price List</td>
+                        <td class="rowValue">Price + 10% rabbat</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="displayColor left">
@@ -63,13 +81,155 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
                 <p>SHOW COMPONENTS</p>
             </div>
         </div>
+    </div>
 
+    <div class="colorsAvailable">
+        <div class="colorSwatch left">
+            <div class="colorName">THMRTENCHARCO</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">6487325</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">234</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch selectedColorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">6487325</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">234</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch selectedColorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">6487325</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">234</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch selectedColorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">6487325</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">234</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">234</div>
+        </div>
+        <div class="colorSwatch  left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">THIRTEENCHARCODE</div>
+        </div>
     </div>
-    <div class="colorAvailable">
-        <div class="menuHeader"></div>
-        <div class="menuItems"></div>
-        <div class="menuFooter"></div>
+
+</section>
+
+<section class="menuSection left">
+    <div class="menuHeader">
+        <img src="images/icon-header-logoWhite.svg" alt="Jub Logo"/>
+        <a href="logout.php"><img class="iconImg" src="images/logout.png" /></a>
     </div>
+    <div class="menuItems"></div>
+    <div class="menuFooter">
+        Kwa je.. Footer
+    </div>
+</section>
 
 
 
@@ -95,9 +255,11 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
 <!--            --><?php //echo $colorantView; ?>
 <!--        </div>-->
 <!--    </div>-->
-</section>
 
-<section class="menuSection left">
+
+
+
+
 
 <!--    <div>-->
 <!--        <img src="images/icon-header-logoWhite.svg" alt="Jub Logo"/>-->
@@ -118,7 +280,7 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
 <!--            <p id="collectionPicker">COLLECTION</p>-->
 <!--        </div>-->
 <!--    </nav>-->
-</section>
+
 
 
 
