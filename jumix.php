@@ -83,6 +83,8 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
         </div>
     </div>
 
+    <div class="spacer"></div>
+
     <div class="colorsAvailable">
         <div class="colorSwatch left">
             <div class="colorName">THMRTENCHARCO</div>
@@ -225,7 +227,24 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
         <img src="images/icon-header-logoWhite.svg" alt="Jub Logo"/>
         <a href="logout.php"><img class="iconImg" src="images/logout.png" /></a>
     </div>
-    <div class="menuItems"></div>
+    <div class="menuItems">
+
+        <div class="menuItem">
+            <p>PRODUCTS</p>
+            <input type="text" id="product" name="product" size="25" value="" placeholder="product" />
+        </div>
+
+        <div class="menuItem">
+            <p>COLLECTION</p>
+            <input type="text" id="collection" name="collection" size="25" value="" placeholder="collection" />
+        </div>
+
+        <div class="menuItem">
+            <p>COLOR</p>
+            <input type="text" id="color" name="color" size="25" value="" placeholder="color" />
+        </div>
+
+    </div>
     <div class="menuFooter">
         Kwa je.. Footer
     </div>
@@ -283,6 +302,14 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
 
 
 
+<div class="searchResults">
+    <p>SEARCH RESULTS:</p>
+    <ul id="productSearchResults">
+<!--        --><?php //echo $collectionsView; ?>
+    </ul>
+</div>
+
+
 
 
 <div class="overlayDarken search">
@@ -303,8 +330,7 @@ $colorDetailView = colorDetialDataView($selectedColorHEX, $selectedColorPrice, $
     <div class="overlayBackground">
         <div class="closeBtn right">X</div>
         PRODUCT PICKER
-        <ul>
-            <?php echo $collectionsView ?>
+        <ul id="pSearchCollectionsResults">
         </ul>
     </div>
 </div>

@@ -1,15 +1,159 @@
 $(document).ready(function() {
 
+    var selectedProduct, selectedCollection, selectedColor;
+
+
 
     $(".displayColor").click(function() {
         console.log("opening components")
     });
 
 
+    var availableTags =[
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+    ];
+
+//    $( "#product" ).autocomplete({
+//        source: "includes/findProduct.php",
+//        minLength: 3
+//    });
+
+    $( "#product" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "includes/findProduct.php",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                success: function( data ) {
+                    console.log(data);
+//                    console.log(data.keys());
+//                    var pNames = [], pIds = [];
+//                    for(var key in data) {
+//                        pNames.push(data[key]);
+//                        pIds.push(key);
+//                    }
+//                    var myData = [{
+//                        label: data["name"],
+//                        label: data.name,
+//                        value: data.code,
+//                        value: data["name"],
+//                        id: data["id"]
+//                    }];
+
+                    response( data );
+//                    response( $.map( data, function( item ) {
+//                        //alert(item.label);
+//                        console.log(item);
+//                        return {
+//                            label: item.label,
+//                            value: item.value     // EDIT
+//                        }
+//                    }));
+                }
+            });
+        },
+        minLength: 0,
+        select: function( event, ui ) {
+
+            var postForPID = $.post("includes/getSelectedPID.php", {searchString: ui.item.label});
+            postForPID.success(function(data) {
+                selectedProduct = data;
+                var postForPSearchResults = $.post("includes/getProdustSearchResults.php", {pid: selectedProduct});
+                postForPSearchResults.success(function(data) {
+                    $("#productSearchResults").html(data);
+                    console.log(data);
+
+//                    selectedProduct = data;
+
+                });
+            });
+
+            $(".searchResults").toggle( "slide", {direction: "right"} );
+            $("#product").prop("disabled", true);
+            console.log(ui.item);
+
+//            if(ui.item) {
+//                console.log(ui.item);
+//            } else {
+//                console.log("Nothing selected");
+//            }
+
+//            log( ui.item ?
+//                "Selected: " + ui.item.label :
+//                "Nothing selected, input was " + this.value);
+        },
+        open: function() {
+//            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+//            console.log("open drop down")
+        },
+        close: function() {
+//            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+//            console.log("close drop down")
+        },
+        focus: function() {
+//            $("#collection :input").prop("disabled", true);
+//            $("#color :input").prop("disabled", true);
+        }
+    });
 
 
 
+    $( "#collection" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "includes/findCollection.php",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                success: function( data ) {
+                    console.log(data);
+                    response( data );
+                }
+            });
+        },
+        minLength: 0
+    });
 
+    $( "#color" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: "includes/findColor.php",
+                dataType: "json",
+                data: {
+                    term: request.term
+                },
+                success: function( data ) {
+                    console.log(data);
+                    response( data );
+                }
+            });
+        },
+        minLength: 0
+    });
 
 
 

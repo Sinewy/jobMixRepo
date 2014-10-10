@@ -215,6 +215,32 @@ function findAllProducts() {
     return $result;
 }
 
+function findAllProductsWithFilter($searchString) {
+    global $connection;
+    $query  = "SELECT * ";
+    $query .= "FROM products ";
+    $query .= "WHERE name LIKE '%{$searchString}%' ";
+    $query .= "ORDER BY name ASC";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
+}
+
+function findSelectedProductId($searchStr) {
+    global $connection;
+    $query  = "SELECT * ";
+    $query .= "FROM products ";
+    $query .= "WHERE name LIKE '{$searchStr}' ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($id = mysqli_fetch_assoc($result)) {
+        return $id;
+    } else {
+        return null;
+    }
+}
+
 function findAllCollectionsForProduct($productId) {
     global $connection;
     $query = "SELECT DISTINCT ";
@@ -223,6 +249,17 @@ function findAllCollectionsForProduct($productId) {
     $query .= "INNER JOIN collections c ON (c.id = f.collections_id) ";
     $query .= "WHERE products_id = {$productId} ";
     $query .= "ORDER BY c.name ASC ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
+}
+
+function findAllCollectionsWithFilter($searchString) {
+    global $connection;
+    $query  = "SELECT * ";
+    $query .= "FROM collections ";
+    $query .= "WHERE name LIKE '%{$searchString}%' ";
+    $query .= "ORDER BY name ASC";
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
     return $result;
@@ -251,6 +288,17 @@ function findAllColorsForProductAndCollection($productId, $collectionId) {
     confirmQuery($result);
 //    $timeEnd = microtime(true);
 //    syslog(LOG_WARNING, "Time to execute query for colors: " . ($timeEnd - $timeStart));
+    return $result;
+}
+
+function findAllColorsWithFilter($searchString) {
+    global $connection;
+    $query  = "SELECT * ";
+    $query .= "FROM colors ";
+    $query .= "WHERE name LIKE '%{$searchString}%' ";
+    $query .= "ORDER BY name ASC";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
     return $result;
 }
 
@@ -341,6 +389,35 @@ function collectionsListView() {
     }
     return $output;
 }
+
+function collectionsListViewSearch($pid) {
+//    global $productId;
+//    global $collectionId;
+//    global $cansizesId;
+    $dataSet = findAllCollectionsForProduct($pid);
+    $output = "";
+//    $count = 0;
+    if (mysqli_num_rows($dataSet) > 0) {
+        while ($data = mysqli_fetch_assoc($dataSet)) {
+//            if($collectionId == null) {
+//                $collectionId = $data["id"];
+//            }
+//            if ($collectionId == $data["id"]) {
+//                $output .= "<li class='active'>";
+//            } else {
+//                $output .= "<li>";
+//            }
+            $output .= "<li>";
+//            $output .= "<a href='jumix.php?productId=" . $pid . "&collectionId=" . $data["id"] . "&cansizesId=" . $cansizesId . "'>";
+            $output .= $data["name"];
+//            $output .= "</a>";
+            $output .= "</li>";
+//            $count++;
+        }
+    }
+    return $output;
+}
+
 
 function collectionsListViewAsSelect() {
     global $productId;

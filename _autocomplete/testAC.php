@@ -6,9 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Autocomplete using PHP/MySQL and jQuery</title>
 
-    <link rel="stylesheet" href="css/jquery-ui.css" />
+<!--    <link rel="stylesheet" href="css/jquery-ui.css" />-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="css/main.css" />
+<!--    <link rel="stylesheet" href="css/main.css" />-->
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.js"></script>
@@ -24,10 +24,10 @@
 <!--</select>-->
 
 
-<div class="ui-widget">
-    <label for="tags">Tags: </label>
+<!--<div class="ui-widget">-->
+<!--    <label for="tags">Tags: </label>-->
     <input id="tags">
-</div>
+<!--</div>-->
 
 
 </body>

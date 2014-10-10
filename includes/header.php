@@ -8,6 +8,7 @@
     <script src="js/modernizr.js"></script>
     <link rel="stylesheet" href="css/cssreset.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 
