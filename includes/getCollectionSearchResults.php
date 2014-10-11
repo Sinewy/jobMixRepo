@@ -9,11 +9,11 @@
 require_once("dbc.php");
 require_once("globalFunctions.php");
 
-if(isset($_POST["pid"])) {
-    $pid = $_POST["pid"];
+if(isset($_POST["cid"])) {
+    $cid = $_POST["cid"];
 	$out = [];
 //    $out = collectionsListViewSearch($pid);
-    $data = findAllCollectionsForProduct($pid);
+    $data = findAllProductsForCollection($cid);
 	foreach($data as $key => $value) {
 		$out[$key] = $value;
 	}

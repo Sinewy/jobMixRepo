@@ -254,6 +254,19 @@ function findAllCollectionsForProduct($productId) {
     return $result;
 }
 
+function findAllProductsForCollection($collectionId) {
+	global $connection;
+	$query = "SELECT DISTINCT ";
+	$query .= "p.id, p.name ";
+	$query .= "FROM formulas f " ;
+	$query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+	$query .= "WHERE collections_id = {$collectionId} ";
+	$query .= "ORDER BY p.name ASC ";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	return $result;
+}
+
 function findAllCollectionsWithFilter($searchString) {
     global $connection;
     $query  = "SELECT * ";
@@ -263,6 +276,21 @@ function findAllCollectionsWithFilter($searchString) {
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
     return $result;
+}
+
+function findSelectedCollectionId($searchStr) {
+	global $connection;
+	$query  = "SELECT * ";
+	$query .= "FROM collections ";
+	$query .= "WHERE name LIKE '{$searchStr}' ";
+	$query .= "LIMIT 1";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	if($id = mysqli_fetch_assoc($result)) {
+		return $id;
+	} else {
+		return null;
+	}
 }
 
 function findCansizesForProduct($productId) {
@@ -277,7 +305,6 @@ function findCansizesForProduct($productId) {
 }
 
 function findAllColorsForProductAndCollection($productId, $collectionId) {
-//    $timeStart = microtime(true);
     global $connection;
     $query = "SELECT f.id, c.name, f.rgb, f.price_group_description ";
     $query .= "FROM formulas f ";
@@ -286,10 +313,24 @@ function findAllColorsForProductAndCollection($productId, $collectionId) {
     $query .= "AND f.collections_id = {$collectionId} ";
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
-//    $timeEnd = microtime(true);
-//    syslog(LOG_WARNING, "Time to execute query for colors: " . ($timeEnd - $timeStart));
     return $result;
 }
+
+function findColorById($colorId) {
+	global $connection;
+	$query = "SELECT * ";
+	$query .= "FROM formulas f ";
+	$query .= "WHERE id = {$colorId} ";
+	$query .= "LIMIT 1";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	if($data = mysqli_fetch_assoc($result)) {
+		return $data;
+	} else {
+		return null;
+	}
+}
+
 
 function findAllColorsWithFilter($searchString) {
     global $connection;

@@ -9,15 +9,14 @@
 require_once("dbc.php");
 require_once("globalFunctions.php");
 
-if(isset($_POST["pid"])) {
-    $pid = $_POST["pid"];
+if(isset($_POST["pid"]) && isset($_POST["cid"])) {
+	$pid = $_POST["pid"];
+	$cid = $_POST["cid"];
 	$out = [];
-//    $out = collectionsListViewSearch($pid);
-    $data = findAllCollectionsForProduct($pid);
+    $data = findAllColorsForProductAndCollection($pid, $cid);
 	foreach($data as $key => $value) {
 		$out[$key] = $value;
 	}
-//    echo findAllCollectionsForProduct($pid);
     echo json_encode($out);
 }
 

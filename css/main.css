@@ -184,6 +184,7 @@ input[type = "password"] {
 .mainSection {
     width: 896px;
     height: 800px;
+    overflow: hidden;
     /*background: #a4cbe4;*/
 }
     .selectedColorDetails {
@@ -258,14 +259,19 @@ input[type = "password"] {
 
     .colorsAvailable {
         height: 500px;
-        /*background: #9b0000;*/
+        width: 916px;
         overflow-y: scroll;
+        overflow-x: hidden;
     }
+        .colorsAvailable a {
+            color: #cccccc;
+            text-decoration: none;
+        }
         .colorSwatch {
             width: 101px;
             height: 100px;
             margin: 0 0 10px 10px;
-            background-color: #efefef;
+            background-color: #1e1e1e;
             position: relative;
             font-family: Economica, sans-serif;
             font-size: 9px;
@@ -473,69 +479,72 @@ input[type = "password"] {
 
 
 
-/*.components {*/
-/*width: 100%;*/
-/*background: #CCC url("../images/bgTile.png");*/
-/*height: 130px;*/
-/*position: absolute;*/
-/*bottom: -91px;*/
-/*top: 620px;*/
-/*margin-left: -5px;*/
-/*margin-bottom: 1px;*/
-/*}*/
+.components {
+    width: 896px;
+    background: #CCC url("../images/bgTile.png");
+    /*height: 130px;*/
+    position: absolute;
+    /*bottom: -91px;*/
+    top: 290px;
+    left: 0px;
+    display: none;
+    /*margin-left: -5px;*/
+    /*margin-bottom: 1px;*/
+    z-index: 10000000000;
+}
 
-/*.btnSlider {*/
-/*background: rgba(0, 0, 0, 0.3);*/
-/*height: 40px;*/
-/*border-bottom: solid #000000 1px;*/
-/*cursor: pointer;*/
-/*}*/
+.btnSlider {
+    background: rgba(0, 0, 0, 0.3);
+    height: 40px;
+    border-bottom: solid #000000 1px;
+    cursor: pointer;
+}
 
-/*.btnSlider img {*/
-/*width: 25px;*/
-/*height: 25px;*/
-/*vertical-align: middle;*/
-/*padding: 7px;*/
-/*}*/
+.btnSlider img {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    padding: 7px;
+}
 
-/*.row {*/
-/*height: 30px;*/
-/*width: 100%;*/
-/*border-bottom: solid #000000 1px;*/
-/*}*/
+.row {
+    height: 30px;
+    width: 100%;
+    border-bottom: solid #000000 1px;
+}
 
-/*.tableHeader {*/
-/*background: rgba(0, 0, 0, 0.3);*/
-/*}*/
+.tableHeader {
+    background: rgba(0, 0, 0, 0.3);
+}
 
-/*.row p {*/
-/*padding: 9px;*/
-/*}*/
+.row p {
+    padding: 9px;
+}
 
-/*.compNameBig {*/
-/*width: 570px;*/
-/*}*/
+.compNameBig {
+    width: 570px;
+}
 
-/*.compName {*/
-/*width: 540px;*/
-/*}*/
+.compName {
+    width: 540px;
+}
 
-/*.compColor {*/
-/*width: 20px;*/
-/*padding: 5px;*/
+.compColor {
+    width: 20px;
+    padding: 5px;
 
-/*}*/
+}
 
-/*.compAmount,*/
-/*.compPrice {*/
-/*width: 160px;*/
-/*}*/
+.compAmount,
+.compPrice {
+    width: 160px;
+}
 
-/*.colorantColor {*/
-/*width: 18px;*/
-/*height: 18px;*/
-/*border: solid #000000 1px;*/
-/*}*/
+.colorantColor {
+    width: 18px;
+    height: 18px;
+    border: solid #000000 1px;
+}
 
 
 /* END Main Section */
