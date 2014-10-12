@@ -238,6 +238,16 @@ $cansizesView = cansizesListViewAsSelect();
 	</ul>
 </div>
 
+<div class="searchResultsForColor">
+	<p>SEARCH RESULTS:</p>
+	<p>PRODUCTS:</p>
+	<ul id="colorPSearchResults">
+	</ul>
+	<p>COLLECTIONS:</p>
+	<ul id="colorCSearchResults">
+	</ul>
+	<div class="selectBtn">SELECT</div>
+</div>
 
 
 

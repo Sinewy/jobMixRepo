@@ -352,7 +352,8 @@ input[type = "password"] {
 
 /* Content hovering - selectin and search */
 
-.searchResults {
+.searchResults,
+.searchResultsForColor {
     position: absolute;
     top: 50px;
     left: 595px;
@@ -482,15 +483,10 @@ input[type = "password"] {
 .components {
     width: 896px;
     background: #CCC url("../images/bgTile.png");
-    /*height: 130px;*/
     position: absolute;
-    /*bottom: -91px;*/
     top: 290px;
     left: 0px;
     display: none;
-    /*margin-left: -5px;*/
-    /*margin-bottom: 1px;*/
-    z-index: 10000000000;
 }
 
 .btnSlider {

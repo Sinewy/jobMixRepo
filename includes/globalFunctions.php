@@ -267,6 +267,32 @@ function findAllProductsForCollection($collectionId) {
 	return $result;
 }
 
+function findAllProductsForColor($colorId) {
+	global $connection;
+	$query = "SELECT DISTINCT ";
+	$query .= "p.id, p.name ";
+	$query .= "FROM formulas f " ;
+	$query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+	$query .= "WHERE colors_id = {$colorId} ";
+	$query .= "ORDER BY p.name ASC ";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	return $result;
+}
+
+function findAllCollectionsForColor($colorId) {
+	global $connection;
+	$query = "SELECT DISTINCT ";
+	$query .= "c.id, c.name ";
+	$query .= "FROM formulas f " ;
+	$query .= "INNER JOIN collections c ON (c.id = f.collections_id) ";
+	$query .= "WHERE colors_id = {$colorId} ";
+	$query .= "ORDER BY c.name ASC ";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	return $result;
+}
+
 function findAllCollectionsWithFilter($searchString) {
     global $connection;
     $query  = "SELECT * ";
@@ -314,6 +340,21 @@ function findAllColorsForProductAndCollection($productId, $collectionId) {
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
     return $result;
+}
+
+function findSelectedColorId($searchStr) {
+	global $connection;
+	$query  = "SELECT * ";
+	$query .= "FROM colors ";
+	$query .= "WHERE name LIKE '{$searchStr}' ";
+	$query .= "LIMIT 1";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	if($id = mysqli_fetch_assoc($result)) {
+		return $id;
+	} else {
+		return null;
+	}
 }
 
 function findColorById($colorId) {

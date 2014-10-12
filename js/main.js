@@ -4,10 +4,6 @@ $(document).ready(function() {
     var selectedCollection = -1;
     var selectedColor = -1;
 
-    $(".displayColor").click(function() {
-        $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
-    });
-
     $("#product").autocomplete({
         source: function( request, response ) {
             $.ajax({
@@ -31,7 +27,8 @@ $(document).ready(function() {
                     var resultData = $.parseJSON(data);
                     if(resultData.length == 1) {
                         $("#collection").val(resultData[0].name);
-                        updateColorsView(selectedProduct, resultData[0].id, null);
+                        selectedCollection = resultData[0].id;
+                        updateColorsView(selectedProduct, selectedCollection, null);
                     } else {
                         $("#pAndCSearchResults").html(prepareSearchResults(resultData, "sColl"));
                         $(".searchResultLink").click(function() {
@@ -67,7 +64,8 @@ $(document).ready(function() {
                     var resultData = $.parseJSON(data);
                     if(resultData.length == 1) {
                         $("#product").val(resultData[0].name);
-                        updateColorsView(resultData[0].id, selectedCollection, null);
+                        selectedProduct = resultData[0].id;
+                        updateColorsView(selectedProduct, selectedCollection, null);
                     } else {
                         $("#pAndCSearchResults").html(prepareSearchResults(resultData, "sProd"));
                         $(".searchResultLink").click(function() {
@@ -94,7 +92,33 @@ $(document).ready(function() {
                 }
             });
         },
-        minLength: 0
+        minLength: 0,
+        select: function( event, ui ) {
+            var postForColorId = $.post("includes/getSelectedColorId.php", {searchString: ui.item.label});
+            postForColorId.success(function(data) {
+                selectedColor = data;
+                var postForProductsAndCollections = $.post("includes/getProductsAndCollectionsForColor.php", {scid: selectedColor});
+                postForProductsAndCollections.success(function(data) {
+                    var resultData = $.parseJSON(data);
+                    if(resultData[0].length == 1 && resultData[1].length == 1) {
+                        $("#product").val(resultData[0][0].name);
+                        $("#collection").val(resultData[1][0].name);
+                        selectedProduct = resultData[0][0].id;
+                        selectedCollection = resultData[1][0].id;
+                        updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                    } else if(resultData[0].length == 1 && resultData[1].length > 1) {
+
+                    } else if(resultData[0].length > 1 && resultData[1].length == 1) {
+
+                    } else {
+
+                    }
+                    console.log(typeof resultData);
+                    console.log(resultData);
+                    console.log(resultData.length);
+                });
+            });
+        }
     });
 
     function updateColorsView(productId, collectionId, colorId) {
@@ -202,6 +226,10 @@ $(document).ready(function() {
             colorDetail +=  "<p>SHOW COMPONENTS</p>";
             colorDetail +=  "</div></div>";
             $(".selectedColorDetails").html(colorDetail);
+            $(".displayColor").click(function() {
+                console.log("called toggle from THE SECOND2 link");
+                $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
+            });
         });
         var postForColorants = $.post("includes/getColorantsForColor.php", {scid: colorId});
         postForColorants.success(function(data) {
@@ -218,10 +246,7 @@ $(document).ready(function() {
                 componentView += "</div>";
             }
             $(".colorantList").html(componentView);
-            $(".displayColor").click(function() {
-                console.log("called toggle from THE SECOND2 link");
-                $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
-            });
+
         });
     }
 
