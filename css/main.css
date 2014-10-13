@@ -319,12 +319,15 @@ input[type = "password"] {
     }
         .menuItem {
             margin: 10px 0;
-            padding: 10px;
-            height: 70px;
+            padding: 15px;
+            /*height: 70px;*/
             /*background: rgba(0, 0, 0, 0.3);*/
             background: rgba(255, 255, 255, 0.1);
         }
             .menuItem input[type = "text"] {
+                width: 300px;
+                padding: 10px 5px;
+                font-size: 14px;
                 color: #CCCCCC;
                 border: none;
                 background: rgba(0, 0, 0, 0.5);
@@ -365,6 +368,26 @@ input[type = "password"] {
     border-bottom: 1px solid #ffffff;
     background: #CCC url("../images/bgTile.png");
 }
+    .searchResults p:first-child,
+    .searchResultsForColor p:first-child {
+        padding: 15px;
+        font-size: 14px;
+    }
+    .searchResults ul,
+    .searchResultsForColor ul {
+        padding: 15px;
+        font-size: 12px;
+    }
+        .searchResults li,
+        .searchResultsForColor li {
+            padding: 5px 0;
+        }
+    .searchResults a,
+    .searchResultsForColor a {
+        color: #CCCCCC;
+        text-decoration: none;
+    }
+
 
 
 .overlayDarken {

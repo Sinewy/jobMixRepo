@@ -16,7 +16,7 @@ if(isset($_GET["term"])) {
     $data = array();
     if(mysqli_num_rows($result) > 0) {
         while($product = mysqli_fetch_assoc($result)) {
-            array_push($data, $product["name"]);
+            array_push($data, $product["name"] . " (" . $product["id"] . ")");
         }
     }
     echo json_encode($data);

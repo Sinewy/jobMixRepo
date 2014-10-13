@@ -4,8 +4,8 @@ $dbhost = "localhost";
 $dbuser = "root";
 //$dbpass = "jagode4";
 $dbpass = "masterj";
-//$dbname = "jumixGuiRPi";
-$dbname = "jumix";
+$dbname = "jumixGuiRPi";
+//$dbname = "jumix";
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 if(mysqli_connect_errno()) {
@@ -13,3 +13,4 @@ if(mysqli_connect_errno()) {
         mysqli_connect_error() . " (" . mysqli_connect_errno() . ")"
     );
 }
+mysqli_set_charset($connection, "utf8mb4");

@@ -246,7 +246,6 @@ $cansizesView = cansizesListViewAsSelect();
 	<p>COLLECTIONS:</p>
 	<ul id="colorCSearchResults">
 	</ul>
-	<div class="selectBtn">SELECT</div>
 </div>
 
 

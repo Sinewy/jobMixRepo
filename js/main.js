@@ -19,12 +19,18 @@ $(document).ready(function() {
         },
         minLength: 0,
         select: function( event, ui ) {
+            selectedProduct = -1;
+            selectedCollection = -1;
+            selectedColor = -1;
             var postForPID = $.post("includes/getSelectedPID.php", {searchString: ui.item.label});
             postForPID.success(function(data) {
                 selectedProduct = data;
+                console.log(selectedProduct);
                 var postForPSearchResults = $.post("includes/getProdustSearchResults.php", {pid: selectedProduct});
                 postForPSearchResults.success(function(data) {
                     var resultData = $.parseJSON(data);
+
+
                     if(resultData.length == 1) {
                         $("#collection").val(resultData[0].name);
                         selectedCollection = resultData[0].id;
@@ -56,6 +62,9 @@ $(document).ready(function() {
         },
         minLength: 0,
         select: function( event, ui ) {
+            selectedProduct = -1;
+            selectedCollection = -1;
+            selectedColor = -1;
             var postForCID = $.post("includes/getSelectedCID.php", {searchString: ui.item.label});
             postForCID.success(function(data) {
                 selectedCollection = data;
@@ -94,37 +103,176 @@ $(document).ready(function() {
         },
         minLength: 0,
         select: function( event, ui ) {
-            var postForColorId = $.post("includes/getSelectedColorId.php", {searchString: ui.item.label});
-            postForColorId.success(function(data) {
-                selectedColor = data;
+//            var postForColorId = $.post("includes/getSelectedColorId.php", {searchString: ui.item.label});
+            selectedProduct = -1;
+            selectedCollection = -1;
+            selectedColor = -1;
+
+            selectedColor = extractColorId(ui.item.label);
+
+//            postForColorId.success(function(data) {
+//                selectedColor = data;
+                console.log(selectedColor);
+
                 var postForProductsAndCollections = $.post("includes/getProductsAndCollectionsForColor.php", {scid: selectedColor});
                 postForProductsAndCollections.success(function(data) {
                     var resultData = $.parseJSON(data);
+
+                    console.log(resultData[0].length);
+                    console.log(resultData[1].length);
+
                     if(resultData[0].length == 1 && resultData[1].length == 1) {
+                        console.log("ONE productds and ONE collections");
                         $("#product").val(resultData[0][0].name);
                         $("#collection").val(resultData[1][0].name);
                         selectedProduct = resultData[0][0].id;
                         selectedCollection = resultData[1][0].id;
                         updateColorsView(selectedProduct, selectedCollection, selectedColor);
                     } else if(resultData[0].length == 1 && resultData[1].length > 1) {
+                        console.log("ONE productds and more collections");
+                        selectedProduct = resultData[0][0].id;
+                        $("#colorPSearchResults").html("<li>" + resultData[0][0].name + "</li>");
+                        $("#colorCSearchResults").html(prepareSearchResults(resultData[1], "sColl"));
+                        $(".searchResultLink").click(function() {
+                            doOnColorResultLinkClick(this);
+                        });
+                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
 
                     } else if(resultData[0].length > 1 && resultData[1].length == 1) {
-
+                        console.log("more productds and ONE collections");
+                        selectedCollection = resultData[1][0].id;
+                        $("#colorPSearchResults").html(prepareSearchResults(resultData[0], "sProd"));
+                        $("#colorCSearchResults").html("<li>" + resultData[1][0].name + "</li>");
+                        $(".searchResultLink").click(function() {
+                            doOnColorResultLinkClick(this);
+                        });
+                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                    } else if(resultData[0].length == 0 && resultData[1].length == 0) {
+                        $(".searchResultsForColor").html("<p>This color doeas not exist in any collection or product. Choose anoter color.</p><div class='closeSearchResultsForColorBtn'> OK - Close </div>");
+                        $(".closeSearchResultsForColorBtn").click(function() {
+                            $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                            $(".searchResultsForColor").html("<p>SEARCH RESULTS:</p><p>PRODUCTS:</p><ul id='colorPSearchResults'></ul><p>COLLECTIONS:</p><ul id='colorCSearchResults'></ul>");
+                        });
+                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
                     } else {
+                        console.log("more productds and more collections");
+                        $("#colorPSearchResults").html(prepareSearchResults(resultData[0], "sProd"));
+                        $("#colorCSearchResults").html(prepareSearchResults(resultData[1], "sColl"));
+                        $(".searchResultLink").click(function() {
+                            doOnColorResultLinkClick(this);
+                        });
+                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
 
                     }
                     console.log(typeof resultData);
                     console.log(resultData);
                     console.log(resultData.length);
                 });
-            });
+//            });
         }
     });
 
+    function extractColorId(cName) {
+        var startIndex = cName.indexOf("(");
+        var endIndex = cName.indexOf(")");
+        var cId = cName.substring(startIndex + 1, endIndex);
+        return cId;
+
+    }
+
+    function doOnColorResultLinkClick(thisLink) {
+
+        console.log("1 selected Product: " + selectedProduct);
+        console.log("1 selected Collection: " + selectedCollection);
+        console.log("1 selected Color: " + selectedColor);
+
+
+        var corp = thisLink.id.substr(0, 5);
+        if(corp == "sColl") {
+            $("#collection").val(thisLink.innerText);
+            selectedCollection = thisLink.id.substr(5);
+
+            console.log("2 selected Product: " + selectedProduct);
+            console.log("2 selected Collection: " + selectedCollection);
+            console.log("2 selected Color: " + selectedColor);
+
+            if(selectedProduct > -1 && selectedCollection > -1 && selectedColor > -1) {
+                $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                return true;
+            }
+            var postForProductsByColorAndCollection = $.post("includes/getProductsByColorAndCollection.php", {colorid: selectedColor, collectionid: selectedCollection});
+            postForProductsByColorAndCollection.success(function(data) {
+                var resultData = $.parseJSON(data);
+                if(resultData.length == 1) {
+                    selectedProduct = resultData[0].id;
+                    $("#product").val(resultData[0].name);
+                    $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                    updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                }
+                $("#colorPSearchResults").html(prepareSearchResults(resultData, "sProd"));
+                $(".searchResultLink").click(function() {
+                    doOnColorResultLinkClick(this);
+                });
+            });
+        } else if (corp == "sProd") {
+
+            console.log("sProd1 selected Product: " + selectedProduct);
+            console.log("sProd1 selected Collection: " + selectedCollection);
+            console.log("sProd1 selected Color: " + selectedColor);
+
+            $("#product").val(thisLink.innerText);
+            selectedProduct = thisLink.id.substr(5);
+
+            console.log("sProd2 selected Product: " + selectedProduct);
+            console.log("sProd2 selected Collection: " + selectedCollection);
+            console.log("sProd2 selected Color: " + selectedColor);
+
+            if(selectedProduct > -1 && selectedCollection > -1 && selectedColor > -1) {
+                $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                return true;
+            }
+            var postForCollectionByColorAndProduct = $.post("includes/getCollectionsByColorAndProduct.php", {colorid: selectedColor, productid: selectedProduct});
+            postForCollectionByColorAndProduct.success(function(data) {
+
+                console.log(data);
+
+                var resultData = $.parseJSON(data);
+                if(resultData.length == 1) {
+                    selectedCollection = resultData[0].id;
+                    $("#collection").val(resultData[0].name);
+                    $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                    updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                }
+                $("#colorCSearchResults").html(prepareSearchResults(resultData, "sColl"));
+                $(".searchResultLink").click(function() {
+                    doOnColorResultLinkClick(this);
+                });
+            });
+        }
+
+
+
+
+    }
+
     function updateColorsView(productId, collectionId, colorId) {
+
+        console.log("selected color id: " + colorId);
+        console.log("selected prod id: " + productId);
+        console.log("selected coll id: " + collectionId);
+
         var postForAvailableColors = $.post("includes/getAvailableColors.php", {pid: productId, cid: collectionId});
         postForAvailableColors.success(function(data) {
+
+            console.log(data);
+
             var resultData = $.parseJSON(data);
+
+            console.log("postForAvailableColors:" + resultData);
+
+
             $(".colorsAvailable").html(displayAvailableColors(resultData, colorId));
             $(".colorSwatchBtn").click(function() {
                 var cid = $(this).attr("href").substr(1);
@@ -158,20 +306,20 @@ $(document).ready(function() {
     }
 
     function displayAvailableColors(data, selectedColorId) {
-        console.log(data);
+//        console.log(data);
         var out = "";
         for(var i = 0; i < data.length; i++) {
-            console.log(data[i]);
+//            console.log(data[i]);
             out += "<a href='#" + data[i].id + "' class='colorSwatchBtn'>";
             if(selectedColorId == null && i == 0) {
                 out += "<div class='colorSwatch selectedColorSwatch left' style='background: #" + makeHexColorFromRgb(data[i].rgb) + "'>";
                 selectedColor = data[i].id;
                 updateColorsDetailVew(data[i].id, data[i].name);
-                $(".displayColor").click(function() {
-                    console.log("called toggle from THE SECOND link");
-                    $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
-                });
-            } else if(selectedColorId == data[i].id) {
+//                $(".displayColor").click(function() {
+//                    console.log("called toggle from THE SECOND link");
+//                    $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
+//                });
+            } else if(selectedColorId == data[i].colorId) {
                 out += "<div class='colorSwatch selectedColorSwatch left' style='background: #" + makeHexColorFromRgb(data[i].rgb) + "'>";
                 selectedColor = data[i].id;
                 updateColorsDetailVew(data[i].id, data[i].name);
@@ -191,7 +339,7 @@ $(document).ready(function() {
         if(hexColor.length < 6) {
             var diff = 6 - hexColor.length;
             for (var i = 0; i < diff; i++) {
-                hexColor = "0" + "$hexColor";
+                hexColor = "0" + hexColor;
             }
         }
         return hexColor;

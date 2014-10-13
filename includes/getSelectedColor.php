@@ -16,7 +16,7 @@ if(isset($_POST["scid"])) {
 //	foreach($data as $key => $value) {
 //		$out[$key] = $value;
 //	}
-//    echo $data;
+//    var_dump($data);
     echo json_encode($data);
 }
 

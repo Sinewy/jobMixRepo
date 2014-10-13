@@ -273,11 +273,28 @@ function findAllProductsForColor($colorId) {
 	$query .= "p.id, p.name ";
 	$query .= "FROM formulas f " ;
 	$query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+//	$query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
 	$query .= "WHERE colors_id = {$colorId} ";
+//	$query .= "WHERE colors_id in (SELECT id FROM colors WHERE name IN (SELECT id FROM colors WHERE id = {$colorId})) ";
 	$query .= "ORDER BY p.name ASC ";
 	$result = mysqli_query($connection, $query);
 	confirmQuery($result);
 	return $result;
+}
+
+function findAllProductsForColorAndCollection($colorId, $collectionId) {
+    global $connection;
+    $query = "SELECT DISTINCT ";
+    $query .= "p.id, p.name ";
+    $query .= "FROM formulas f " ;
+    $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+    $query .= "WHERE colors_id = {$colorId} ";
+//    $query .= "WHERE colors_id in (SELECT id FROM colors WHERE name IN (SELECT id FROM colors WHERE id = {$colorId})) ";
+    $query .= "AND collections_id = {$collectionId} ";
+    $query .= "ORDER BY p.name ASC ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
 }
 
 function findAllCollectionsForColor($colorId) {
@@ -287,10 +304,26 @@ function findAllCollectionsForColor($colorId) {
 	$query .= "FROM formulas f " ;
 	$query .= "INNER JOIN collections c ON (c.id = f.collections_id) ";
 	$query .= "WHERE colors_id = {$colorId} ";
-	$query .= "ORDER BY c.name ASC ";
+//    $query .= "WHERE colors_id in (SELECT id FROM colors WHERE name IN (SELECT id FROM colors WHERE id = {$colorId})) ";
+    $query .= "ORDER BY c.name ASC ";
 	$result = mysqli_query($connection, $query);
 	confirmQuery($result);
 	return $result;
+}
+
+function findAllCollectionsForColorAndProduct($colorId, $productId) {
+    global $connection;
+    $query = "SELECT DISTINCT ";
+    $query .= "c.id, c.name ";
+    $query .= "FROM formulas f " ;
+    $query .= "INNER JOIN collections c ON (c.id = f.collections_id) ";
+	$query .= "WHERE colors_id = {$colorId} ";
+//    $query .= "WHERE colors_id in (SELECT id FROM colors WHERE name IN (SELECT id FROM colors WHERE id = {$colorId})) ";
+    $query .= "AND products_id = {$productId} ";
+    $query .= "ORDER BY c.name ASC ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
 }
 
 function findAllCollectionsWithFilter($searchString) {
@@ -332,7 +365,7 @@ function findCansizesForProduct($productId) {
 
 function findAllColorsForProductAndCollection($productId, $collectionId) {
     global $connection;
-    $query = "SELECT f.id, c.name, f.rgb, f.price_group_description ";
+    $query = "SELECT f.id, c.name, c.id as colorId, f.rgb, f.price_group_description ";
     $query .= "FROM formulas f ";
     $query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
     $query .= "WHERE f.products_id = {$productId} ";
