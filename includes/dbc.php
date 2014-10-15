@@ -4,8 +4,8 @@ $dbhost = "localhost";
 $dbuser = "root";
 //$dbpass = "jagode4";
 $dbpass = "masterj";
-$dbname = "jumixGuiRPi";
 //$dbname = "jumix";
+$dbname = "jumixGuiRPi";
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 if(mysqli_connect_errno()) {

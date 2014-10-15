@@ -40,7 +40,7 @@ $(document).ready(function() {
                         $(".searchResultLink").click(function() {
                             doOnResultLinkClick(this);
                         });
-                        $(".searchResults").toggle( "slide", {direction: "right"} );
+                        $(".searchResults").toggle( "slide", {direction: "left"} );
                     }
                 });
             });
@@ -80,7 +80,7 @@ $(document).ready(function() {
                         $(".searchResultLink").click(function() {
                             doOnResultLinkClick(this);
                         });
-                        $(".searchResults").toggle( "slide", {direction: "right"} );
+                        $(".searchResults").toggle( "slide", {direction: "left"} );
                     }
                 });
             });
@@ -136,7 +136,7 @@ $(document).ready(function() {
                         $(".searchResultLink").click(function() {
                             doOnColorResultLinkClick(this);
                         });
-                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                        $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
 
                     } else if(resultData[0].length > 1 && resultData[1].length == 1) {
                         console.log("more productds and ONE collections");
@@ -146,14 +146,14 @@ $(document).ready(function() {
                         $(".searchResultLink").click(function() {
                             doOnColorResultLinkClick(this);
                         });
-                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                        $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                     } else if(resultData[0].length == 0 && resultData[1].length == 0) {
                         $(".searchResultsForColor").html("<p>This color doeas not exist in any collection or product. Choose anoter color.</p><div class='closeSearchResultsForColorBtn'> OK - Close </div>");
                         $(".closeSearchResultsForColorBtn").click(function() {
-                            $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                            $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                             $(".searchResultsForColor").html("<p>SEARCH RESULTS:</p><p>PRODUCTS:</p><ul id='colorPSearchResults'></ul><p>COLLECTIONS:</p><ul id='colorCSearchResults'></ul>");
                         });
-                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                        $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                     } else {
                         console.log("more productds and more collections");
                         $("#colorPSearchResults").html(prepareSearchResults(resultData[0], "sProd"));
@@ -161,7 +161,7 @@ $(document).ready(function() {
                         $(".searchResultLink").click(function() {
                             doOnColorResultLinkClick(this);
                         });
-                        $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                        $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
 
                     }
                     console.log(typeof resultData);
@@ -197,7 +197,7 @@ $(document).ready(function() {
             console.log("2 selected Color: " + selectedColor);
 
             if(selectedProduct > -1 && selectedCollection > -1 && selectedColor > -1) {
-                $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                 updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 return true;
             }
@@ -207,7 +207,7 @@ $(document).ready(function() {
                 if(resultData.length == 1) {
                     selectedProduct = resultData[0].id;
                     $("#product").val(resultData[0].name);
-                    $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                    $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                     updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 }
                 $("#colorPSearchResults").html(prepareSearchResults(resultData, "sProd"));
@@ -229,7 +229,7 @@ $(document).ready(function() {
             console.log("sProd2 selected Color: " + selectedColor);
 
             if(selectedProduct > -1 && selectedCollection > -1 && selectedColor > -1) {
-                $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                 updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 return true;
             }
@@ -242,7 +242,7 @@ $(document).ready(function() {
                 if(resultData.length == 1) {
                     selectedCollection = resultData[0].id;
                     $("#collection").val(resultData[0].name);
-                    $(".searchResultsForColor").toggle( "slide", {direction: "right"} );
+                    $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                     updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 }
                 $("#colorCSearchResults").html(prepareSearchResults(resultData, "sColl"));
@@ -276,6 +276,7 @@ $(document).ready(function() {
             $(".colorsAvailable").html(displayAvailableColors(resultData, colorId));
             $(".colorSwatchBtn").click(function() {
                 var cid = $(this).attr("href").substr(1);
+                selectedColor = cid;
                 updateColorsDetailVew(cid, $(".colorName", this).html())
                 $(".selectedColorSwatch").removeClass("selectedColorSwatch");
                 $(".colorSwatch", this).addClass("selectedColorSwatch");
@@ -286,8 +287,23 @@ $(document).ready(function() {
 
     function prepareSearchResults(data, selectedItem) {
         var out = "";
-        for(var i = 0; i < data.length; i++) {
-            out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
+        if(data.length > 27) {
+            out += "<ul class='left'>"
+            for(var i = 0; i < 27; i++) {
+                out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
+            }
+            out += "</ul>"
+            out += "<ul class='left'>"
+            for(var i = 27; i < data.length; i++) {
+                out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
+            }
+            out += "</ul>"
+        } else {
+            out += "<ul class='left'>"
+            for(var i = 0; i < data.length; i++) {
+                out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
+            }
+            out += "</ul>"
         }
         return out;
     }
@@ -301,7 +317,7 @@ $(document).ready(function() {
             $("#product").val(thisLink.innerText);
             selectedProduct = thisLink.id.substr(5);
         }
-        $(".searchResults").toggle( "slide", {direction: "right"} );
+        $(".searchResults").toggle( "slide", {direction: "left"} );
         updateColorsView(selectedProduct, selectedCollection, null);
     }
 
@@ -398,68 +414,38 @@ $(document).ready(function() {
         });
     }
 
-//    var componentViewState = "down";
-//
-//    $( ".btnSlider" ).click(function() {
-//        if(componentViewState == "down") {
-//            componentViewState = "up";
-//            var topPosition = 650 - $( "#colorantsShowHide").height() + 10;
-//            $( "#colorantsShowHide" ).animate(
-//                { top: topPosition }, {
-//                    duration: 600,
-//                    easing: 'easeOutBack'
-//                })
-//            $( ".btnSlider img" ).animateRotate(0, 90, 400, "swing");
-//        } else {
-//            componentViewState = "down";
-//            $( "#colorantsShowHide" ).animate(
-//                { top:  820}, {
-//                    duration: 600,
-//                    easing: 'swing'
-//                })
-//            $( ".btnSlider img" ).animateRotate(90, 0, 400, "swing");
-//        }
-//    });
-//
-//    $.fn.animateRotate = function(angleFrom, angleTo, duration, easing, complete) {
-//        var args = $.speed(duration, easing, complete);
-//        var step = args.step;
-//        return this.each(function(i, e) {
-//            args.step = function(now) {
-//                $.style(e, 'transform', 'rotate(' + now + 'deg)');
-//                if (step) return step.apply(this, arguments);
-//            };
-//
-//            $({deg: angleFrom}).animate({deg: angleTo}, args);
-//        });
-//    };
-//
-//    $("#search").click(function() {
-//        $(".search").fadeIn("slow");
-//    });
-//
-//    $("#productPicker").click(function() {
-//        $(".productPicker").fadeIn("slow");
-//        $( ".productPicker" ).toggle( "slide" );
-//        $(".productPicker").effect("slide", {}, "slow");
-//    });
-//
-//    $("#collectionPicker").click(function() {
-//        $(".collectionPicker").fadeIn("slow");
-//    });
-//
-//    $(".productPicker").click(function(event) {
-//        if(event.target == this) {
-//            $(".overlayDarken").fadeOut("slow");
-//            $(".overlayDarken").effect("slide", {}, "slow");
-//            $( ".productPicker" ).toggle( "slide" );
-//        }
-//    });
-//
-//    $(".closeBtn, .overlayDarken").click(function(event) {
-//        if(event.target == this) {
-//            $(".overlayDarken").fadeOut("slow");
-//        }
-//    });
+    $("#runMixer").click(function() {
+        var runMixer = $.post("includes/runMixer.php", {runMixer: "yes"});
+        runMixer.success(function(data) {
+            console.log("mixer is running");
+            console.log(data);
+        });
+        alert("Running the machine. Please wait.");
+    });
+
+    $("#printSticker").click(function() {
+        var prodName = $("#product").val();
+        var collName = $("#collection").val();
+        var colorName = $(".showComponents p:first-child").html();
+        var runMixer = $.post("includes/printSticker.php", {printSticker: "yes", prodName: prodName, collName: collName, colorName: colorName});
+        runMixer.success(function(data) {
+            console.log("printing in progress");
+            console.log(data);
+        });
+
+        console.log(selectedColor);
+        var writePrismaFile = $.post("includes/writePrismaFile.php", {formulaId: selectedColor});
+        writePrismaFile.success(function(data) {
+            console.log("writing prisma file in progress");
+            console.log(data);
+        });
+
+        alert("Printing sticker and writing prisma file: /var/jumix/flink.data.");
+
+    });
+
+
+
+
 
 });

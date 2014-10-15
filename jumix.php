@@ -1,7 +1,7 @@
 <?php require_once("includes/session.php"); ?>
 <?php require_once("includes/dbc.php"); ?>
 <?php require_once("includes/globalFunctions.php"); ?>
-<?php confirmLoggedIn(); ?>
+<?php //confirmLoggedIn(); ?>
 
 <?php
 
@@ -54,8 +54,8 @@ $cansizesView = cansizesListViewAsSelect();
 
     <div class="selectedColorDetails">
         <div class="priceAndInfo left">
-            <?php echo "<p>$00.00</p>"; ?>
-            <?php echo "<p>Product name is displayed here</p>"; ?>
+            <p>$00.00</p>
+            <p>Product name is displayed here</p>
             <div class="priceDetails right">
                 <table>
                     <tr>
@@ -79,7 +79,7 @@ $cansizesView = cansizesListViewAsSelect();
         </div>
         <div class="displayColor left" style="background-color: rgba(0, 0, 0, 0.3)">
             <div class="showComponents">
-                <?php echo "<p>COLORNAME</p>"; ?>
+                <p>COLORNAME</p>
                 <p>SHOW COMPONENTS</p>
             </div>
         </div>
@@ -109,89 +109,113 @@ $cansizesView = cansizesListViewAsSelect();
         <div class="colorSwatch left">
             <div class="colorName">COLOR NAME</div>
         </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
+	    <div class="colorSwatch left">
+		    <div class="colorName">COLOR NAME</div>
+	    </div>
         <div class="colorSwatch left">
             <div class="colorName">COLOR NAME</div>
         </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
-	    <div class="colorSwatch left">
-		    <div class="colorName">COLOR NAME</div>
-	    </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorName">COLOR NAME</div>
+        </div>
     </div>
 
 </section>
 
 <section class="menuSection left">
     <div class="menuHeader">
-        <img src="images/icon-header-logoWhite.svg" alt="Jub Logo"/>
-        <a href="logout.php"><img class="iconImg" src="images/logout.png" /></a>
+        <img class="right" src="images/jubLogoTxt.svg" alt="Jub Logo"/>
+<!--        <a href="logout.php"><img class="iconImg" src="images/logout.png" /></a>-->
     </div>
     <div class="menuItems">
 
@@ -212,7 +236,10 @@ $cansizesView = cansizesListViewAsSelect();
 
     </div>
     <div class="menuFooter">
-        Kwa je.. Footer
+        <div id="printSticker" class="iconBtn left"><img src="images/print.svg"></div>
+        <div id="runMixer" class="iconBtn left"><img src="images/mixer.svg"></div>
+        <div class="iconBtn left"><img src="images/calcIcon.png"></div>
+        <div class="smallIconBtn right"><img src="images/settingsIcon.png"></div>
     </div>
 </section>
 
@@ -233,19 +260,23 @@ $cansizesView = cansizesListViewAsSelect();
 </div>
 
 <div class="searchResults">
-	<p>SEARCH RESULTS:</p>
-	<ul id="pAndCSearchResults">
-	</ul>
+	<p>SEARCH RESULTS: <img src="images/arrow-left.png"></p>
+    <div id="pAndCSearchResults">
+    </div>
 </div>
 
 <div class="searchResultsForColor">
 	<p>SEARCH RESULTS:</p>
-	<p>PRODUCTS:</p>
-	<ul id="colorPSearchResults">
-	</ul>
-	<p>COLLECTIONS:</p>
-	<ul id="colorCSearchResults">
-	</ul>
+    <div class="left">
+        <p>PRODUCTS:</p>
+        <ul id="colorPSearchResults">
+        </ul>
+    </div>
+    <div class="left">
+        <p>COLLECTIONS:</p>
+        <ul id="colorCSearchResults">
+        </ul>
+    </div>
 </div>
 
 

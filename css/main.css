@@ -13,28 +13,25 @@ header {
     padding: 15px;
     height: 50px;
 }
-
-header ul {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-}
-
-header li {
-    float: left;
-    width: 30px;
-    height: 30px;
-    margin-left: 15px;
-    padding: 5px;
-    background: #4e4e4e;
-    border-radius: 18px;
-}
-
-header li img {
-    margin: 5px;
-    width: 20px;
-    height: 20px;
-}
+    header ul {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+    header li {
+        float: left;
+        width: 30px;
+        height: 30px;
+        margin-left: 15px;
+        padding: 5px;
+        background: #4e4e4e;
+        border-radius: 18px;
+    }
+        header li img {
+            margin: 5px;
+            width: 20px;
+            height: 20px;
+        }
 
 /*footer {*/
     /*background: #000000;*/
@@ -311,8 +308,13 @@ input[type = "password"] {
 }
     .menuHeader {
         height: 200px;
-        background: rgba(0, 0, 0, 0.3);
+        /*background: rgba(0, 0, 0, 0.3);*/
     }
+        .menuHeader img {
+            width: 50%;
+            height: 50%;
+            margin: 10px 0;
+        }
 
     .menuItems {
         margin: 20px;
@@ -338,13 +340,51 @@ input[type = "password"] {
         position: absolute;
         bottom: 0px;
         height: 100px;
-        background: rgba(0, 0, 0, 0.3);
+        /*background: rgba(0, 0, 0, 0.3);*/
     }
+        .menuFooter .iconBtn {
+            margin: 5px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+            .menuFooter .iconBtn img {
+                width: 30px;
+                height: 30px;
+                padding: 15px;
+            }
+        .menuFooter .smallIconBtn {
+            margin: 10px 5px 5px 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+            .menuFooter .smallIconBtn img {
+                width: 20px;
+                height: 20px;
+                padding: 10px;
+            }
 
-.iconImg {
-    width: 20px;
-    height: 20px;
+
+.closeSearchResultsForColorBtn {
+    margin: 15px auto;
+    width: 60px;
+    padding: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    background: #3895ff;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
+
+/*.iconImg {*/
+    /*width: 20px;*/
+    /*height: 20px;*/
+/*}*/
 
 .ui-autocomplete {
     max-height: 200px;
@@ -358,21 +398,31 @@ input[type = "password"] {
 .searchResults,
 .searchResultsForColor {
     position: absolute;
-    top: 50px;
-    left: 595px;
+    top: 0px;
+    left: 0px;
     display: none;
-    width: 300px;
-    height: 700px;
-    border-left: 1px solid #ffffff;
-    border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;
+    width: 896px;
+    height: 800px;
     background: #CCC url("../images/bgTile.png");
 }
     .searchResults p:first-child,
     .searchResultsForColor p:first-child {
-        padding: 15px;
-        font-size: 14px;
+        margin-top: 50px;
+        padding: 20px;
+        font-size: 20px;
+        border-bottom: 1px solid #000000;
     }
+        .searchResultsForColor .left p:first-child {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-bottom: none;
+        }
+        .searchResults p:first-child img,
+        .searchResultsForColor p:first-child img {
+            float: right;
+            vertical-align: middle;
+        }
     .searchResults ul,
     .searchResultsForColor ul {
         padding: 15px;
@@ -386,6 +436,10 @@ input[type = "password"] {
     .searchResultsForColor a {
         color: #CCCCCC;
         text-decoration: none;
+    }
+    #runMixer,
+    #printSticker {
+        cursor: pointer;
     }
 
 
