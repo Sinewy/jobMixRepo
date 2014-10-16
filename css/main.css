@@ -1,6 +1,13 @@
 /* GLOBAL page styles */
 
+html {
+    background-color: #1f1f1f;
+}
+
 body {
+    width: 1278px;
+    height: 800px;
+    margin: 0 auto;
     background: #CCC url("../images/bgTile.png");
     /*font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;*/
     /*font-family: 'Open Sans', sans-serif;*/
@@ -32,33 +39,6 @@ header {
             width: 20px;
             height: 20px;
         }
-
-/*footer {*/
-    /*background: #000000;*/
-    /*color: #ffffff;*/
-    /*height: 40px;*/
-    /*font-size: 10px;*/
-/*}*/
-
-/*footer p {*/
-    /*float: right;*/
-    /*margin: 15px 10px;*/
-/*}*/
-
-/*footer img {*/
-    /*vertical-align: middle;*/
-/*}*/
-/*footer p:first-child {*/
-    /*float: left;*/
-    /*margin: 10px;*/
-/*}*/
-
-/*.stickyFooter {*/
-    /*position: fixed;*/
-    /*bottom: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
-/*}*/
 
 .right {
     float: right;
@@ -268,7 +248,7 @@ input[type = "password"] {
             width: 101px;
             height: 100px;
             margin: 0 0 10px 10px;
-            background-color: #1e1e1e;
+            background-color: rgba(0, 0, 0, 0.3);
             position: relative;
             font-family: Economica, sans-serif;
             font-size: 9px;
@@ -301,7 +281,7 @@ input[type = "password"] {
 
 
 .menuSection {
-    width: 384px;
+    width: 382px;
     height: 800px;
     background: rgba(0, 0, 0, 0.2);
     position: relative;
@@ -412,6 +392,12 @@ input[type = "password"] {
         font-size: 20px;
         border-bottom: 1px solid #000000;
     }
+        #searchTitle {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-bottom: none;
+        }
         .searchResultsForColor .left p:first-child {
             margin-top: 10px;
             padding: 10px;

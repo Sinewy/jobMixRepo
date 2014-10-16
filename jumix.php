@@ -54,25 +54,25 @@ $cansizesView = cansizesListViewAsSelect();
 
     <div class="selectedColorDetails">
         <div class="priceAndInfo left">
-            <p>$00.00</p>
+            <p>€00.00</p>
             <p>Product name is displayed here</p>
             <div class="priceDetails right">
                 <table>
                     <tr>
                         <td class="rowTitle">Excluding VAT</td>
-                        <td class="rowValue">$00.00</td>
+                        <td class="rowValue">€0.00</td>
                     </tr>
                     <tr>
                         <td class="rowTitle">Including VAT</td>
-                        <td class="rowValue">$00.00</td>
+                        <td class="rowValue">€00.00</td>
                     </tr>
                     <tr>
                         <td class="rowTitle">Price Group</td>
-                        <td class="rowValue">??</td>
+                        <td class="rowValue">-</td>
                     </tr>
                     <tr>
                         <td class="rowTitle">Price List</td>
-                        <td class="rowValue">??</td>
+                        <td class="rowValue">-</td>
                     </tr>
                 </table>
             </div>

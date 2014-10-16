@@ -288,17 +288,27 @@ $(document).ready(function() {
     function prepareSearchResults(data, selectedItem) {
         var out = "";
         if(data.length > 27) {
-            out += "<ul class='left'>"
+            if(selectedItem == "sColl") {
+                out += "<p id='searchTitle'>COLLECTIONS</p>";
+            } else {
+                out += "<p id='searchTitle'>PRODUCTS</p>";
+            }
+            out += "<ul class='left'>";
             for(var i = 0; i < 27; i++) {
                 out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
             }
-            out += "</ul>"
-            out += "<ul class='left'>"
+            out += "</ul>";
+            out += "<ul class='left'>";
             for(var i = 27; i < data.length; i++) {
                 out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
             }
             out += "</ul>"
         } else {
+            if(selectedItem == "sColl") {
+                out += "<p id='searchTitle'>COLLECTIONS</p>";
+            } else {
+                out += "<p id='searchTitle'>PRODUCTS</p>";
+            }
             out += "<ul class='left'>"
             for(var i = 0; i < data.length; i++) {
                 out += "<li><a href='#" + data[i].id + "' class='searchResultLink' id='" + selectedItem + data[i].id + "'>" + data[i].name + "</a></li>";
@@ -372,13 +382,13 @@ $(document).ready(function() {
             var myData = $.parseJSON(data);
             var randPrice = randomIntFromInterval(40, 90);
             var colorDetail = "<div class='priceAndInfo left'>";
-            colorDetail += "<p>$" + randPrice + "</p>";
+            colorDetail += "<p>€" + randPrice + "</p>";
             colorDetail += "<p>" + $("#product").val() + "</p>";
             colorDetail += " <div class='priceDetails right'>";
             colorDetail += "<table><tr><td class='rowTitle'>Excluding VAT</td><td class='rowValue'>";
-            colorDetail += "$" + (randPrice * 0.8).toFixed(2) + "</td></tr>";
+            colorDetail += "€" + (randPrice * 0.8).toFixed(2) + "</td></tr>";
             colorDetail += "<tr><td class='rowTitle'>VAT</td><td class='rowValue'>";
-            colorDetail += "$" + (randPrice * 0.2).toFixed(2) + "</td></tr>";
+            colorDetail += "€" + (randPrice * 0.2).toFixed(2) + "</td></tr>";
             colorDetail += "<tr><td class='rowTitle'>Price Group</td><td class='rowValue'>";
             colorDetail +=  myData.price_group_description + "</td></tr>";
             colorDetail += "<tr><td class='rowTitle'>Price List</td><td class='rowValue'>";

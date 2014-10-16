@@ -76,7 +76,10 @@ function preparePDFforPrint() {
     $pdf->writeHTMLCell(90, 0, 21, 28,  $html, 0, 0, 0, true, '', true);
 
     $pdf->SetFont('helvetica', '', 9);
-    $html = '<span><b>Opozorilo: obvezen 2x nanos barve!</b><br>Datum proizvodnje: 26.09.2014, 13:36</span>';
+    $date = date("d.m.Y, ");
+    $hour = date("H") + 2;
+    $date .= $hour . date(":i");
+    $html = '<span><b>Opozorilo: obvezen 2x nanos barve!</b><br>Datum proizvodnje: ' . $date . '</span>';
     $pdf->writeHTMLCell(90, 0, 21, 34,  $html, 0, 0, 0, true, '', true);
 
     $pdf->SetFont('helvetica', '', 9);
@@ -84,7 +87,7 @@ function preparePDFforPrint() {
     $pdf->writeHTMLCell(90, 0, 21, 46,  $html, 0, 1, 0, true, '', true);
 
     $pdf->SetFont('helvetica', '', 8);
-    $html = '<span>Dol pti Ljubljani 28, 1262 Dol pri Ljubljani<br>T: 01 5884 330; M: 051 669 348;<br>E: jumix@jub.eu</span>';
+    $html = '<span>Dol pri Ljubljani 28, 1262 Dol pri Ljubljani<br>T: 01 5884 330; M: 051 669 348;<br>E: jumix@jub.eu</span>';
     $pdf->writeHTMLCell(90, 0, 21, 50,  $html, 0, 1, 0, true, '', true);
 
     $pdf->SetFont('helvetica', '', 6);
