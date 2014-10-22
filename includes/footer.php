@@ -5,7 +5,9 @@
 
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
-<!--<script src="js/contentOverlay.js"></script>-->
+<script>
+    var lang = <?php echo json_encode($lang); ?>;
+</script>
 <script src="js/main.js"></script>
 
 </body>

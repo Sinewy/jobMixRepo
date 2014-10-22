@@ -177,7 +177,73 @@ function confirmLoggedInOnIndex() {
 
 //******************* Password/Login Functions END *********************\\
 
+//******************* Session message *********************\\
+
+function displayMessage() {
+    if (isset($_SESSION["message"])) {
+        $output = "<div class='message'>";
+        $output .= "<p>" . gettext("Warning:") . "</p>";
+        $output .= "<p>";
+        $output .=  htmlentities($_SESSION["message"]);
+        $output .= "</p>";
+        $output .= "</div>";
+
+        // clear message after use
+        $_SESSION["message"] = null;
+
+        return $output;
+    }
+}
+
+//******************* Session message END *********************\\
+
+
+//******************* Activation Functions END *********************\\
+
+function isActivated() {
+    if(findDeviceInfo()["status"] == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function confirmActivated() {
+    if (isActivated()) {
+        redirectTo("jumix.php");
+    } else {
+        redirectTo("activateDevice.php");
+    }
+}
+
+//******************* Activation Functions END *********************\\
+
+
+
+
+
 //******************* Database Query Functions *********************\\
+
+// ****************** Activation
+
+function findDeviceInfo() {
+    global $connection;
+    $query  = "SELECT * ";
+    $query .= "FROM device_info ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($device = mysqli_fetch_assoc($result)) {
+        return $device;
+    } else {
+        return null;
+    }
+}
+
+
+
+
+// ****************** END Activation
 
 
 function confirmQuery($resultSet) {
@@ -404,7 +470,6 @@ function findColorById($colorId) {
 		return null;
 	}
 }
-
 
 function findAllColorsWithFilter($searchString) {
     global $connection;

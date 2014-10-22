@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    console.log(lang["Activation code cannot be empty. Please enter the code."]);
+
     var selectedProduct = -1;
     var selectedCollection = -1;
     var selectedColor = -1;
@@ -148,10 +150,10 @@ $(document).ready(function() {
                         });
                         $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                     } else if(resultData[0].length == 0 && resultData[1].length == 0) {
-                        $(".searchResultsForColor").html("<p>This color doeas not exist in any collection or product. Choose anoter color.</p><div class='closeSearchResultsForColorBtn'> OK - Close </div>");
-                        $(".closeSearchResultsForColorBtn").click(function() {
+                        $(".searchResultsForColor").html("<p>" + lang["This color does not exist in any collection or product. Choose another color."] + "</p><div id='closeSearchResultsForColorBtn' class='button'>" + lang["OK - Close"]+ "</div>");
+                        $("#closeSearchResultsForColorBtn").click(function() {
                             $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
-                            $(".searchResultsForColor").html("<p>SEARCH RESULTS:</p><p>PRODUCTS:</p><ul id='colorPSearchResults'></ul><p>COLLECTIONS:</p><ul id='colorCSearchResults'></ul>");
+                            $(".searchResultsForColor").html("<p>" + lang["SEARCH RESULTS:"] + "</p><p>" + lang["PRODUCTS:"] + "</p><ul id='colorPSearchResults'></ul><p>" + lang["COLLECTIONS:"] + "</p><ul id='colorCSearchResults'></ul>");
                         });
                         $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
                     } else {
@@ -289,9 +291,9 @@ $(document).ready(function() {
         var out = "";
         if(data.length > 27) {
             if(selectedItem == "sColl") {
-                out += "<p id='searchTitle'>COLLECTIONS</p>";
+                out += "<p id='searchTitle'>" + lang["COLLECTIONS:"] + "</p>";
             } else {
-                out += "<p id='searchTitle'>PRODUCTS</p>";
+                out += "<p id='searchTitle'>" + lang["PRODUCTS:"] + "</p>";
             }
             out += "<ul class='left'>";
             for(var i = 0; i < 27; i++) {
@@ -305,9 +307,9 @@ $(document).ready(function() {
             out += "</ul>"
         } else {
             if(selectedItem == "sColl") {
-                out += "<p id='searchTitle'>COLLECTIONS</p>";
+                out += "<p id='searchTitle'>" + lang["COLLECTIONS:"] + "</p>";
             } else {
-                out += "<p id='searchTitle'>PRODUCTS</p>";
+                out += "<p id='searchTitle'>" + lang["PRODUCTS:"] + "</p>";
             }
             out += "<ul class='left'>"
             for(var i = 0; i < data.length; i++) {
@@ -382,22 +384,22 @@ $(document).ready(function() {
             var myData = $.parseJSON(data);
             var randPrice = randomIntFromInterval(40, 90);
             var colorDetail = "<div class='priceAndInfo left'>";
-            colorDetail += "<p>€" + randPrice + "</p>";
+            colorDetail += "<p>" + lang["Currency"] + randPrice + "</p>";
             colorDetail += "<p>" + $("#product").val() + "</p>";
             colorDetail += " <div class='priceDetails right'>";
-            colorDetail += "<table><tr><td class='rowTitle'>Excluding VAT</td><td class='rowValue'>";
+            colorDetail += "<table><tr><td class='rowTitle'>" + lang["Excluding VAT"] + "</td><td class='rowValue'>";
             colorDetail += "€" + (randPrice * 0.8).toFixed(2) + "</td></tr>";
-            colorDetail += "<tr><td class='rowTitle'>VAT</td><td class='rowValue'>";
+            colorDetail += "<tr><td class='rowTitle'>" + lang["VAT"] + "</td><td class='rowValue'>";
             colorDetail += "€" + (randPrice * 0.2).toFixed(2) + "</td></tr>";
-            colorDetail += "<tr><td class='rowTitle'>Price Group</td><td class='rowValue'>";
+            colorDetail += "<tr><td class='rowTitle'>" + lang["Price Group"] + "</td><td class='rowValue'>";
             colorDetail +=  myData.price_group_description + "</td></tr>";
-            colorDetail += "<tr><td class='rowTitle'>Price List</td><td class='rowValue'>";
-            colorDetail +=  "Price + 10%</td></tr>";
+            colorDetail += "<tr><td class='rowTitle'>" + lang["Price List"] + "</td><td class='rowValue'>";
+            colorDetail +=  lang["Price + 10%"] + "</td></tr>";
             colorDetail +=  "</table></div></div>";
             colorDetail +=  "<div class='displayColor left' style='background-color: #" + makeHexColorFromRgb(myData.rgb) + "'>";
             colorDetail +=  "<div class='showComponents'>";
             colorDetail +=  "<p>" + name + "</p>";
-            colorDetail +=  "<p>SHOW COMPONENTS</p>";
+            colorDetail +=  "<p>" + lang["SHOW COMPONENTS"] + "</p>";
             colorDetail +=  "</div></div>";
             $(".selectedColorDetails").html(colorDetail);
             $(".displayColor").click(function() {
@@ -430,7 +432,7 @@ $(document).ready(function() {
             console.log("mixer is running");
             console.log(data);
         });
-        alert("Running the machine. Please wait.");
+        alert(lang["Mixing colors. Please wait."]);
     });
 
     $("#printSticker").click(function() {
@@ -450,11 +452,13 @@ $(document).ready(function() {
             console.log(data);
         });
 
-        alert("Printing sticker and writing prisma file: /var/jumix/flink.data.");
+        alert(lang["Printing sticker and writing prisma file: '/var/jumix/flink.data'."]);
 
     });
 
-
+    $("#setSettings").click(function() {
+        $(".setSettings").toggle( "slide", {direction: "left"} );
+    });
 
 
 
