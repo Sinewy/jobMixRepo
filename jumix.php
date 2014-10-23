@@ -4,6 +4,12 @@
 <?php require_once("includes/globalFunctions.php"); ?>
 <?php include("includes/header.php"); ?>
 
+<?php
+
+$myVar = true;
+
+?>
+
 <section class="mainSection left">
 
     <div class="selectedColorDetails">
@@ -201,12 +207,12 @@
     <div class="setSettings">
         <p><?php echo $lang["SETTINGS"]; ?><img src="images/arrow-left.png"></p>
         <div class="language left">
-            <p><?php echo $lang["Select GUI language:"]; ?></p>
-<!--            --><?php //echo $languageList; ?>
+            <p id="settingsSubTtitle"><?php echo $lang["Select GUI language:"]; ?></p>
+            <?php echo languageListView(); ?>
         </div>
-        <div class="confirmationLine">
-            <div class="button">Save</div>
-            <div class="button">Cancel</div>
+        <div class="confirmationLine left">
+            <div id="cancelSettings" class="button left">Cancel</div>
+            <div id="saveSettings" class="button left">Save</div>
         </div>
 
     </div>
@@ -242,6 +248,8 @@
         <div id="setSettings" class="smallIconBtn right"><img src="images/settingsIcon.png"></div>
     </div>
 </section>
+
+
 
 <?php include("includes/footer.php"); ?>
 

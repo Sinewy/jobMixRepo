@@ -16,6 +16,7 @@ $selectedColorHEX = "";
 //******************* END Global Variables *********************\\
 
 function redirectTo($newLocation) {
+    echo "kwa je";
     header("Location: " . $newLocation);
     exit;
 }
@@ -493,6 +494,16 @@ function findAllColorantsForFormula($formulaId) {
     return $result;
 }
 
+function findAllLanguages() {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM languages " ;
+    $query .= "ORDER BY code ASC ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
+}
+
 //******************* Layout functions *********************\\
 
 function productsListView() {
@@ -597,7 +608,6 @@ function collectionsListViewSearch($pid) {
     }
     return $output;
 }
-
 
 function collectionsListViewAsSelect() {
     global $productId;
@@ -847,5 +857,26 @@ function colorDetialDataView($sCHex, $sPrice, $sName, $sPGroup, $sPList, $sCanSi
     $output .= "</div>";
     $output .= "</div>";
     $output .= "</div>";
+    return $output;
+}
+
+function languageListView() {
+    $dataSet = findAllLanguages();
+    $output = "<ul>";
+    if (mysqli_num_rows($dataSet) > 0) {
+        while ($data = mysqli_fetch_assoc($dataSet)) {
+            $output .= "<li>";
+            if($_SESSION["language"] == $data["code"]) {
+                $output .= "<input id='" . $data["code"] . "' type='radio' name='lang' value='" . $data["code"] . "' checked >";
+            } else {
+                $output .= "<input id='" . $data["code"] . "' type='radio' name='lang' value='" . $data["code"] . "'>";
+            }
+            $output .= "<label for='" . $data["code"] . "'>";
+            $output .= "<img src='images/flags/" . $data["code"] . ".svg'>";
+            $output .= $data["name"] . "</label>";
+            $output .= "</li>";
+        }
+    }
+    $output .= "</ul>";
     return $output;
 }

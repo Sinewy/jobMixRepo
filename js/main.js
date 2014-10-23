@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-    console.log(lang["Activation code cannot be empty. Please enter the code."]);
-
     var selectedProduct = -1;
     var selectedCollection = -1;
     var selectedColor = -1;
@@ -457,6 +455,20 @@ $(document).ready(function() {
     });
 
     $("#setSettings").click(function() {
+        $(".setSettings").toggle( "slide", {direction: "left"} );
+    });
+
+    $("#cancelSettings").click(function() {
+        $(".setSettings").toggle( "slide", {direction: "left"} );
+    });
+
+    $("#saveSettings").click(function() {
+        var lang = $("input[name='lang']:checked").val();
+        var postChangeLanguage = $.post("includes/changeLanguage.php", {lang: lang});
+        postChangeLanguage.success(function(data) {
+            // site is reloaded
+            window.location = "jumix.php";
+        });
         $(".setSettings").toggle( "slide", {direction: "left"} );
     });
 

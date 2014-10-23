@@ -7,6 +7,7 @@
 <script src="js/jquery-ui.js"></script>
 <script>
     var lang = <?php echo json_encode($lang); ?>;
+//    var test = true;
 </script>
 <script src="js/main.js"></script>
 

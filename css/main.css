@@ -185,7 +185,31 @@ body {
                 float: right;
                 vertical-align: middle;
             }
-
+        #settingsSubTtitle {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-bottom: none;
+        }
+        .setSettings .confirmationLine {
+            width: 100%;
+            margin: 10px;
+        }
+            .setSettings .confirmationLine .button {
+                margin: 10px;
+            }
+        .setSettings ul {
+            padding: 15px;
+            font-size: 12px;
+        }
+            .setSettings li {
+                padding: 5px 0;
+            }
+                .setSettings li img {
+                    padding: 0 10px;
+                    width: 40px;
+                    vertical-align: middle;
+                }
 
 
 
