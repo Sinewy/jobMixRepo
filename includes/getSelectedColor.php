@@ -11,12 +11,7 @@ require_once("globalFunctions.php");
 
 if(isset($_POST["scid"])) {
 	$scid = $_POST["scid"];
-	$out = [];
     $data = findColorById($scid);
-//	foreach($data as $key => $value) {
-//		$out[$key] = $value;
-//	}
-//    var_dump($data);
     echo json_encode($data);
 }
 

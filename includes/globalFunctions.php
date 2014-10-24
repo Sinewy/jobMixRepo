@@ -364,6 +364,36 @@ function findAllProductsForColorAndCollection($colorId, $collectionId) {
     return $result;
 }
 
+function findProductById($id) {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM products ";
+    $query .= "WHERE id = {$id} ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    } else {
+        return null;
+    }
+}
+
+function findInitialProductByCode($code) {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM products ";
+    $query .= "WHERE code = {$code} ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    } else {
+        return null;
+    }
+}
+
 function findAllCollectionsForColor($colorId) {
 	global $connection;
 	$query = "SELECT DISTINCT ";
@@ -417,6 +447,36 @@ function findSelectedCollectionId($searchStr) {
 	} else {
 		return null;
 	}
+}
+
+function findCollectionById($id) {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM collections ";
+    $query .= "WHERE id = {$id} ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    } else {
+        return null;
+    }
+}
+
+function findInitialCollectionByCode($code) {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM collections ";
+    $query .= "WHERE code = {$code} ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    } else {
+        return null;
+    }
 }
 
 function findCansizesForProduct($productId) {

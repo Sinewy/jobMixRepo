@@ -5,9 +5,16 @@
 <?php include("includes/header.php"); ?>
 
 <?php
-
-$myVar = true;
-
+$langChanage = false;
+$selectedProd = -1;
+$selectedColl = -1;
+$selectedColor = -1;
+if(isset($_GET["langChanage"])) {
+    $langChanage = true;
+    $selectedProd = $_GET["selectedProd"];
+    $selectedColl = $_GET["selectedColl"];
+    $selectedColor = $_GET["selectedColor"];
+}
 ?>
 
 <section class="mainSection left">
@@ -248,8 +255,6 @@ $myVar = true;
         <div id="setSettings" class="smallIconBtn right"><img src="images/settingsIcon.png"></div>
     </div>
 </section>
-
-
 
 <?php include("includes/footer.php"); ?>
 

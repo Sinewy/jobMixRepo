@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    width: 1196px;
+    width: 1278px;
     height: 800px;
     margin: 0 auto;
     background: #CCC url("../images/bgTile.png");
@@ -60,7 +60,6 @@ body {
 /* Main Section */
 
 .mainSection {
-    /*width: 846px;*/
     width: 896px;
     height: 800px;
     overflow: hidden;
@@ -215,7 +214,7 @@ body {
 
 
 .menuSection {
-    width: 300px;
+    width: 382px;
     height: 800px;
     background: rgba(0, 0, 0, 0.2);
     position: relative;
@@ -227,7 +226,6 @@ body {
             width: 50%;
             height: 50%;
             margin: 10px 0;
-            padding-right: 15px;
         }
 
     .menuItems {
@@ -239,16 +237,16 @@ body {
             background: rgba(255, 255, 255, 0.1);
         }
             .menuItem input[type = "text"] {
-                width: 220px;
+                width: 300px;
                 padding: 10px 5px;
-                font-size: 11px;
+                font-size: 14px;
                 color: #CCCCCC;
                 border: none;
                 background: rgba(0, 0, 0, 0.5);
             }
 
     .menuFooter {
-        width: 302px;
+        width: 384px;
         position: absolute;
         bottom: 0px;
         height: 100px;

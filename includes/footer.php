@@ -7,7 +7,10 @@
 <script src="js/jquery-ui.js"></script>
 <script>
     var lang = <?php echo json_encode($lang); ?>;
-//    var test = true;
+    var langChanage = <?php echo json_encode($langChanage); ?>;
+    var pselectedProd = <?php echo $selectedProd; ?>;
+    var pselectedColl = <?php echo $selectedColl; ?>;
+    var pselectedColor = <?php echo $selectedColor; ?>;
 </script>
 <script src="js/main.js"></script>
 

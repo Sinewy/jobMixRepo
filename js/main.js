@@ -4,6 +4,44 @@ $(document).ready(function() {
     var selectedCollection = -1;
     var selectedColor = -1;
 
+    var initialProductCode = 736;   //Jupol Gold
+    var initialCollectionCode = 33; //JUB Barve in ometi
+
+    if(langChanage) {
+        var postForProduct = $.post("includes/getSelectedProductById.php", {productId: pselectedProd});
+        postForProduct.success(function(data) {
+            var resultData = $.parseJSON(data);
+            selectedProduct = resultData["id"];
+            $("#product").val(resultData["name"]);
+            var postForCollection = $.post("includes/getSelectedCollectionById.php", {collectionId: pselectedColl});
+            postForCollection.success(function(data) {
+                var resultData = $.parseJSON(data);
+                selectedCollection = resultData["id"];
+                $("#collection").val(resultData["name"]);
+                var postForColor = $.post("includes/getSelectedColor.php", {scid: pselectedColor});
+                postForColor.success(function(data) {
+                    var resultData = $.parseJSON(data);
+                    selectedColor = resultData["id"];
+                    updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                });
+            });
+        });
+    } else {
+        var postForInitialProduct = $.post("includes/getInitialProduct.php", {code: initialProductCode});
+        postForInitialProduct.success(function(data) {
+            var resultData = $.parseJSON(data);
+            selectedProduct = resultData["id"];
+            $("#product").val(resultData["name"]);
+            var postForInitialCollection = $.post("includes/getInitialCollection.php", {code: initialCollectionCode});
+            postForInitialCollection.success(function(data) {
+                var resultData = $.parseJSON(data);
+                selectedCollection = resultData["id"];
+                $("#collection").val(resultData["name"]);
+                updateColorsView(selectedProduct, selectedCollection, null);
+            });
+        });
+    }
+
     $("#product").autocomplete({
         source: function( request, response ) {
             $.ajax({
@@ -258,21 +296,9 @@ $(document).ready(function() {
     }
 
     function updateColorsView(productId, collectionId, colorId) {
-
-        console.log("selected color id: " + colorId);
-        console.log("selected prod id: " + productId);
-        console.log("selected coll id: " + collectionId);
-
         var postForAvailableColors = $.post("includes/getAvailableColors.php", {pid: productId, cid: collectionId});
         postForAvailableColors.success(function(data) {
-
-            console.log(data);
-
             var resultData = $.parseJSON(data);
-
-            console.log("postForAvailableColors:" + resultData);
-
-
             $(".colorsAvailable").html(displayAvailableColors(resultData, colorId));
             $(".colorSwatchBtn").click(function() {
                 var cid = $(this).attr("href").substr(1);
@@ -332,20 +358,14 @@ $(document).ready(function() {
     }
 
     function displayAvailableColors(data, selectedColorId) {
-//        console.log(data);
         var out = "";
         for(var i = 0; i < data.length; i++) {
-//            console.log(data[i]);
             out += "<a href='#" + data[i].id + "' class='colorSwatchBtn'>";
             if(selectedColorId == null && i == 0) {
                 out += "<div class='colorSwatch selectedColorSwatch left' style='background: #" + makeHexColorFromRgb(data[i].rgb) + "'>";
                 selectedColor = data[i].id;
                 updateColorsDetailVew(data[i].id, data[i].name);
-//                $(".displayColor").click(function() {
-//                    console.log("called toggle from THE SECOND link");
-//                    $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
-//                });
-            } else if(selectedColorId == data[i].colorId) {
+            } else if(selectedColorId == data[i].id) {
                 out += "<div class='colorSwatch selectedColorSwatch left' style='background: #" + makeHexColorFromRgb(data[i].rgb) + "'>";
                 selectedColor = data[i].id;
                 updateColorsDetailVew(data[i].id, data[i].name);
@@ -456,6 +476,7 @@ $(document).ready(function() {
 
     $("#setSettings").click(function() {
         $(".setSettings").toggle( "slide", {direction: "left"} );
+        console.log("selected color is: " + selectedColor);
     });
 
     $("#cancelSettings").click(function() {
@@ -467,7 +488,7 @@ $(document).ready(function() {
         var postChangeLanguage = $.post("includes/changeLanguage.php", {lang: lang});
         postChangeLanguage.success(function(data) {
             // site is reloaded
-            window.location = "jumix.php";
+            window.location = "jumix.php?langChanage=true&selectedProd=" + selectedProduct + "&selectedColl=" + selectedCollection + "&selectedColor=" + selectedColor;
         });
         $(".setSettings").toggle( "slide", {direction: "left"} );
     });
