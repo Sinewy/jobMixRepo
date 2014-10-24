@@ -454,21 +454,22 @@ $(document).ready(function() {
     });
 
     $("#printSticker").click(function() {
-        var prodName = $("#product").val();
-        var collName = $("#collection").val();
-        var colorName = $(".showComponents p:first-child").html();
-        var runMixer = $.post("includes/printSticker.php", {printSticker: "yes", prodName: prodName, collName: collName, colorName: colorName});
-        runMixer.success(function(data) {
+//        var prodName = $("#product").val();
+//        var collName = $("#collection").val();
+//        var colorName = $(".showComponents p:first-child").html();
+        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", productId: selectedProduct, collectionId: selectedCollection, formulaId: selectedColor});
+//        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", prodName: prodName, collName: collName, colorName: colorName});
+        printSticker.success(function(data) {
             console.log("printing in progress");
             console.log(data);
         });
 
-        console.log(selectedColor);
-        var writePrismaFile = $.post("includes/writePrismaFile.php", {formulaId: selectedColor});
-        writePrismaFile.success(function(data) {
-            console.log("writing prisma file in progress");
-            console.log(data);
-        });
+//        console.log(selectedColor);
+//        var writePrismaFile = $.post("includes/writePrismaFile.php", {formulaId: selectedColor});
+//        writePrismaFile.success(function(data) {
+//            console.log("writing prisma file in progress");
+//            console.log(data);
+//        });
 
         alert(lang["Printing sticker and writing prisma file: '/var/jumix/flink.data'."]);
 
@@ -492,7 +493,5 @@ $(document).ready(function() {
         });
         $(".setSettings").toggle( "slide", {direction: "left"} );
     });
-
-
 
 });

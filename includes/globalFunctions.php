@@ -532,6 +532,22 @@ function findColorById($colorId) {
 	}
 }
 
+function findColorNameByFormulaId($formulaId) {
+    global $connection;
+    $query = "SELECT c.name ";
+    $query .= "FROM formulas f ";
+    $query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
+    $query .= "WHERE f.id = {$formulaId} ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    } else {
+        return null;
+    }
+}
+
 function findAllColorsWithFilter($searchString) {
     global $connection;
     $query  = "SELECT * ";
