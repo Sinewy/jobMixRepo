@@ -534,7 +534,7 @@ function findColorById($colorId) {
 
 function findColorNameByFormulaId($formulaId) {
     global $connection;
-    $query = "SELECT c.name ";
+    $query = "SELECT c.name, f.bases_id ";
     $query .= "FROM formulas f ";
     $query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
     $query .= "WHERE f.id = {$formulaId} ";

@@ -114,6 +114,7 @@ $(document).ready(function() {
                     if(resultData.length == 1) {
                         $("#product").val(resultData[0].name);
                         selectedProduct = resultData[0].id;
+                        updateCanSizes(selectedProduct);
                         updateColorsView(selectedProduct, selectedCollection, null);
                     } else {
                         $("#pAndCSearchResults").html(prepareSearchResults(resultData, "sProd"));
@@ -168,6 +169,7 @@ $(document).ready(function() {
                         selectedProduct = resultData[0][0].id;
                         selectedCollection = resultData[1][0].id;
                         updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                        updateCanSizes(selectedProduct);
                     } else if(resultData[0].length == 1 && resultData[1].length > 1) {
                         console.log("ONE productds and more collections");
                         selectedProduct = resultData[0][0].id;
@@ -503,7 +505,9 @@ $(document).ready(function() {
 //        var prodName = $("#product").val();
 //        var collName = $("#collection").val();
 //        var colorName = $(".showComponents p:first-child").html();
-        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", productId: selectedProduct, collectionId: selectedCollection, formulaId: selectedColor});
+//        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", productId: selectedProduct, collectionId: selectedCollection, formulaId: selectedColor});
+        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", productId: selectedProduct, collectionId: selectedCollection, formulaId: selectedColor, cansizeId: selectedCanSizeId, cansizeValue: $("#cansize option:selected").html()});
+//        && isset($_POST["cansizeId"]) && isset($_POST["cansizeValue"]
 //        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", prodName: prodName, collName: collName, colorName: colorName});
         printSticker.success(function(data) {
             console.log("printing in progress");
