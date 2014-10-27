@@ -238,6 +238,7 @@ body {
             padding: 15px;
             background: rgba(255, 255, 255, 0.1);
         }
+            .menuItem select,
             .menuItem input[type = "text"] {
                 width: 220px;
                 padding: 10px 5px;
@@ -246,6 +247,10 @@ body {
                 border: none;
                 background: rgba(0, 0, 0, 0.5);
             }
+                .menuItem select  {
+                    height: 35px;
+                    width: 230px;
+                }
 
     .menuFooter {
         width: 302px;

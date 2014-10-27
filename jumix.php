@@ -247,6 +247,11 @@ if(isset($_GET["langChanage"])) {
             <input type="text" id="color" name="color" size="25" value="" placeholder="<?php echo $lang["color"]; ?>" />
         </div>
 
+        <div class="menuItem">
+            <p><?php echo $lang["CAN SIZE"]; ?></p>
+            <select id="cansize" name="cansize" class="selectMenu"></select>
+        </div>
+
     </div>
     <div class="menuFooter">
         <div id="printSticker" class="iconBtn left"><img src="images/print.svg"></div>

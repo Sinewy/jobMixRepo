@@ -3,6 +3,8 @@ $(document).ready(function() {
     var selectedProduct = -1;
     var selectedCollection = -1;
     var selectedColor = -1;
+    var selectedCanSizeId = -1;
+    var selectedCanSizeValue = -1;
 
     var initialProductCode = 736;   //Jupol Gold
     var initialCollectionCode = 33; //JUB Barve in ometi
@@ -31,6 +33,7 @@ $(document).ready(function() {
         postForInitialProduct.success(function(data) {
             var resultData = $.parseJSON(data);
             selectedProduct = resultData["id"];
+            updateCanSizes(selectedProduct);
             $("#product").val(resultData["name"]);
             var postForInitialCollection = $.post("includes/getInitialCollection.php", {code: initialCollectionCode});
             postForInitialCollection.success(function(data) {
@@ -63,12 +66,11 @@ $(document).ready(function() {
             var postForPID = $.post("includes/getSelectedPID.php", {searchString: ui.item.label});
             postForPID.success(function(data) {
                 selectedProduct = data;
+                updateCanSizes(selectedProduct);
                 console.log(selectedProduct);
                 var postForPSearchResults = $.post("includes/getProdustSearchResults.php", {pid: selectedProduct});
                 postForPSearchResults.success(function(data) {
                     var resultData = $.parseJSON(data);
-
-
                     if(resultData.length == 1) {
                         $("#collection").val(resultData[0].name);
                         selectedCollection = resultData[0].id;
@@ -421,28 +423,72 @@ $(document).ready(function() {
             colorDetail +=  "</div></div>";
             $(".selectedColorDetails").html(colorDetail);
             $(".displayColor").click(function() {
-                console.log("called toggle from THE SECOND2 link");
                 $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
             });
         });
-        var postForColorants = $.post("includes/getColorantsForColor.php", {scid: colorId});
-        postForColorants.success(function(data) {
-            var myData = $.parseJSON(data);
-            var componentView = "";
-            for(var i = 0; i < myData.length; i++) {
-                componentView += "<div class='row'>";
-                componentView += "<div class='left compColor'><div class='colorantColor' style='background:#" + makeHexColorFromRgb(myData[i].rgb) + "'>&nbsp;</div></div>";
-                componentView += "<div class='left compName'><p>" + myData[i].name + "</p></div>"
-                var qty = parseFloat(myData[i].quantity);
-                componentView += "<div class='left compAmount'><p>" + qty.toFixed(2) + "</p></div>";
-                var price = parseFloat(myData[i].price_per_unit);
-                componentView += "<div class='left compPrice'><p>" + price.toFixed(2) + "</p></div>";
-                componentView += "</div>";
-            }
-            $(".colorantList").html(componentView);
+        var postForBase = $.post("includes/getBaseForColor.php", {scid: colorId, prodId: selectedProduct, canSize: selectedCanSizeId});
+        postForBase.success(function(data) {
 
+            console.log(data);
+//            base.name, base.code, pc.id, pc.price_per_can
+            var myDataBase = $.parseJSON(data);
+            var componentView = "";
+
+            //TODO - use table prefilled can - get price and amount
+            componentView += "<div class='row'>";
+            componentView += "<div class='left compColor'><div class='colorantColor' style='background: none; border: none'>&nbsp;</div></div>";
+            componentView += "<div class='left compName'><p>" + myDataBase[0].name + "</p></div>"
+            componentView += "<div class='left compAmount'><p>" + $("#cansize option:selected").html() + "</p></div>";
+            componentView += "<div class='left compPrice'><p>" + myDataBase[0].price_per_can + "</p></div>";
+            componentView += "</div>";
+
+            var postForColorants = $.post("includes/getColorantsForColor.php", {scid: colorId});
+            postForColorants.success(function(data) {
+                var myData = $.parseJSON(data);
+                for(var i = 0; i < myData.length; i++) {
+                    componentView += "<div class='row'>";
+                    componentView += "<div class='left compColor'><div class='colorantColor' style='background:#" + makeHexColorFromRgb(myData[i].rgb) + "'>&nbsp;</div></div>";
+                    componentView += "<div class='left compName'><p>" + myData[i].name + "</p></div>"
+                    var qty = parseFloat(myData[i].quantity);
+                    componentView += "<div class='left compAmount'><p>" + qty.toFixed(2) + "</p></div>";
+                    var price = parseFloat(myData[i].price_per_unit);
+                    componentView += "<div class='left compPrice'><p>" + price.toFixed(2) + "</p></div>";
+                    componentView += "</div>";
+                }
+                $(".colorantList").html(componentView);
+            });
         });
     }
+
+    function updateCanSizes(selectedProduct) {
+        var cansizeOptions = "";
+        var postForCanSizes  = $.post("includes/getCanSizesForProduct.php", {pid: selectedProduct});
+        postForCanSizes.success(function(data) {
+            var myData = $.parseJSON(data);
+            for(var i = 0; i < myData.length; i++) {
+                var canSizeId = myData[i].id;
+                var canSizeValue = myData[i].can.substring(0, myData[i].can.indexOf(" "));
+                cansizeOptions += "<option value='" + canSizeId + "'";
+                if(i == 0) {
+                    selectedCanSizeId = canSizeId;
+                    selectedCanSizeValue = canSizeValue;
+                    cansizeOptions += " selected"
+                    }
+                cansizeOptions += ">";
+                cansizeOptions += myData[i].can;
+                cansizeOptions += "</option>";
+            }
+            $("#cansize").html(cansizeOptions);
+        });
+    }
+
+    $("#cansize").change(function () {
+        selectedCanSizeId = this.value;
+        var selectedStr = $("#cansize option:selected").html();
+        var canSizeValue = selectedStr.substring(0, selectedStr.indexOf(" "));
+        selectedCanSizeValue = canSizeValue;
+        updateColorsDetailVew(selectedColor, $(".showComponents p:first-child").html());
+    });
 
     $("#runMixer").click(function() {
         var runMixer = $.post("includes/runMixer.php", {runMixer: "yes"});

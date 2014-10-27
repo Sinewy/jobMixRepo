@@ -55,6 +55,7 @@ $lang = array(
     "collection" => "collection",
     "COLORS" => "COLORS",
     "color" => "color",
+    "CAN SIZE" => "CAN SIZE",
     "SETTINGS" => "SETTINGS",
     "Select GUI language:" => "Select GUI language:",
 

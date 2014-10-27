@@ -55,6 +55,7 @@ $lang = array(
     "collection" => "zbirka",
     "COLORS" => "BARVE",
     "color" => "barva",
+    "CAN SIZE" => "KOLIČINA BARVE",
     "SETTINGS" => "NASTAVITVE",
     "Select GUI language:" => "Izberite jezik uporabniškega vmesnika:",
 
