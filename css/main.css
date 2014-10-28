@@ -416,7 +416,7 @@ body {
 
 /* END Main Section */
 
-/* Activate Scren */
+/* Activate Screen */
 
 header {
     width: 100%;
@@ -426,6 +426,65 @@ header {
         width: 100px;
         padding: 20px;
     }
+
+.chooseYourLanguage {
+    margin: 50px auto;
+    padding: 30px;
+    width: 500px;
+    border: 1px solid #575757;
+    font-size: 24px;
+    color: #a9a9a9;
+    background: rgba(0, 0, 0, 0.2);
+}
+    .chooseYourLanguage ul {
+        padding: 15px;
+        font-size: 12px;
+    }
+        .chooseYourLanguage li {
+            padding: 5px 0;
+        }
+            .chooseYourLanguage li img {
+                padding: 0 10px;
+                width: 40px;
+                vertical-align: middle;
+            }
+    .chooseYourLanguage .confirmationLine {
+        width: 100%;
+        margin: 10px;
+    }
+        .chooseYourLanguage .confirmationLine .button {
+            margin: 10px;
+        }
+    .chooseYourLanguage .message {
+        width: 380px;
+        background: #69202d;
+        border: 1px solid #8D0D19;
+        border-radius: 10px;
+        margin: -55px 0 0 0;
+        padding: 10px;
+        color: #ffe2d6;
+    }
+        .chooseYourLanguage .message  p:first-child {
+            font-size: 16px;
+            margin: 5px;
+            line-height: 25px;
+            vertical-align: middle;
+        }
+        .chooseYourLanguage .message p {
+            margin: 10px 10px 10px 40px;
+            font-size: 13px;
+        }
+        .chooseYourLanguage .message ul {
+            list-style: disc;
+            margin: 10px 10px 10px 40px;
+            font-size: 13px;
+            padding: 2px;
+        }
+            .chooseYourLanguage .message li {
+                margin: 0px 0;
+            }
+
+
 
 .activateDevice {
     margin: 150px auto;

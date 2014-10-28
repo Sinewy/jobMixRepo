@@ -167,7 +167,6 @@ function preparePDFforPrint2() {
     $html = '<span><b>' . $collectionName . ': ' . $colorName . '</b></span>';
     $pdf->writeHTMLCell(90, 0, 12, 25,  $html, 0, 0, 0, true, '', true);
 
-    // TODO - prepare HTML with table of colorants
     $pdf->SetFont('helvetica', '', 8);
     $html = '<table border="1" cellpadding="2" align="center">';
     $html .= '<tr>';

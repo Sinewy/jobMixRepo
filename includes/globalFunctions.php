@@ -213,7 +213,7 @@ function confirmActivated() {
     if (isActivated()) {
         redirectTo("jumix.php");
     } else {
-        redirectTo("activateDevice.php");
+        redirectTo("chooseLanguage.php");
     }
 }
 

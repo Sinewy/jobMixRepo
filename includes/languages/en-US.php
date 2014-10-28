@@ -7,6 +7,11 @@ $lang = array(
     // Activate Device Header
     "Activation" => "Activation",
 
+    // Choose Your Language
+    "Please Choose Your Language:" => "Please Choose Your Language:",
+    "Next" => "Next",
+    "Please select your language." => "Please select your language.",
+
     // Activate Device Header
     "Activation code cannot be empty. Please enter the code." => "Activation code cannot be empty. Please enter the code.",
     "Enter Activation Code" => "Enter Activation Code",
@@ -33,6 +38,8 @@ $lang = array(
     "Choose number of canisters:" => "Choose number of canisters:",
     "Wrong Machine" => "Wrong Machine",
     "Confirm" => "Confirm",
+    "Yes" => "Yes",
+    "No" => "No",
 
     // Jumix Main
     "Currency" => "$",

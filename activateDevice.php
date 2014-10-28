@@ -37,4 +37,4 @@ if(isset($_GET["error"])) {
     <?php echo formErrors($errors); ?>
 </section>
 
-<?php include("includes/footer.php"); ?>
+<?php include("includes/footerActivation.php"); ?>

@@ -3,62 +3,112 @@
 <?php require_once("includes/setLanguage.php"); ?>
 <?php require_once("includes/globalFunctions.php"); ?>
 <?php require_once("includes/formValidationFunctions.php"); ?>
-<?php include("includes/headerActivation.php"); ?>
 
 <?php
 
 if(isset($_GET["ac"])) {
     $activationCode = trim($_GET["ac"]);
-    $response = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=Univerza%20v%20Ljubljani&sensor=false");
-//    $response = file_get_contents("https://api.twitter.com/1.1/search/tweets.json?q=%23superbowl&result_type=recen");
+    $response = file_get_contents("http://10.20.0.101:8000/api/v1/mixers/info/" . $activationCode);
     $parsedData = json_decode($response);
     $status = strtolower($parsedData->{"status"});
-
     if($status == "ok") {
-        $isAutomatic = "YES";
-        $serialNumber = "FD7GFD83N0-923G3I9V32V9VJFE";
-        $cName = "John Doe";
-        $cPhone = "+555-3245-23-4321";
-        $cEmail = "john.doe@gmail.com";
-        $oTitle = "Bauhaus Slovenija Smartno Ljubljana";
-        $oStreet = "Bauhaus Streewet 6234573";
-        $oZipCity = "1235667 Ljuljuljubljana";
-        $oPhone = "+386 1 3523 435 45";
-        $oFax = "+386 1 3523 435 40";
-        $oEmail = "information@bauhausSlovenia.com";
-        $oWeb = "http://www.bauhausslovenija.com";
+        $isAutomatic = $parsedData->mixer->is_automatic;
+        $serialNumber = $parsedData->mixer->serial_number;
+        $deviceRemoteId = $parsedData->mixer->id;
+        $deviceCode = $parsedData->mixer->code;
+        $cName = $parsedData->mixer->contact_person;
+        $cPhone = $parsedData->mixer->contact_phone;
+        $cEmail = $parsedData->mixer->contact_email;
+
+        $oRemoteId = $parsedData->mixer->owner->id;
+        $oTitle = $parsedData->mixer->owner->title;
+        $oCountryId = $parsedData->mixer->owner->country_id;
+        $oCountryName = $parsedData->mixer->owner->country_name;
+        $oStreet = $parsedData->mixer->owner->street;
+        $oZip = $parsedData->mixer->owner->zip;
+        $oCity = $parsedData->mixer->owner->city;
+        $oPhone = $parsedData->mixer->owner->phone;
+        $oFax = $parsedData->mixer->owner->fax;
+        $oEmail = $parsedData->mixer->owner->email;
+        $oWeb = $parsedData->mixer->owner->web;
     } else {
         $errors = $lang["Wrong activation code"];
         redirectTo("activateDevice.php?error=" . $errors);
     }
 }
 
+if(isset($_POST["wrongMachine"])) {
+    $errors = $lang["Wrong machine. Try different activation code."];
+    redirectTo("activateDevice.php?error=" . $errors);
+} else if(isset($_POST["confirm"])) {
+    $isAutomatic = $_POST["isAutomatic"];
+    $serialNumber = $_POST["serialNumber"];
+    $deviceRemoteId = $_POST["deviceRemoteId"];
+    $deviceCode = $_POST["deviceCode"];
+    $cName = $_POST["cName"];
+    $cPhone = $_POST["cPhone"];
+    $cEmail = $_POST["cEmail"];
 
-    if(isset($_POST["wrongMachine"])) {
-        $errors = $lang["Wrong machine. Try different activation code."];
-//        echo $errors;
-        redirectTo("activateDevice.php?error=" . $errors);
-    } else if(isset($_POST["confirm"])) {
-        if(isset($_POST["numberOfCanisters"]) && trim($_POST["numberOfCanisters"]) != "") {
-            redirectTo("getActivationData.php?error=" . $errors);
-        } else {
-            $errors["noCanisters"] = $lang["Please choose number of canisters for this machine."];
-            $isAutomatic = $_POST["isAutomatic"];
-            $serialNumber = $_POST["serialNumber"];
-            $cName = $_POST["cName"];
-            $cPhone = $_POST["cPhone"];
-            $cEmail = $_POST["cEmail"];
-            $oTitle = $_POST["oTitle"];
-            $oStreet = $_POST["oStreet"];
-            $oZipCity = $_POST["oZipCity"];
-            $oPhone = $_POST["oPhone"];
-            $oFax = $_POST["oFax"];
-            $oEmail = $_POST["oEmail"];
-            $oWeb = $_POST["oWeb"];
-        }
+    $oRemoteId = $_POST["oRemoteId"];
+    $oTitle = $_POST["oTitle"];
+    $oCountryId = $_POST["oCountryId"];
+    $oCountryName = $_POST["oCountryName"];
+    $oStreet = $_POST["oStreet"];
+    $oZip = $_POST["oZip"];
+    $oCity = $_POST["oCity"];
+    $oPhone = $_POST["oPhone"];
+    $oFax = $_POST["oFax"];
+    $oEmail = $_POST["oEmail"];
+    $oWeb = $_POST["oWeb"];
+
+    if(isset($_POST["numberOfCanisters"]) && trim($_POST["numberOfCanisters"]) != "") {
+        clearDataForMixerAndOwner();
+        $currentOwnerId = writeOwnerInfoToDb($oRemoteId, $oTitle, $oCountryId, $oCountryName, $oStreet, $oZip, $oCity, $oPhone, $oFax, $oEmail, $oWeb);
+        writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $deviceCode, $cName, $cPhone, $cEmail, $currentOwnerId);
+        redirectTo("setInitialData.php?remoteId=" . $deviceRemoteId);
+    } else {
+        $errors["noCanisters"] = $lang["Please choose number of canisters for this machine."];
+
     }
+}
+
+function clearDataForMixerAndOwner() {
+    global $connection;
+    $query  = "TRUNCATE TABLE device_info ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    $query  = "DELETE FROM device_owner ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    $query  = "ALTER TABLE device_owner AUTO_INCREMENT = 1 ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+}
+
+function writeOwnerInfoToDb($oRemoteId, $oTitle, $oCountryId, $oCountryName, $oStreet, $oZip, $oCity, $oPhone, $oFax, $oEmail, $oWeb) {
+    global $connection;
+    $query  = "INSERT INTO device_owner ";
+    $query  .= "(remoteId, title, countryId, countryName, street, zip, city, phone, fax, email, web) ";
+    $query  .= "VALUES ";
+    $query  .= "('{$oRemoteId}', '{$oTitle}', '{$oCountryId}', '{$oCountryName}', '{$oStreet}', '{$oZip}', '{$oCity}', '{$oPhone}', '{$oFax}', '{$oEmail}', '{$oWeb}') ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return mysqli_insert_id($connection);
+}
+
+function writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $deviceCode, $cName, $cPhone, $cEmail, $currentOwnerId) {
+    global $connection;
+    $query  = "INSERT INTO device_info ";
+    $query  .= "(isAutomatic, serialNumber, remoteId, deviceCode, contactName, contactPhone, contactEmail, ownerId) ";
+    $query  .= "VALUES ";
+    $query  .= "({$isAutomatic}, '{$serialNumber}', '{$deviceRemoteId}', '{$deviceCode}', '{$cName}', '{$cPhone}', '{$cEmail}', {$currentOwnerId}) ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+}
+
 ?>
 
+<?php include("includes/headerActivation.php"); ?>
 
 <section class="confirmDeviceData clearFix">
     <form action="confirmDeviceData.php" method="POST" class="confirmDeviceDataForm">
@@ -66,7 +116,10 @@ if(isset($_GET["ac"])) {
             <p><?php echo $lang["Confirm device data"]; ?></p>
             <div class="line left">
                 <div class="lineTitle left"><?php echo $lang["Automatic mixer:"]; ?></div>
-                <input class="disabled left" type="text" id="isAutomatic" name="isAutomatic" value="<?php echo htmlspecialchars($isAutomatic); ?>" readOnly="true" />
+                <input type="hidden" id="deviceRemoteId" name="deviceRemoteId" value="<?php echo htmlspecialchars($deviceRemoteId); ?>" />
+                <input type="hidden" id="deviceCode" name="deviceCode" value="<?php echo htmlspecialchars($deviceCode); ?>" />
+                <input type="hidden" id="isAutomatic" name="isAutomatic" value="<?php echo htmlspecialchars($isAutomatic); ?>" />
+                <input class="disabled left" type="text" id="isAutomaticText" name="isAutomaticText" value="<?php echo $isAutomatic == 1 ? $lang["Yes"] : $lang["No"]; ?>" readOnly="true" />
             </div>
             <div class="line left">
                 <div class="lineTitle left"><?php echo $lang["Serial number:"]; ?></div>
@@ -90,7 +143,11 @@ if(isset($_GET["ac"])) {
                     <table>
                         <tr>
                             <td><?php echo $lang["Title:"]; ?></td>
-                            <td><input class="disabled small left" type="text" id="oTitle" name="oTitle" value="<?php echo htmlspecialchars($oTitle); ?>" readOnly="true" /></td>
+                            <td>
+                                <input type="hidden" id="oRemoteId" name="oRemoteId" value="<?php echo htmlspecialchars($oRemoteId); ?>" />
+                                <input type="hidden" id="oCountryId" name="oCountryId" value="<?php echo htmlspecialchars($oCountryId); ?>" />
+                                <input type="hidden" id="oCountryName" name="oCountryName" value="<?php echo htmlspecialchars($oCountryName); ?>" />
+                                <input class="disabled small left" type="text" id="oTitle" name="oTitle" value="<?php echo htmlspecialchars($oTitle); ?>" readOnly="true" /></td>
                         </tr>
                         <tr>
                             <td><?php echo $lang["Street:"]; ?></td>
@@ -98,7 +155,9 @@ if(isset($_GET["ac"])) {
                         </tr>
                         <tr>
                             <td><?php echo $lang["Zip/City:"]; ?></td>
-                            <td><input class="disabled small left" type="text" id="oZipCity" name="oZipCity" value="<?php echo htmlspecialchars($oZipCity); ?>" readOnly="true" /></td>
+                            <td><input type="hidden" id="oZip" name="oZip" value="<?php echo htmlspecialchars($oZip); ?>" />
+                                <input type="hidden" id="oCity" name="oCity" value="<?php echo htmlspecialchars($oCity); ?>" />
+                                <input class="disabled small left" type="text" id="oZipCity" name="oZipCity" value="<?php echo htmlspecialchars($oZip) . " " . htmlspecialchars($oCity); ?>" readOnly="true" />
                         </tr>
                         <tr>
                             <td><?php echo $lang["Phone/Fax:"]; ?></td>
