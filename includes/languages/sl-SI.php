@@ -40,6 +40,8 @@ $lang = array(
     "Confirm" => "Potrdi",
     "Yes" => "Da",
     "No" => "Ne",
+    "Please wait." => "Prosim počakajte.",
+    "Initializing data..." => "Nalagam podatke...",
 
     // Jumix Main
     "Currency" => "€",

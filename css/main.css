@@ -641,3 +641,29 @@ header {
 
 
 
+.pleaseWait {
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 150px;
+    background: #CCC url("../images/bgTile.png");
+    border: 1px solid #575757;
+    font-size: 16px;
+
+}
+    .pleaseWait p {
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+    }
+        .pleaseWait p:first-child {
+            padding-top: 20px;
+        }
+    .pleaseWait img {
+        width: 40px;
+        height: 40px;
+        padding: 20px;
+    }

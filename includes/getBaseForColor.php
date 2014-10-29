@@ -21,6 +21,8 @@ if(isset($_POST["scid"])) {
     $prodId = $_POST["prodId"];
     $canSizeId = $_POST["canSize"];
 
+//    echo $canSizeId;
+//
     $baseInfo = [];
     $baseData = findBaseDetails($baseId, $prodId, $canSizeId);
     foreach($baseData as $key => $value) {

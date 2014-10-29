@@ -6,6 +6,7 @@
  * Time: 9:45
  */
 
+require_once("session.php");
 require_once("dbc.php");
 require_once("globalFunctions.php");
 
@@ -15,8 +16,8 @@ if(isset($_POST["productId"])) {
     echo json_encode($data);
 }
 
-if(isset($_GET["productId"])) {
-    $id = $_GET["productId"];
-    $data = findProductById($id);
-    echo json_encode($data);
-}
+//if(isset($_GET["productId"])) {
+//    $id = $_GET["productId"];
+//    $data = findProductById($id);
+//    echo json_encode($data);
+//}

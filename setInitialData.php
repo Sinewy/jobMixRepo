@@ -2,13 +2,12 @@
 require_once("includes/dbc.php");
 require_once("includes/globalFunctions.php");
 
-
-if(isset($_GET["remoteId"])) {
+if(isset($_POST["remoteId"])) {
 
     // download zip
     // list files
     //
-  $url = "http://10.20.0.101:8000/api/v1/mixers/" . $_GET["remoteId"] . "/tabledata";
+  $url = "http://10.20.0.101:8000/api/v1/mixers/" . $_POST["remoteId"] . "/tabledata";
 //  $url = "http://10.20.0.101:8000/api/v1/mixers/EF23212A-0F32-E111-BC50-78ACC0F7ECD6/tabledata";
 
   $raw_data = file_get_contents($url);
@@ -53,6 +52,7 @@ if(isset($_GET["remoteId"])) {
   // 2. insert to database
 
   $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+  mysqli_set_charset($mysqli, "utf8mb4");
 
   if( $mysqli->connect_errno )
   {
@@ -77,7 +77,7 @@ if(isset($_GET["remoteId"])) {
   // first delete all rows
   //
   foreach(array("products_has_languages",
-                "languages",
+//                "languages",
                 "formulas_has_colorants",
                 "formulas",
                 "pricelists_has_prefilledcan",
@@ -117,7 +117,7 @@ if(isset($_GET["remoteId"])) {
                 "products_has_cansizes",
                 "pricelists_has_colorants",
                 "pricelists_has_prefilledcan",
-                "languages",
+//                "languages",
                 "products_has_languages") as $index => $item)
   {
     // open each file and read file line and by line and insert to database
@@ -132,7 +132,7 @@ if(isset($_GET["remoteId"])) {
       exit();
     }
 
-    echo "Inserting to table: " . $item . PHP_EOL;
+    //echo "Inserting to table: " . $item . PHP_EOL;
  
     // now, read file line and by line and perform query
     //
@@ -150,15 +150,25 @@ if(isset($_GET["remoteId"])) {
 
     fclose($handle);
   }
+    if( $mysqli->query("update device_info set status = '1' where remoteId like '{$_POST["remoteId"]}'") !== true ) {
+        echo "Failed to execute query update device_info: " .$mysqli->error;
+        $mysqli->query("rollback");
+        $mysqli->close();
+        exit();
+    }
+//    $mysqli->close();
+
 
   if( $mysqli->query("commit") !== true )
   {
     echo "Failed to execute query commit [".$mysqli->error."]";
   }
 
+   // echo "Commited..";
 
   $mysqli->close();
 
+   // echo "connection closed..";
 
   // cleanup
   // delete tables directory and all its files
@@ -189,14 +199,7 @@ if(isset($_GET["remoteId"])) {
     exit();
   }
 
-        global $connection;
-        $query  = "UPDATE device_info ";
-        $query  .= "SET status = 1 ";
-        $query  .= "WHERE remoteId LIKE '{$_GET["remoteId"]}' ";
-        $result = mysqli_query($connection, $query);
-        confirmQuery($result);
-
-//    redirectTo("jumix.php");
+    //redirectTo("jumix.php");
 
   // Echo memory usage
   //
@@ -205,6 +208,9 @@ if(isset($_GET["remoteId"])) {
   // Echo memory peak usage
   //
 //  echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+
+    echo "success";
 }
 
 ?>
+

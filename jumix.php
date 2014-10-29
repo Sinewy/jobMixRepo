@@ -2,7 +2,6 @@
 <?php require_once("includes/dbc.php"); ?>
 <?php require_once("includes/setLanguage.php"); ?>
 <?php require_once("includes/globalFunctions.php"); ?>
-<?php include("includes/header.php"); ?>
 
 <?php
 $langChanage = false;
@@ -16,6 +15,8 @@ if(isset($_GET["langChanage"])) {
     $selectedColor = $_GET["selectedColor"];
 }
 ?>
+
+<?php include("includes/header.php"); ?>
 
 <section class="mainSection left">
 

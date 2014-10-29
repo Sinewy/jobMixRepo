@@ -284,27 +284,61 @@ function findAllProducts() {
 
 function findAllProductsWithFilter($searchString) {
     global $connection;
-    $query  = "SELECT * ";
-    $query .= "FROM products ";
-    $query .= "WHERE name LIKE '%{$searchString}%' ";
-    $query .= "ORDER BY name ASC";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    return $result;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT * ";
+        $query .= "FROM products ";
+        $query .= "WHERE name LIKE '%{$searchString}%' ";
+        $query .= "ORDER BY name ASC";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    } else {
+        $query = "SELECT p.id AS id, p.code AS code, t.translation AS name ";
+        $query .= "FROM products p ";
+        $query .= "INNER JOIN products_has_languages t ";
+        $query .= "ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ";
+        $query .= "ON (l.id = t.languages_id) ";
+        $query .= "WHERE t.translation LIKE '%{$searchString}%' ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "ORDER BY name ASC";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    }
 }
 
 function findSelectedProductId($searchStr) {
     global $connection;
-    $query  = "SELECT * ";
-    $query .= "FROM products ";
-    $query .= "WHERE name LIKE '{$searchStr}' ";
-    $query .= "LIMIT 1";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    if($id = mysqli_fetch_assoc($result)) {
-        return $id;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT * ";
+        $query .= "FROM products ";
+        $query .= "WHERE name LIKE '{$searchStr}' ";
+        $query .= "LIMIT 1";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        if ($id = mysqli_fetch_assoc($result)) {
+            return $id;
+        } else {
+            return null;
+        }
     } else {
-        return null;
+        $query = "SELECT p.id AS id, p.code AS code, t.translation AS name ";
+        $query .= "FROM products p ";
+        $query .= "INNER JOIN products_has_languages t ";
+        $query .= "ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ";
+        $query .= "ON (l.id = t.languages_id) ";
+        $query .= "WHERE t.translation LIKE '{$searchStr}' ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "LIMIT 1";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        if($data = mysqli_fetch_assoc($result)) {
+            return $data;
+        } else {
+            return null;
+        }
     }
 }
 
@@ -322,75 +356,153 @@ function findAllCollectionsForProduct($productId) {
 }
 
 function findAllProductsForCollection($collectionId) {
-	global $connection;
-	$query = "SELECT DISTINCT ";
-	$query .= "p.id, p.name ";
-	$query .= "FROM formulas f " ;
-	$query .= "INNER JOIN products p ON (p.id = f.products_id) ";
-	$query .= "WHERE collections_id = {$collectionId} ";
-	$query .= "ORDER BY p.name ASC ";
-	$result = mysqli_query($connection, $query);
-	confirmQuery($result);
-	return $result;
+    global $connection;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT DISTINCT ";
+        $query .= "p.id, p.name ";
+        $query .= "FROM formulas f ";
+        $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+        $query .= "WHERE collections_id = {$collectionId} ";
+        $query .= "ORDER BY p.name ASC ";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    } else {
+        $query = "SELECT DISTINCT p.id AS id, t.translation AS name ";
+        $query .= "FROM formulas f ";
+        $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+        $query .= "INNER JOIN products_has_languages t ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ON (l.id = t.languages_id) ";
+        $query .= "WHERE f.collections_id = {$collectionId} ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "ORDER BY p.name ASC ";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    }
 }
 
 function findAllProductsForColor($colorId) {
-	global $connection;
-	$query = "SELECT DISTINCT ";
-	$query .= "p.id, p.name ";
-	$query .= "FROM formulas f " ;
-	$query .= "INNER JOIN products p ON (p.id = f.products_id) ";
-//	$query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
-	$query .= "WHERE colors_id = {$colorId} ";
-//	$query .= "WHERE colors_id in (SELECT id FROM colors WHERE name IN (SELECT id FROM colors WHERE id = {$colorId})) ";
-	$query .= "ORDER BY p.name ASC ";
-	$result = mysqli_query($connection, $query);
-	confirmQuery($result);
-	return $result;
+    global $connection;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT DISTINCT ";
+        $query .= "p.id, p.name ";
+        $query .= "FROM formulas f ";
+        $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+        $query .= "WHERE colors_id = {$colorId} ";
+        $query .= "ORDER BY p.name ASC ";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    } else {
+        $query = "SELECT DISTINCT p.id AS id, t.translation AS name ";
+        $query .= "FROM formulas f ";
+        $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+        $query .= "INNER JOIN products_has_languages t ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ON (l.id = t.languages_id) ";
+        $query .= "WHERE f.colors_id = {$colorId} ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "ORDER BY p.name ASC ";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    }
 }
 
 function findAllProductsForColorAndCollection($colorId, $collectionId) {
     global $connection;
-    $query = "SELECT DISTINCT ";
-    $query .= "p.id, p.name ";
-    $query .= "FROM formulas f " ;
-    $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
-    $query .= "WHERE colors_id = {$colorId} ";
-//    $query .= "WHERE colors_id in (SELECT id FROM colors WHERE name IN (SELECT id FROM colors WHERE id = {$colorId})) ";
-    $query .= "AND collections_id = {$collectionId} ";
-    $query .= "ORDER BY p.name ASC ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    return $result;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT DISTINCT ";
+        $query .= "p.id, p.name ";
+        $query .= "FROM formulas f ";
+        $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+        $query .= "WHERE colors_id = {$colorId} ";
+        $query .= "AND collections_id = {$collectionId} ";
+        $query .= "ORDER BY p.name ASC ";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    } else {
+        $query = "SELECT DISTINCT p.id AS id, t.translation AS name ";
+        $query .= "FROM formulas f ";
+        $query .= "INNER JOIN products p ON (p.id = f.products_id) ";
+        $query .= "INNER JOIN products_has_languages t ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ON (l.id = t.languages_id) ";
+        $query .= "WHERE f.colors_id = {$colorId} ";
+        $query .= "AND f.collections_id = {$collectionId} ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "ORDER BY p.name ASC ";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        return $result;
+    }
 }
 
 function findProductById($id) {
     global $connection;
-    $query = "SELECT * ";
-    $query .= "FROM products ";
-    $query .= "WHERE id = {$id} ";
-    $query .= "LIMIT 1";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    if($data = mysqli_fetch_assoc($result)) {
-        return $data;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT * ";
+        $query .= "FROM products ";
+        $query .= "WHERE id = {$id} ";
+        $query .= "LIMIT 1";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        if($data = mysqli_fetch_assoc($result)) {
+            return $data;
+        } else {
+            return null;
+        }
     } else {
-        return null;
+        $query = "SELECT p.id AS id, p.code AS code, t.translation AS name ";
+        $query .= "FROM products p ";
+        $query .= "INNER JOIN products_has_languages t ";
+        $query .= "ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ";
+        $query .= "ON (l.id = t.languages_id) ";
+        $query .= "WHERE p.id = {$id} ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "LIMIT 1";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        if($data = mysqli_fetch_assoc($result)) {
+            return $data;
+        } else {
+            return null;
+        }
     }
 }
 
 function findInitialProductByCode($code) {
     global $connection;
-    $query = "SELECT * ";
-    $query .= "FROM products ";
-    $query .= "WHERE code = {$code} ";
-    $query .= "LIMIT 1";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    if($data = mysqli_fetch_assoc($result)) {
-        return $data;
+    if($_SESSION["language"] == "sl-SI") {
+        $query = "SELECT * ";
+        $query .= "FROM products ";
+        $query .= "WHERE code = {$code} ";
+        $query .= "LIMIT 1";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        if ($data = mysqli_fetch_assoc($result)) {
+            return $data;
+        } else {
+            return null;
+        }
     } else {
-        return null;
+        $query = "SELECT p.id AS id, p.code AS code, t.translation AS name ";
+        $query .= "FROM products p ";
+        $query .= "INNER JOIN products_has_languages t ";
+        $query .= "ON (t.products_id = p.id) ";
+        $query .= "INNER JOIN languages l ";
+        $query .= "ON (l.id = t.languages_id) ";
+        $query .= "WHERE p.code = {$code} ";
+        $query .= "AND l.code = '{$_SESSION["language"]}' ";
+        $query .= "LIMIT 1";
+        $result = mysqli_query($connection, $query);
+        confirmQuery($result);
+        if($data = mysqli_fetch_assoc($result)) {
+            return $data;
+        } else {
+            return null;
+        }
     }
 }
 

@@ -40,6 +40,8 @@ $lang = array(
     "Confirm" => "Confirm",
     "Yes" => "Yes",
     "No" => "No",
+    "Please wait." => "Please wait.",
+    "Initializing data..." => "Initializing data...",
 
     // Jumix Main
     "Currency" => "$",

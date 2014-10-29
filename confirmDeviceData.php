@@ -40,71 +40,41 @@ if(isset($_GET["ac"])) {
 if(isset($_POST["wrongMachine"])) {
     $errors = $lang["Wrong machine. Try different activation code."];
     redirectTo("activateDevice.php?error=" . $errors);
-} else if(isset($_POST["confirm"])) {
-    $isAutomatic = $_POST["isAutomatic"];
-    $serialNumber = $_POST["serialNumber"];
-    $deviceRemoteId = $_POST["deviceRemoteId"];
-    $deviceCode = $_POST["deviceCode"];
-    $cName = $_POST["cName"];
-    $cPhone = $_POST["cPhone"];
-    $cEmail = $_POST["cEmail"];
-
-    $oRemoteId = $_POST["oRemoteId"];
-    $oTitle = $_POST["oTitle"];
-    $oCountryId = $_POST["oCountryId"];
-    $oCountryName = $_POST["oCountryName"];
-    $oStreet = $_POST["oStreet"];
-    $oZip = $_POST["oZip"];
-    $oCity = $_POST["oCity"];
-    $oPhone = $_POST["oPhone"];
-    $oFax = $_POST["oFax"];
-    $oEmail = $_POST["oEmail"];
-    $oWeb = $_POST["oWeb"];
-
-    if(isset($_POST["numberOfCanisters"]) && trim($_POST["numberOfCanisters"]) != "") {
-        clearDataForMixerAndOwner();
-        $currentOwnerId = writeOwnerInfoToDb($oRemoteId, $oTitle, $oCountryId, $oCountryName, $oStreet, $oZip, $oCity, $oPhone, $oFax, $oEmail, $oWeb);
-        writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $deviceCode, $cName, $cPhone, $cEmail, $currentOwnerId);
-        redirectTo("setInitialData.php?remoteId=" . $deviceRemoteId);
-    } else {
-        $errors["noCanisters"] = $lang["Please choose number of canisters for this machine."];
-
-    }
 }
 
-function clearDataForMixerAndOwner() {
-    global $connection;
-    $query  = "TRUNCATE TABLE device_info ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    $query  = "DELETE FROM device_owner ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    $query  = "ALTER TABLE device_owner AUTO_INCREMENT = 1 ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-}
+//else if(isset($_POST["confirm"])) {
+//    $isAutomatic = $_POST["isAutomatic"];
+//    $serialNumber = $_POST["serialNumber"];
+//    $deviceRemoteId = $_POST["deviceRemoteId"];
+//    $deviceCode = $_POST["deviceCode"];
+//    $cName = $_POST["cName"];
+//    $cPhone = $_POST["cPhone"];
+//    $cEmail = $_POST["cEmail"];
+//
+//    $oRemoteId = $_POST["oRemoteId"];
+//    $oTitle = $_POST["oTitle"];
+//    $oCountryId = $_POST["oCountryId"];
+//    $oCountryName = $_POST["oCountryName"];
+//    $oStreet = $_POST["oStreet"];
+//    $oZip = $_POST["oZip"];
+//    $oCity = $_POST["oCity"];
+//    $oPhone = $_POST["oPhone"];
+//    $oFax = $_POST["oFax"];
+//    $oEmail = $_POST["oEmail"];
+//    $oWeb = $_POST["oWeb"];
+//
+//    if(isset($_POST["numberOfCanisters"]) && trim($_POST["numberOfCanisters"]) != "") {
+//        clearDataForMixerAndOwner();
+//        $currentOwnerId = writeOwnerInfoToDb($oRemoteId, $oTitle, $oCountryId, $oCountryName, $oStreet, $oZip, $oCity, $oPhone, $oFax, $oEmail, $oWeb);
+//        writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $deviceCode, $cName, $cPhone, $cEmail, $currentOwnerId);
+//        redirectTo("setInitialData.php?remoteId=" . $deviceRemoteId);
+//    } else {
+//        $errors["noCanisters"] = $lang["Please choose number of canisters for this machine."];
+//
+//    }
+//}
 
-function writeOwnerInfoToDb($oRemoteId, $oTitle, $oCountryId, $oCountryName, $oStreet, $oZip, $oCity, $oPhone, $oFax, $oEmail, $oWeb) {
-    global $connection;
-    $query  = "INSERT INTO device_owner ";
-    $query  .= "(remoteId, title, countryId, countryName, street, zip, city, phone, fax, email, web) ";
-    $query  .= "VALUES ";
-    $query  .= "('{$oRemoteId}', '{$oTitle}', '{$oCountryId}', '{$oCountryName}', '{$oStreet}', '{$oZip}', '{$oCity}', '{$oPhone}', '{$oFax}', '{$oEmail}', '{$oWeb}') ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    return mysqli_insert_id($connection);
-}
 
-function writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $deviceCode, $cName, $cPhone, $cEmail, $currentOwnerId) {
-    global $connection;
-    $query  = "INSERT INTO device_info ";
-    $query  .= "(isAutomatic, serialNumber, remoteId, deviceCode, contactName, contactPhone, contactEmail, ownerId) ";
-    $query  .= "VALUES ";
-    $query  .= "({$isAutomatic}, '{$serialNumber}', '{$deviceRemoteId}', '{$deviceCode}', '{$cName}', '{$cPhone}', '{$cEmail}', {$currentOwnerId}) ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-}
 
 ?>
 
@@ -184,7 +154,7 @@ function writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $devic
                 </select>
                 <div class="lineButtons">
                     <input type="submit" value="<?php echo $lang["Wrong Machine"]; ?>" name="wrongMachine" class="button" />
-                    <input type="submit" value="<?php echo $lang["Confirm"]; ?>" name="confirm" class="button" />
+                    <input type="button" id="confirmDeviceData" value="<?php echo $lang["Confirm"]; ?>" name="confirm" class="button" />
                 </div>
                 <?php echo formErrors($errors); ?>
             </div>
@@ -193,4 +163,14 @@ function writeMixerInfoToDb($isAutomatic, $serialNumber, $deviceRemoteId, $devic
 
 </section>
 
-<?php include("includes/footer.php"); ?>
+<div class="pleaseWait">
+    <p><?php echo $lang["Please wait."]; ?></p>
+    <p><?php echo $lang["Initializing data..."]; ?></p>
+    <p><img src="images/loaderAnimation2.gif"></p>
+</div>
+
+<?php include("includes/footerActivation.php"); ?>
+<script>
+    var lang = <?php echo json_encode($lang); ?>;
+</script>
+<script src="js/confirmDeviceData.js"></script>

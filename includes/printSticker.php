@@ -5,6 +5,7 @@
  * Date: 10/14/14
  * Time: 10:01
  */
+require_once("session.php");
 require_once("dbc.php");
 require_once("globalFunctions.php");
 require_once("../libraries/printipp/CupsPrintIPP.php");

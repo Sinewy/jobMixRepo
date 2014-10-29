@@ -24,6 +24,7 @@ $(document).ready(function() {
                 postForColor.success(function(data) {
                     var resultData = $.parseJSON(data);
                     selectedColor = resultData["id"];
+                    updateCanSizes(selectedProduct);
                     updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 });
             });
@@ -40,6 +41,7 @@ $(document).ready(function() {
                 var resultData = $.parseJSON(data);
                 selectedCollection = resultData["id"];
                 $("#collection").val(resultData["name"]);
+                updateCanSizes(selectedProduct);
                 updateColorsView(selectedProduct, selectedCollection, null);
             });
         });
@@ -55,6 +57,7 @@ $(document).ready(function() {
                 },
                 success: function( data ) {
                     response( data );
+                    console.log(data);
                 }
             });
         },
@@ -151,8 +154,6 @@ $(document).ready(function() {
 
             selectedColor = extractColorId(ui.item.label);
 
-//            postForColorId.success(function(data) {
-//                selectedColor = data;
                 console.log(selectedColor);
 
                 var postForProductsAndCollections = $.post("includes/getProductsAndCollectionsForColor.php", {scid: selectedColor});
@@ -168,23 +169,22 @@ $(document).ready(function() {
                         $("#collection").val(resultData[1][0].name);
                         selectedProduct = resultData[0][0].id;
                         selectedCollection = resultData[1][0].id;
-                        updateColorsView(selectedProduct, selectedCollection, selectedColor);
                         updateCanSizes(selectedProduct);
+                        updateColorsView(selectedProduct, selectedCollection, selectedColor);
                     } else if(resultData[0].length == 1 && resultData[1].length > 1) {
                         console.log("ONE productds and more collections");
                         selectedProduct = resultData[0][0].id;
-                        $("#colorPSearchResults").html("<li>" + resultData[0][0].name + "</li>");
+                        $("#colorPSearchResults").html("<p id='searchTitle'>" + lang["PRODUCTS:"] + "</p><ul class='left'><li>" + resultData[0][0].name + "</li></ul>");
                         $("#colorCSearchResults").html(prepareSearchResults(resultData[1], "sColl"));
                         $(".searchResultLink").click(function() {
                             doOnColorResultLinkClick(this);
                         });
                         $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
-
                     } else if(resultData[0].length > 1 && resultData[1].length == 1) {
                         console.log("more productds and ONE collections");
                         selectedCollection = resultData[1][0].id;
                         $("#colorPSearchResults").html(prepareSearchResults(resultData[0], "sProd"));
-                        $("#colorCSearchResults").html("<li>" + resultData[1][0].name + "</li>");
+                        $("#colorCSearchResults").html("<p id='searchTitle'>" + lang["COLLECTIONS:"] + "</p><ul class='left'><li>" + resultData[1][0].name + "</li></ul>");
                         $(".searchResultLink").click(function() {
                             doOnColorResultLinkClick(this);
                         });
@@ -204,7 +204,6 @@ $(document).ready(function() {
                             doOnColorResultLinkClick(this);
                         });
                         $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
-
                     }
                     console.log(typeof resultData);
                     console.log(resultData);
@@ -240,6 +239,7 @@ $(document).ready(function() {
 
             if(selectedProduct > -1 && selectedCollection > -1 && selectedColor > -1) {
                 $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
+                updateCanSizes(selectedProduct);
                 updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 return true;
             }
@@ -259,19 +259,20 @@ $(document).ready(function() {
             });
         } else if (corp == "sProd") {
 
-            console.log("sProd1 selected Product: " + selectedProduct);
-            console.log("sProd1 selected Collection: " + selectedCollection);
-            console.log("sProd1 selected Color: " + selectedColor);
+//            console.log("sProd1 selected Product: " + selectedProduct);
+//            console.log("sProd1 selected Collection: " + selectedCollection);
+//            console.log("sProd1 selected Color: " + selectedColor);
 
             $("#product").val(thisLink.innerText);
             selectedProduct = thisLink.id.substr(5);
 
-            console.log("sProd2 selected Product: " + selectedProduct);
-            console.log("sProd2 selected Collection: " + selectedCollection);
-            console.log("sProd2 selected Color: " + selectedColor);
+//            console.log("sProd2 selected Product: " + selectedProduct);
+//            console.log("sProd2 selected Collection: " + selectedCollection);
+//            console.log("sProd2 selected Color: " + selectedColor);
 
             if(selectedProduct > -1 && selectedCollection > -1 && selectedColor > -1) {
                 $(".searchResultsForColor").toggle( "slide", {direction: "left"} );
+                updateCanSizes(selectedProduct);
                 updateColorsView(selectedProduct, selectedCollection, selectedColor);
                 return true;
             }
@@ -300,14 +301,21 @@ $(document).ready(function() {
     }
 
     function updateColorsView(productId, collectionId, colorId) {
+
+        console.log("updating colors view... ");
+
         var postForAvailableColors = $.post("includes/getAvailableColors.php", {pid: productId, cid: collectionId});
         postForAvailableColors.success(function(data) {
             var resultData = $.parseJSON(data);
+
+//            console.log("result data: " + resultData[1]);
+            console.log("result data: " + data);
+
             $(".colorsAvailable").html(displayAvailableColors(resultData, colorId));
             $(".colorSwatchBtn").click(function() {
                 var cid = $(this).attr("href").substr(1);
                 selectedColor = cid;
-                updateColorsDetailVew(cid, $(".colorName", this).html())
+                updateColorsDetailVew(cid, $(".colorName", this).html());
                 $(".selectedColorSwatch").removeClass("selectedColorSwatch");
                 $(".colorSwatch", this).addClass("selectedColorSwatch");
             });
@@ -362,14 +370,19 @@ $(document).ready(function() {
     }
 
     function displayAvailableColors(data, selectedColorId) {
+
+        console.log("display available colors....");
+        console.log("selected color ID: " + selectedColorId);
+
         var out = "";
         for(var i = 0; i < data.length; i++) {
             out += "<a href='#" + data[i].id + "' class='colorSwatchBtn'>";
+//            console.log(data[i].colorId == selectedColorId);
             if(selectedColorId == null && i == 0) {
                 out += "<div class='colorSwatch selectedColorSwatch left' style='background: #" + makeHexColorFromRgb(data[i].rgb) + "'>";
                 selectedColor = data[i].id;
                 updateColorsDetailVew(data[i].id, data[i].name);
-            } else if(selectedColorId == data[i].id) {
+            } else if(selectedColorId == data[i].colorId) {
                 out += "<div class='colorSwatch selectedColorSwatch left' style='background: #" + makeHexColorFromRgb(data[i].rgb) + "'>";
                 selectedColor = data[i].id;
                 updateColorsDetailVew(data[i].id, data[i].name);
@@ -401,6 +414,9 @@ $(document).ready(function() {
     }
 
     function updateColorsDetailVew(colorId, name) {
+
+        console.log("updating colors detail view...")
+
         var postForSelectedColor = $.post("includes/getSelectedColor.php", {scid: colorId});
         postForSelectedColor.success(function(data) {
             var myData = $.parseJSON(data);
@@ -410,9 +426,9 @@ $(document).ready(function() {
             colorDetail += "<p>" + $("#product").val() + "</p>";
             colorDetail += " <div class='priceDetails right'>";
             colorDetail += "<table><tr><td class='rowTitle'>" + lang["Excluding VAT"] + "</td><td class='rowValue'>";
-            colorDetail += "€" + (randPrice * 0.8).toFixed(2) + "</td></tr>";
+            colorDetail += lang["Currency"] + (randPrice * 0.8).toFixed(2) + "</td></tr>";
             colorDetail += "<tr><td class='rowTitle'>" + lang["VAT"] + "</td><td class='rowValue'>";
-            colorDetail += "€" + (randPrice * 0.2).toFixed(2) + "</td></tr>";
+            colorDetail += lang["Currency"] + (randPrice * 0.2).toFixed(2) + "</td></tr>";
             colorDetail += "<tr><td class='rowTitle'>" + lang["Price Group"] + "</td><td class='rowValue'>";
             colorDetail +=  myData.price_group_description + "</td></tr>";
             colorDetail += "<tr><td class='rowTitle'>" + lang["Price List"] + "</td><td class='rowValue'>";
@@ -428,6 +444,11 @@ $(document).ready(function() {
                 $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
             });
         });
+
+        console.log("cid: " + colorId);
+        console.log("pid: " + selectedProduct);
+        console.log("sizeid: " + selectedCanSizeId);
+
         var postForBase = $.post("includes/getBaseForColor.php", {scid: colorId, prodId: selectedProduct, canSize: selectedCanSizeId});
         postForBase.success(function(data) {
 
@@ -436,10 +457,12 @@ $(document).ready(function() {
             var myDataBase = $.parseJSON(data);
             var componentView = "";
 
+            console.log("base data: " + data);
+
             //TODO - use table prefilled can - get price and amount
             componentView += "<div class='row'>";
             componentView += "<div class='left compColor'><div class='colorantColor' style='background: none; border: none'>&nbsp;</div></div>";
-            componentView += "<div class='left compName'><p>" + myDataBase[0].name + "</p></div>"
+            componentView += "<div class='left compName'><p>" + myDataBase[0].name + "</p></div>";
             componentView += "<div class='left compAmount'><p>" + $("#cansize option:selected").html() + "</p></div>";
             componentView += "<div class='left compPrice'><p>" + myDataBase[0].price_per_can + "</p></div>";
             componentView += "</div>";
@@ -463,6 +486,9 @@ $(document).ready(function() {
     }
 
     function updateCanSizes(selectedProduct) {
+
+        console.log("updating can sizes...");
+
         var cansizeOptions = "";
         var postForCanSizes  = $.post("includes/getCanSizesForProduct.php", {pid: selectedProduct});
         postForCanSizes.success(function(data) {

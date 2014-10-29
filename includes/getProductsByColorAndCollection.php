@@ -6,6 +6,7 @@
  * Time: 9:45
  */
 
+require_once("session.php");
 require_once("dbc.php");
 require_once("globalFunctions.php");
 

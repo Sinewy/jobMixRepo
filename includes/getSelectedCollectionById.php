@@ -15,8 +15,8 @@ if(isset($_POST["collectionId"])) {
     echo json_encode($data);
 }
 
-if(isset($_GET["collectionId"])) {
-    $id = $_GET["collectionId"];
-    $data = findCollectionById($id);
-echo json_encode($data);
-}
+//if(isset($_GET["collectionId"])) {
+//    $id = $_GET["collectionId"];
+//    $data = findCollectionById($id);
+//    echo json_encode($data);
+//}
