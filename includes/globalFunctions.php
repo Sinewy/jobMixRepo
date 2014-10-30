@@ -29,6 +29,25 @@ function makeHexColorFromRgb($rgbValue) {
             $hexColor = "0" . "$hexColor";
         }
     }
+
+    $r =  substr($hexColor, 0, 2);
+    $g =  substr($hexColor, 2, 2);
+    $b =  substr($hexColor, 4, 2);
+
+    $rDec = hexdec($r);
+    $gDec = hexdec($g) * 256;
+    $bDec = hexdec($b) * 65536;
+
+    $intRgb = $rDec + $gDec + $bDec;
+
+    $hexColor = dechex($intRgb);
+    if (strlen($hexColor) < 6) {
+        $diff = 6 - strlen($hexColor);
+        for ($i = 0; $i < $diff; $i++) {
+            $hexColor = "0" . "$hexColor";
+        }
+    }
+
     return $hexColor;
 }
 
@@ -609,6 +628,7 @@ function findAllColorsForProductAndCollection($productId, $collectionId) {
     $query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
     $query .= "WHERE f.products_id = {$productId} ";
     $query .= "AND f.collections_id = {$collectionId} ";
+    $query .= "ORDER BY c.name ASC";
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
     return $result;
@@ -631,9 +651,11 @@ function findSelectedColorId($searchStr) {
 
 function findColorById($colorId) {
 	global $connection;
-	$query = "SELECT * ";
+	$query = "SELECT  * ";
+//	$query = "SELECT  f.id, c.name ";
 	$query .= "FROM formulas f ";
-	$query .= "WHERE id = {$colorId} ";
+    $query .= "INNER JOIN colors c ON (c.id = f.colors_id) ";
+	$query .= "WHERE f.id = {$colorId} ";
 	$query .= "LIMIT 1";
 	$result = mysqli_query($connection, $query);
 	confirmQuery($result);
@@ -682,18 +704,18 @@ function findBaseForFormula($formulaId) {
     return $result;
 }
 
-function findBaseDetails($baseId, $prodId, $canSizeId) {
-    global $connection;
-    $query = "SELECT base.name, base.code, pc.id, pc.price_per_can ";
-    $query .= "FROM prefilledcan pc ";
-    $query .= "INNER JOIN bases base ON (base.id = pc.bases_id) ";
-    $query .= "WHERE pc.bases_id = {$baseId} ";
-    $query .= "AND pc.products_id = {$prodId} ";
-    $query .= "AND pc.cansizes_id = {$canSizeId} ";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-    return $result;
-}
+//function findBaseDetails($baseId, $prodId, $canSizeId) {
+//    global $connection;
+//    $query = "SELECT base.name, base.code, pc.id, pc.price_per_can ";
+//    $query .= "FROM prefilledcan pc ";
+//    $query .= "INNER JOIN bases base ON (base.id = pc.bases_id) ";
+//    $query .= "WHERE pc.bases_id = {$baseId} ";
+//    $query .= "AND pc.products_id = {$prodId} ";
+//    $query .= "AND pc.cansizes_id = {$canSizeId} ";
+//    $result = mysqli_query($connection, $query);
+//    confirmQuery($result);
+//    return $result;
+//}
 
 function findAllColorantsForFormula($formulaId) {
     global $connection;
@@ -715,6 +737,39 @@ function findAllLanguages() {
     confirmQuery($result);
     return $result;
 }
+
+
+function getPriceForBase($formulaId, $cansizeId) {
+    global $connection;
+    $query = "select p.price, cs.can, pl.name, b.name as baseName from pricelists_has_prefilledcan p ";
+    $query .= "inner join prefilledcan pc on (pc.id = p.prefilledcan_id) ";
+    $query .= "inner join formulas f on (f.bases_id = pc.bases_id) ";
+    $query .= "inner join cansizes cs on (cs.id = pc.cansizes_id) ";
+    $query .= "inner join pricelists pl on (pl.id = p.pricelists_id) ";
+    $query .= "inner join bases b on (b.id = f.bases_id) ";
+    $query .= "where f.id = {$formulaId} ";
+    $query .= "and pc.cansizes_id = {$cansizeId} ";
+    $query .= "limit 1 ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data;
+    } else {
+        return null;
+    }
+}
+
+function getPricesAndQuantitiesForColorants($formulaId) {
+    global $connection;
+    $query = "select phc.price, fc.quantity from formulas_has_colorants fc ";
+    $query .= "inner join colorants c on (c.id = fc.colorants_id) ";
+    $query .= "inner join pricelists_has_colorants phc on (phc.colorants_id = c.id) ";
+    $query .= "where fc.formulas_id = {$formulaId} ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
+}
+
 
 //******************* Layout functions *********************\\
 

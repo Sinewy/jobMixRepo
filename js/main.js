@@ -26,6 +26,7 @@ $(document).ready(function() {
                     selectedColor = resultData["id"];
                     updateCanSizes(selectedProduct);
                     updateColorsView(selectedProduct, selectedCollection, selectedColor);
+                    updateColorsDetailVew(selectedColor, resultData["name"]);
                 });
             });
         });
@@ -405,6 +406,28 @@ $(document).ready(function() {
                 hexColor = "0" + hexColor;
             }
         }
+
+        var r =  hexColor.substr(0, 2);
+        var g =  hexColor.substr(2, 2);
+        var b =  hexColor.substr(4, 2);
+
+        console.log(r);
+        console.log(g);
+        console.log(b);
+
+        var rDec = parseInt(r, 16);
+        var gDec = parseInt(g, 16) * 256;
+        var bDec = parseInt(b, 16) * 65536;
+
+        var intRgb = rDec + gDec + bDec;
+
+        hexColor = parseInt(intRgb).toString(16);
+        if(hexColor.length < 6) {
+            var diff = 6 - hexColor.length;
+            for (var i = 0; i < diff; i++) {
+                hexColor = "0" + hexColor;
+            }
+        }
         return hexColor;
     }
 
@@ -417,54 +440,63 @@ $(document).ready(function() {
 
         console.log("updating colors detail view...")
 
-        var postForSelectedColor = $.post("includes/getSelectedColor.php", {scid: colorId});
-        postForSelectedColor.success(function(data) {
-            var myData = $.parseJSON(data);
-            var randPrice = randomIntFromInterval(40, 90);
-            var colorDetail = "<div class='priceAndInfo left'>";
-            colorDetail += "<p>" + lang["Currency"] + randPrice + "</p>";
-            colorDetail += "<p>" + $("#product").val() + "</p>";
-            colorDetail += " <div class='priceDetails right'>";
-            colorDetail += "<table><tr><td class='rowTitle'>" + lang["Excluding VAT"] + "</td><td class='rowValue'>";
-            colorDetail += lang["Currency"] + (randPrice * 0.8).toFixed(2) + "</td></tr>";
-            colorDetail += "<tr><td class='rowTitle'>" + lang["VAT"] + "</td><td class='rowValue'>";
-            colorDetail += lang["Currency"] + (randPrice * 0.2).toFixed(2) + "</td></tr>";
-            colorDetail += "<tr><td class='rowTitle'>" + lang["Price Group"] + "</td><td class='rowValue'>";
-            colorDetail +=  myData.price_group_description + "</td></tr>";
-            colorDetail += "<tr><td class='rowTitle'>" + lang["Price List"] + "</td><td class='rowValue'>";
-            colorDetail +=  lang["Price + 10%"] + "</td></tr>";
-            colorDetail +=  "</table></div></div>";
-            colorDetail +=  "<div class='displayColor left' style='background-color: #" + makeHexColorFromRgb(myData.rgb) + "'>";
-            colorDetail +=  "<div class='showComponents'>";
-            colorDetail +=  "<p>" + name + "</p>";
-            colorDetail +=  "<p>" + lang["SHOW COMPONENTS"] + "</p>";
-            colorDetail +=  "</div></div>";
-            $(".selectedColorDetails").html(colorDetail);
-            $(".displayColor").click(function() {
-                $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
+        var postForPrice = $.post("includes/calculatePrice.php", {formulaId: colorId, selectedCanSizeId: selectedCanSizeId});
+        postForPrice.success(function(data1) {
+            var myPriceData = $.parseJSON(data1);
+            var price = myPriceData["price"];
+            var priceListName = myPriceData["priceListName"];
+            var baseName = myPriceData["baseName"];
+            var basePrice = myPriceData["basePrice"];
+            var vatRate = 1.2;
+
+            console.log("price: " + price);
+            console.log("priceListName: " + priceListName);
+            console.log("basename: " + baseName);
+            console.log("basePrice: " + basePrice);
+
+            var postForSelectedColor = $.post("includes/getSelectedColor.php", {scid: colorId});
+            postForSelectedColor.success(function(data) {
+                var myData = $.parseJSON(data);
+
+//                var randPrice = randomIntFromInterval(40, 90);
+                var fullPrice = (price * vatRate).toFixed(2);
+                var vat = (fullPrice - price).toFixed(2);
+
+                var colorDetail = "<div class='priceAndInfo left'>";
+//                colorDetail += "<p>" + lang["Currency"] + randPrice + "</p>";
+                colorDetail += "<p>" + lang["Currency"] + fullPrice + "</p>";
+                colorDetail += "<p>" + $("#product").val() + "</p>";
+                colorDetail += " <div class='priceDetails right'>";
+                colorDetail += "<table><tr><td class='rowTitle'>" + lang["Excluding VAT"] + "</td><td class='rowValue'>";
+//                colorDetail += lang["Currency"] + (randPrice * 0.8).toFixed(2) + "</td></tr>";
+                colorDetail += lang["Currency"] + price + "</td></tr>";
+                colorDetail += "<tr><td class='rowTitle'>" + lang["VAT"] + "</td><td class='rowValue'>";
+//                colorDetail += lang["Currency"] + (randPrice * 0.2).toFixed(2) + "</td></tr>";
+                colorDetail += lang["Currency"] + vat + "</td></tr>";
+                colorDetail += "<tr><td class='rowTitle'>" + lang["Price Group"] + "</td><td class='rowValue'>";
+                colorDetail +=  myData.price_group_description + "</td></tr>";
+                colorDetail += "<tr><td class='rowTitle'>" + lang["Price List"] + "</td><td class='rowValue'>";
+//                colorDetail +=  lang["Price + 10%"] + "</td></tr>";
+                colorDetail +=  priceListName + "</td></tr>";
+                colorDetail +=  "</table></div></div>";
+                colorDetail +=  "<div class='displayColor left' style='background-color: #" + makeHexColorFromRgb(myData.rgb) + "'>";
+                colorDetail +=  "<div class='showComponents'>";
+                colorDetail +=  "<p>" + name + "</p>";
+                colorDetail +=  "<p>" + lang["SHOW COMPONENTS"] + "</p>";
+                colorDetail +=  "</div></div>";
+                $(".selectedColorDetails").html(colorDetail);
+                $(".displayColor").click(function() {
+                    $("#colorantsShowHide").toggle( "slide", {direction: "up"} );
+                });
             });
-        });
 
-        console.log("cid: " + colorId);
-        console.log("pid: " + selectedProduct);
-        console.log("sizeid: " + selectedCanSizeId);
-
-        var postForBase = $.post("includes/getBaseForColor.php", {scid: colorId, prodId: selectedProduct, canSize: selectedCanSizeId});
-        postForBase.success(function(data) {
-
-            console.log(data);
-//            base.name, base.code, pc.id, pc.price_per_can
-            var myDataBase = $.parseJSON(data);
             var componentView = "";
 
-            console.log("base data: " + data);
-
-            //TODO - use table prefilled can - get price and amount
             componentView += "<div class='row'>";
             componentView += "<div class='left compColor'><div class='colorantColor' style='background: none; border: none'>&nbsp;</div></div>";
-            componentView += "<div class='left compName'><p>" + myDataBase[0].name + "</p></div>";
+            componentView += "<div class='left compName'><p>" + baseName + "</p></div>";
             componentView += "<div class='left compAmount'><p>" + $("#cansize option:selected").html() + "</p></div>";
-            componentView += "<div class='left compPrice'><p>" + myDataBase[0].price_per_can + "</p></div>";
+            componentView += "<div class='left compPrice'><p>" + (basePrice * vatRate).toFixed(2) + "</p></div>";
             componentView += "</div>";
 
             var postForColorants = $.post("includes/getColorantsForColor.php", {scid: colorId});
@@ -473,11 +505,16 @@ $(document).ready(function() {
                 for(var i = 0; i < myData.length; i++) {
                     componentView += "<div class='row'>";
                     componentView += "<div class='left compColor'><div class='colorantColor' style='background:#" + makeHexColorFromRgb(myData[i].rgb) + "'>&nbsp;</div></div>";
-                    componentView += "<div class='left compName'><p>" + myData[i].name + "</p></div>"
+                    componentView += "<div class='left compName'><p>" + myData[i].name + "</p></div>";
                     var qty = parseFloat(myData[i].quantity);
+                    qty = qty * selectedCanSizeValue;
                     componentView += "<div class='left compAmount'><p>" + qty.toFixed(2) + "</p></div>";
                     var price = parseFloat(myData[i].price_per_unit);
+                    price = ((price * qty)/1500) * selectedCanSizeValue;
+                    price = price * vatRate;
+
                     componentView += "<div class='left compPrice'><p>" + price.toFixed(2) + "</p></div>";
+
                     componentView += "</div>";
                 }
                 $(".colorantList").html(componentView);
@@ -528,24 +565,11 @@ $(document).ready(function() {
     });
 
     $("#printSticker").click(function() {
-//        var prodName = $("#product").val();
-//        var collName = $("#collection").val();
-//        var colorName = $(".showComponents p:first-child").html();
-//        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", productId: selectedProduct, collectionId: selectedCollection, formulaId: selectedColor});
         var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", productId: selectedProduct, collectionId: selectedCollection, formulaId: selectedColor, cansizeId: selectedCanSizeId, cansizeValue: $("#cansize option:selected").html()});
-//        && isset($_POST["cansizeId"]) && isset($_POST["cansizeValue"]
-//        var printSticker = $.post("includes/printSticker.php", {printSticker: "yes", prodName: prodName, collName: collName, colorName: colorName});
         printSticker.success(function(data) {
             console.log("printing in progress");
             console.log(data);
         });
-
-//        console.log(selectedColor);
-//        var writePrismaFile = $.post("includes/writePrismaFile.php", {formulaId: selectedColor});
-//        writePrismaFile.success(function(data) {
-//            console.log("writing prisma file in progress");
-//            console.log(data);
-//        });
 
         alert(lang["Printing sticker and writing prisma file: '/var/jumix/flink.data'."]);
 
