@@ -310,7 +310,7 @@ $(document).ready(function() {
             var resultData = $.parseJSON(data);
 
 //            console.log("result data: " + resultData[1]);
-            console.log("result data: " + data);
+//            console.log("result data: " + data);
 
             $(".colorsAvailable").html(displayAvailableColors(resultData, colorId));
             $(".colorSwatchBtn").click(function() {
@@ -411,9 +411,9 @@ $(document).ready(function() {
         var g =  hexColor.substr(2, 2);
         var b =  hexColor.substr(4, 2);
 
-        console.log(r);
-        console.log(g);
-        console.log(b);
+//        console.log(r);
+//        console.log(g);
+//        console.log(b);
 
         var rDec = parseInt(r, 16);
         var gDec = parseInt(g, 16) * 256;
@@ -438,7 +438,8 @@ $(document).ready(function() {
 
     function updateColorsDetailVew(colorId, name) {
 
-        console.log("updating colors detail view...")
+        console.log("updating colors detail view...");
+        console.log("formulaid: " + colorId);
 
         var postForPrice = $.post("includes/calculatePrice.php", {formulaId: colorId, selectedCanSizeId: selectedCanSizeId});
         postForPrice.success(function(data1) {
@@ -499,6 +500,7 @@ $(document).ready(function() {
             componentView += "<div class='left compPrice'><p>" + (basePrice * vatRate).toFixed(2) + "</p></div>";
             componentView += "</div>";
 
+            console.log("formulaid - call: " + colorId);
             var postForColorants = $.post("includes/getColorantsForColor.php", {scid: colorId});
             postForColorants.success(function(data) {
                 var myData = $.parseJSON(data);
@@ -509,8 +511,8 @@ $(document).ready(function() {
                     var qty = parseFloat(myData[i].quantity);
                     qty = qty * selectedCanSizeValue;
                     componentView += "<div class='left compAmount'><p>" + qty.toFixed(2) + "</p></div>";
-                    var price = parseFloat(myData[i].price_per_unit);
-                    price = ((price * qty)/1500) * selectedCanSizeValue;
+                    var price = parseFloat(myData[i].price);
+                    price = ((price * qty)/1500);
                     price = price * vatRate;
 
                     componentView += "<div class='left compPrice'><p>" + price.toFixed(2) + "</p></div>";

@@ -28,7 +28,7 @@ if(isset($_POST["formulaId"]) && isset($_POST["selectedCanSizeId"])) {
     $price += $basePrice;
     $return = [];
 
-    $return["price"] = round($price, 2);;
+    $return["price"] = round($price, 2);
     $return["priceListName"] = $basePriceData["name"];
     $return["baseName"] = $basePriceData["baseName"];
     $return["basePrice"] = $basePrice;

@@ -1,10 +1,8 @@
 <?php
 
 $dbhost = "localhost";
-$dbuser = "root";
-//$dbpass = "jagode4";
-$dbpass = "masterj";
-//$dbname = "jumix";
+$dbuser = "pi";
+$dbpass = "jagode4";
 $dbname = "jumixGuiRPi";
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);

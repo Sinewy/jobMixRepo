@@ -704,24 +704,25 @@ function findBaseForFormula($formulaId) {
     return $result;
 }
 
-//function findBaseDetails($baseId, $prodId, $canSizeId) {
-//    global $connection;
-//    $query = "SELECT base.name, base.code, pc.id, pc.price_per_can ";
-//    $query .= "FROM prefilledcan pc ";
-//    $query .= "INNER JOIN bases base ON (base.id = pc.bases_id) ";
-//    $query .= "WHERE pc.bases_id = {$baseId} ";
-//    $query .= "AND pc.products_id = {$prodId} ";
-//    $query .= "AND pc.cansizes_id = {$canSizeId} ";
-//    $result = mysqli_query($connection, $query);
-//    confirmQuery($result);
-//    return $result;
-//}
+function findBaseDetails($baseId, $prodId, $canSizeId) {
+    global $connection;
+    $query = "SELECT base.name, base.code, pc.id, pc.price_per_can ";
+    $query .= "FROM prefilledcan pc ";
+    $query .= "INNER JOIN bases base ON (base.id = pc.bases_id) ";
+    $query .= "WHERE pc.bases_id = {$baseId} ";
+    $query .= "AND pc.products_id = {$prodId} ";
+    $query .= "AND pc.cansizes_id = {$canSizeId} ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    return $result;
+}
 
 function findAllColorantsForFormula($formulaId) {
     global $connection;
-    $query = "SELECT c.name, c.rgb, f.quantity, c.price_per_unit ";
+    $query = "SELECT c.name, c.rgb, f.quantity, plc.price ";
     $query .= "FROM formulas_has_colorants f ";
     $query .= "INNER JOIN colorants c ON (c.id = f.colorants_id) ";
+    $query .= "INNER JOIN pricelists_has_colorants plc ON (plc.colorants_id = c.id) ";
     $query .= "WHERE f.formulas_id = {$formulaId} ";
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
