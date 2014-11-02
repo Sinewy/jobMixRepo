@@ -72,8 +72,13 @@ $(document).ready(function() {
                         //var timeEnd = new Date();
                         //console.log("time is: " + (timeEnd - timeStart));
                         if($.trim(data2) == "success") {
-                            //console.log("make redirect");
-                            window.location.href = "jumix.php";
+                            // Activate device in the cloud
+                            var activeteInCloud = $.post("includes/activateInCloud.php", {deviceSerial: serial});
+                            activeteInCloud.success(function(data3) {
+                                if($.trim(data3) == "success") {
+                                    window.location.href = "jumix.php";
+                                }
+                            });
                         }
                     });
                 }

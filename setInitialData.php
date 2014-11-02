@@ -7,7 +7,7 @@ if(isset($_POST["remoteId"])) {
     // download zip
     // list files
     //
-  $url = "http://10.20.0.101:8000/api/v1/mixers/" . $_POST["remoteId"] . "/tabledata";
+  $url = API_MIXER_DATA . "/" . $_POST["remoteId"] . "/tabledata";
 //  $url = "http://10.20.0.101:8000/api/v1/mixers/EF23212A-0F32-E111-BC50-78ACC0F7ECD6/tabledata";
 
   $raw_data = file_get_contents($url);
@@ -51,7 +51,7 @@ if(isset($_POST["remoteId"])) {
 
   // 2. insert to database
 
-  $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+  $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
   mysqli_set_charset($mysqli, "utf8mb4");
 
   if( $mysqli->connect_errno )

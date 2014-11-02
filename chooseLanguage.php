@@ -20,7 +20,7 @@ if(isset($_POST["chooseLanguage"])) {
         $errors["chooseLang"] = $lang["Please select your language."];
     }
 } else {
-    $response = file_get_contents("http://10.20.0.101:8000/api/v1/languages");
+    $response = file_get_contents(API_LANGUAGES);
     $parsedData = json_decode($response);
     $myLangs = [];
     foreach($parsedData as $value) {

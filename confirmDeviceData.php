@@ -8,7 +8,7 @@
 
 if(isset($_GET["ac"])) {
     $activationCode = trim($_GET["ac"]);
-    $response = file_get_contents("http://10.20.0.101:8000/api/v1/mixers/info/" . $activationCode);
+    $response = file_get_contents(API_DEVICE_INFO . "/" . $activationCode);
     $parsedData = json_decode($response);
     $status = strtolower($parsedData->{"status"});
     if($status == "ok") {

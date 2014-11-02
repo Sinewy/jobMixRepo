@@ -211,7 +211,14 @@ body {
                     width: 40px;
                     vertical-align: middle;
                 }
-
+        .setSettings .deactivateDevice {
+            margin: 200px 0 0 400px;
+        }
+            .setSettings .deactivateDevice .button {
+                width: 200px;
+                padding: 30px;
+                background: #8b0000;
+            }
 
 
 .menuSection {

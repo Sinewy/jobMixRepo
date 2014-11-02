@@ -218,6 +218,9 @@ if(isset($_GET["langChanage"])) {
             <p id="settingsSubTtitle"><?php echo $lang["Select GUI language:"]; ?></p>
             <?php echo languageListView(); ?>
         </div>
+	    <div class="deactivateDevice">
+		    <div id="deactivateDevice" class="button left">DEACTIVATE THIS DEVICE</div>
+	    </div>
         <div class="confirmationLine left">
             <div id="cancelSettings" class="button left">Cancel</div>
             <div id="saveSettings" class="button left">Save</div>

@@ -596,4 +596,16 @@ $(document).ready(function() {
         $(".setSettings").toggle( "slide", {direction: "left"} );
     });
 
+    $("#deactivateDevice").click(function() {
+        console.log("deactivating device");
+        var serial = "3465354235476yt5gr";
+        var deactivateDevice = $.post("includes/deactivateDevice.php", {deviceSerial: serial});
+        deactivateDevice.success(function(data) {
+            if($.trim(data) == "success") {
+                window.location.href = "index2.php";
+            }
+        });
+
+    });
+
 });

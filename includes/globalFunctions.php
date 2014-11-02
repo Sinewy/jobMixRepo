@@ -260,7 +260,19 @@ function findDeviceInfo() {
     }
 }
 
-
+function deactivateDevice($serial) {
+	global $connection;
+	$query  = "UPDATE device_info ";
+	$query .= "SET status = '0' ";
+	$query .= "WHERE remoteId like '{$serial}'";
+	$result = mysqli_query($connection, $query);
+	confirmQuery($result);
+	if($device = mysqli_fetch_assoc($result)) {
+		return $device;
+	} else {
+		return null;
+	}
+}
 
 
 // ****************** END Activation
