@@ -598,6 +598,7 @@ $(document).ready(function() {
 
     $("#deactivateDevice").click(function() {
         console.log("deactivating device");
+        // do we really need serial?
         var serial = "3465354235476yt5gr";
         var deactivateDevice = $.post("includes/deactivateDevice.php", {deviceSerial: serial});
         deactivateDevice.success(function(data) {
