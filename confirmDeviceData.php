@@ -12,6 +12,7 @@ if(isset($_GET["ac"])) {
     $parsedData = json_decode($response);
     $status = strtolower($parsedData->{"status"});
     if($status == "ok") {
+        rememberActivationCode($activationCode);
         $isAutomatic = $parsedData->mixer->is_automatic;
         $serialNumber = $parsedData->mixer->serial_number;
         $deviceRemoteId = $parsedData->mixer->id;

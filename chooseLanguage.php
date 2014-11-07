@@ -109,10 +109,11 @@ function prepareLanguagesView($languages) {
 
 function setChoosenLanguage($language) {
     global $connection;
+    $defLang = DEFAULT_LANGUAGE;
     $query  = "INSERT INTO settings ";
-    $query  .= "(language) ";
+    $query  .= "(language, defaultLanguage) ";
     $query  .= "VALUES ";
-    $query  .= "('{$language}') ";
+    $query  .= "('{$language}', '{$defLang}') ";
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
 }

@@ -67,6 +67,9 @@ $lang = array(
     "CAN SIZE" => "KOLIČINA BARVE",
     "SETTINGS" => "NASTAVITVE",
     "Select GUI language:" => "Izberite jezik uporabniškega vmesnika:",
+    "Cancel" => "Prekliči",
+    "Save" => "Shrani",
+    "DEACTIVATE THIS DEVICE" => "DEAKTIVIRAJ TO NAPRAVO",
 
     // Jumix Main JS
     "This color does not exist in any collection or product. Choose another color." => "Ta barva ne pripada nobenemu produktu in/ali zbirki. Izberite drugo barvo.",

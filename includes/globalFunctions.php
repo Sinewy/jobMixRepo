@@ -236,6 +236,12 @@ function confirmActivated() {
     }
 }
 
+function confirmActivatedOnJumix() {
+    if (!isActivated()) {
+        redirectTo("index2.php");
+    }
+}
+
 //******************* Activation Functions END *********************\\
 
 
@@ -267,11 +273,7 @@ function deactivateDevice($serial) {
 	$query .= "WHERE remoteId like '{$serial}'";
 	$result = mysqli_query($connection, $query);
 	confirmQuery($result);
-	if($device = mysqli_fetch_assoc($result)) {
-		return $device;
-	} else {
-		return null;
-	}
+    return $result;
 }
 
 
@@ -783,7 +785,44 @@ function getPricesAndQuantitiesForColorants($formulaId) {
     return $result;
 }
 
+function rememberActivationCode($activationCode) {
+    global $connection;
+    $query  = "UPDATE settings ";
+    $query  .= "SET apikey = '{$activationCode}' ";
+    $query  .= "WHERE id = 1 ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+}
 
+function findApiKey() {
+    global $connection;
+    $query = "SELECT  apikey ";
+    $query .= "FROM settings ";
+    $query .= "WHERE id = 1 ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data["apikey"];
+    } else {
+        return null;
+    }
+}
+
+function findDeviceRemoteId() {
+    global $connection;
+    $query = "SELECT  remoteId ";
+    $query .= "FROM device_info ";
+    $query .= "WHERE id = 1 ";
+    $query .= "LIMIT 1";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+    if($data = mysqli_fetch_assoc($result)) {
+        return $data["remoteId"];
+    } else {
+        return null;
+    }
+}
 //******************* Layout functions *********************\\
 
 function productsListView() {

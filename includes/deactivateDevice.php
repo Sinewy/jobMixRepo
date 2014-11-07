@@ -9,9 +9,10 @@
 require_once("dbc.php");
 require_once("globalFunctions.php");
 
-if(isset($_POST["deviceSerial"])) {
-	$deviceSerial = $_POST["deviceSerial"];
-	$response = file_get_contents(API_DEACTIVATE_DEVICE . "/" . $deviceSerial);
+if(isset($_POST["deactivateDevice"])) {
+    $deviceSerial = findDeviceRemoteId();
+    $apiKey = findApiKey();
+    $response = file_get_contents(API_MIXER_DATA . "/" . $deviceSerial . API_DEACTIVATE_DEVICE . "/" . $apiKey);
 	$parsedData = json_decode($response);
 	$status = strtolower($parsedData->{"status"});
 	if($status == "ok") {

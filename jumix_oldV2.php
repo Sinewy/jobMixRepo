@@ -20,30 +20,6 @@ if(isset($_GET["langChanage"])) {
 
 <?php include("includes/header.php"); ?>
 
-<section class="topNavigation">
-    <div class="menuItems">
-        <div class="menuItem">
-            <p><?php echo $lang["PRODUCTS"]; ?></p>
-            <input type="text" id="product" name="product" size="25" value="" placeholder="<?php echo $lang["product"]; ?>" />
-        </div>
-
-        <div class="menuItem">
-            <p><?php echo $lang["COLLECTIONS"]; ?></p>
-            <input type="text" id="collection" name="collection" size="25" value="" placeholder="<?php echo $lang["collection"]; ?>" />
-        </div>
-
-        <div class="menuItem">
-            <p><?php echo $lang["COLORS"]; ?></p>
-            <input type="text" id="color" name="color" size="25" value="" placeholder="<?php echo $lang["color"]; ?>" />
-        </div>
-
-        <div class="menuItem">
-            <p><?php echo $lang["CAN SIZE"]; ?></p>
-            <select id="cansize" name="cansize" class="selectMenu"></select>
-        </div>
-    </div>
-</section>
-
 <section class="mainSection left">
 
     <div class="selectedColorDetails">
@@ -260,29 +236,29 @@ if(isset($_GET["langChanage"])) {
     <div class="menuHeader">
         <img class="right" src="images/jubLogoWhiteDrop.svg" alt="Jub Logo"/>
     </div>
-<!--    <div class="menuItems">-->
-<!---->
-<!--        <div class="menuItem">-->
-<!--            <p>--><?php //echo $lang["PRODUCTS"]; ?><!--</p>-->
-<!--            <input type="text" id="product" name="product" size="25" value="" placeholder="--><?php //echo $lang["product"]; ?><!--" />-->
-<!--        </div>-->
-<!---->
-<!--        <div class="menuItem">-->
-<!--            <p>--><?php //echo $lang["COLLECTIONS"]; ?><!--</p>-->
-<!--            <input type="text" id="collection" name="collection" size="25" value="" placeholder="--><?php //echo $lang["collection"]; ?><!--" />-->
-<!--        </div>-->
-<!---->
-<!--        <div class="menuItem">-->
-<!--            <p>--><?php //echo $lang["COLORS"]; ?><!--</p>-->
-<!--            <input type="text" id="color" name="color" size="25" value="" placeholder="--><?php //echo $lang["color"]; ?><!--" />-->
-<!--        </div>-->
-<!---->
-<!--        <div class="menuItem">-->
-<!--            <p>--><?php //echo $lang["CAN SIZE"]; ?><!--</p>-->
-<!--            <select id="cansize" name="cansize" class="selectMenu"></select>-->
-<!--        </div>-->
-<!---->
-<!--    </div>-->
+    <div class="menuItems">
+
+        <div class="menuItem">
+            <p><?php echo $lang["PRODUCTS"]; ?></p>
+            <input type="text" id="product" name="product" size="25" value="" placeholder="<?php echo $lang["product"]; ?>" />
+        </div>
+
+        <div class="menuItem">
+            <p><?php echo $lang["COLLECTIONS"]; ?></p>
+            <input type="text" id="collection" name="collection" size="25" value="" placeholder="<?php echo $lang["collection"]; ?>" />
+        </div>
+
+        <div class="menuItem">
+            <p><?php echo $lang["COLORS"]; ?></p>
+            <input type="text" id="color" name="color" size="25" value="" placeholder="<?php echo $lang["color"]; ?>" />
+        </div>
+
+        <div class="menuItem">
+            <p><?php echo $lang["CAN SIZE"]; ?></p>
+            <select id="cansize" name="cansize" class="selectMenu"></select>
+        </div>
+
+    </div>
     <div class="menuFooter">
         <div id="printSticker" class="iconBtn left"><img src="images/print.svg"></div>
         <div id="runMixer" class="iconBtn left"><img src="images/mixer.svg"></div>
@@ -290,7 +266,6 @@ if(isset($_GET["langChanage"])) {
         <div id="setSettings" class="smallIconBtn right"><img src="images/settingsIcon.png"></div>
     </div>
 </section>
-
 
 <?php include("includes/footer.php"); ?>
 

@@ -6,7 +6,12 @@ $lang = array(
 	
 	// Activate Device Header	
     "Activation" => " Aktiválás",
-	
+
+    // Choose Your Language
+    "Please Choose Your Language:" => "Please Choose Your Language:",
+    "Next" => "Next",
+    "Please select your language." => "Please select your language.",
+
 	// Activate Device Header
     "Activation code cannot be empty. Please enter the code."  => " Az aktiváló kód nem lehet üres. Kérem, írja be a kódot.",
     "Enter Activation Code" => " Írja be az aktiváló kódot",

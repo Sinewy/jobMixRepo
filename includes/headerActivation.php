@@ -14,6 +14,6 @@
 
 <!--Header Row-->
 <header>
-    <img class="right" src="images/jubLogoTxt.svg" alt="Jub Logo"/>
+    <img class="right" src="images/jubLogoWhiteDrop.svg" alt="Jub Logo"/>
 </header>
 <!--END Header Row-->

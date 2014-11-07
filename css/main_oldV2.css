@@ -59,42 +59,6 @@ body {
 
 /* Main Section */
 
-.topNavigation {
-    width: 896px;
-
-}
-    .menuItems {
-        /*margin: 20px;*/
-    }
-        .menuItem {
-            /*float: left;*/
-            display: inline-block;
-            margin: 10px 5px;
-            max-width: 200px;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .menuItem:first-child {
-            margin: 10px 0;
-        }
-        .menuItem:last-child {
-            margin: 10px 0;
-        }
-            .menuItem select,
-            .menuItem input[type = "text"] {
-                width: 190px;
-                padding: 10px 5px;
-                font-size: 11px;
-                color: #CCCCCC;
-                border: none;
-                background: rgba(0, 0, 0, 0.5);
-            }
-            .menuItem select  {
-                height: 35px;
-                width: 200px;
-            }
-
-
 .mainSection {
     /*width: 846px;*/
     width: 896px;
@@ -262,7 +226,6 @@ body {
     height: 800px;
     background: rgba(0, 0, 0, 0.2);
     position: relative;
-    top: -83px;
 }
     .menuHeader {
         height: 200px;
@@ -274,27 +237,27 @@ body {
             padding-right: 15px;
         }
 
-    /*.menuItems {*/
-        /*margin: 20px;*/
-    /*}*/
-        /*.menuItem {*/
-            /*margin: 10px 0;*/
-            /*padding: 15px;*/
-            /*background: rgba(255, 255, 255, 0.1);*/
-        /*}*/
-            /*.menuItem select,*/
-            /*.menuItem input[type = "text"] {*/
-                /*width: 220px;*/
-                /*padding: 10px 5px;*/
-                /*font-size: 11px;*/
-                /*color: #CCCCCC;*/
-                /*border: none;*/
-                /*background: rgba(0, 0, 0, 0.5);*/
-            /*}*/
-                /*.menuItem select  {*/
-                    /*height: 35px;*/
-                    /*width: 230px;*/
-                /*}*/
+    .menuItems {
+        margin: 20px;
+    }
+        .menuItem {
+            margin: 10px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+            .menuItem select,
+            .menuItem input[type = "text"] {
+                width: 220px;
+                padding: 10px 5px;
+                font-size: 11px;
+                color: #CCCCCC;
+                border: none;
+                background: rgba(0, 0, 0, 0.5);
+            }
+                .menuItem select  {
+                    height: 35px;
+                    width: 230px;
+                }
 
     .menuFooter {
         width: 302px;

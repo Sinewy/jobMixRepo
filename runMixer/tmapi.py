@@ -137,13 +137,13 @@ def do_valve_open_coarse(port):
 #
 #
 def do_login(port):
-    # check
-    sendln(port, '1')
-    res = recvln(port)  # < '1'
-    if res != '':
-        recvln(port)    # < 'Unknown Command/Parameter "1"'
-        recvln(port)    # < 'PB_OK'
-        return True
+    ## check
+    #sendln(port, '1')
+    #res = recvln(port)  # < '1'
+    #if res != '':
+    #    recvln(port)    # < 'Unknown Command/Parameter "1"'
+    #    recvln(port)    # < 'PB_OK'
+    #    return True
     # or try
     sendln(port, '1')
     time.sleep(0.5)
@@ -152,6 +152,7 @@ def do_login(port):
     sendln(port, '3')
     time.sleep(0.5)
     res = recvln(port)
+    port.flushInput()
     if res != '':
         return True
     return False

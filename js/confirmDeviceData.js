@@ -73,7 +73,7 @@ $(document).ready(function() {
                         //console.log("time is: " + (timeEnd - timeStart));
                         if($.trim(data2) == "success") {
                             // Activate device in the cloud
-                            var activeteInCloud = $.post("includes/activateInCloud.php", {deviceSerial: serial});
+                            var activeteInCloud = $.post("includes/activateInCloud.php", {deviceRemoteId: deviceRemoteId});
                             activeteInCloud.success(function(data3) {
                                 if($.trim(data3) == "success") {
                                     window.location.href = "jumix.php";
