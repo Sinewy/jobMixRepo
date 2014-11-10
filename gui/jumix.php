@@ -20,7 +20,7 @@
 
 <body>
 
-<nav class="topNavigation">
+<nav class="topNavigation left">
     <div class="menuItems left">
         <div class="menuItem">
             <p><?php echo $lang["PRODUCTS"]; ?></p>
@@ -34,8 +34,8 @@
             <p><?php echo $lang["COLORS"]; ?></p>
             <input type="text" id="color" name="color" size="25" value="" placeholder="<?php echo $lang["color"]; ?>" />
         </div>
-        <div class="resetAllBtn">
-            x - reset all
+        <div class="menuItem reset">
+            <div class="resetAllBtn">RESET ALL</div>
         </div>
     </div>
     <div class="topLogo right">
@@ -43,6 +43,49 @@
     </div>
 </nav>
 
+<section class="toolsBar right"></section>
+
+<section class="colorDetailMain left">
+    <div class="colorDetail left">
+        <div class="selectedColor">
+            <p class="colorName">6OGM35MGO230FERT</p>
+        </div>
+        <div class="colorInfo">
+            <p class="productName">JubosilColor Silicate (Jubosil FX)</p>
+            <p class="collectionName">TNS - Weber Terranova Farben Spectrum</p>
+            <p class="warningInfo"><b>Opozorilo:</b> Izdelek ni/pogojno primeren za zunanjo uporabo v TIS. Izdelek ni/pogojno primeren za zunanjo uporabo v TIS.</p>
+            <div class="selectCanSize">
+                PLEASE SELECT CAN SIZE: <select>
+                    <option>25.00 KG</option>
+                    <option>15.00 KG</option>
+                    <option>20.00 KG</option>
+                    <option>100.00 KG</option>
+                    </select>
+            </div>
+        </div>
+    </div>
+    <div class="componentsList right">
+        <p class="bigPrice">$1.345,03</p>
+        <div class="components">
+            <div class="row tableHeader">
+                <div class="left compNameHeader"><p><?php echo $lang["Component Name"]; ?></p></div>
+                <div class="left compAmount"><p><?php echo $lang["Amount"]; ?></p></div>
+                <div class="left compPrice"><p><?php echo $lang["Price/Unit"]; ?></p></div>
+            </div>
+            <div class="colorantList">
+                <div class='row'>
+                    <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--<section class="availableColors left"></section>-->
 
 
 <!---->
