@@ -9,6 +9,8 @@ $(document).ready(function() {
     var initialProductCode = 736;   //Jupol Gold
     var initialCollectionCode = 33; //JUB Barve in ometi
 
+    var langChanage = null;
+
     if(langChanage) {
         var postForProduct = $.post("includes/getSelectedProductById.php", {productId: pselectedProd});
         postForProduct.success(function(data) {
@@ -582,9 +584,7 @@ $(document).ready(function() {
         console.log("selected color is: " + selectedColor);
     });
 
-    $("#cancelSettings").click(function() {
-        $(".setSettings").toggle( "slide", {direction: "left"} );
-    });
+
 
     $("#saveSettings").click(function() {
         var lang = $("input[name='lang']:checked").val();
@@ -607,5 +607,27 @@ $(document).ready(function() {
         });
 
     });
+
+    $("#clearColorsSearch").click(function() {
+        $("#color").val("");
+    });
+
+    $("#showSettingsWindow").click(function() {
+        $(".setSettings").toggle( "slide", {direction: "left"} );
+        console.log("selected color is: " + selectedColor);
+    });
+
+    $("#cancelSettings, #closeSettingsWithArrow").click(function() {
+        $(".setSettings").toggle( "slide", {direction: "left"} );
+    });
+
+    $("#showPriceInfoPopup").click(function() {
+        $("#priceInfoPopup").fadeIn();
+    });
+
+    $("#closePriceInfoPopup").click(function() {
+        $("#priceInfoPopup").fadeOut();
+    });
+
 
 });

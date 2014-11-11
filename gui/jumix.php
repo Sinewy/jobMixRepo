@@ -24,18 +24,35 @@
     <div class="menuItems left">
         <div class="menuItem">
             <p><?php echo $lang["PRODUCTS"]; ?></p>
-            <input type="text" id="product" name="product" size="25" value="" placeholder="<?php echo $lang["product"]; ?>" />
+            <select>
+                <option>Product name 1</option>
+                <option>Product name 2</option>
+                <option>Product name 3</option>
+                <option>Product name 4</option>
+                <option>Product name 5</option>
+            </select>
+
+<!--            <input type="text" id="product" name="product" size="25" value="" placeholder="--><?php //echo $lang["product"]; ?><!--" />-->
         </div>
         <div class="menuItem">
             <p><?php echo $lang["COLLECTIONS"]; ?></p>
-            <input type="text" id="collection" name="collection" size="25" value="" placeholder="<?php echo $lang["collection"]; ?>" />
+            <select>
+                <option>Collection name 1</option>
+                <option>Collection name 2</option>
+                <option>Collection name 3</option>
+                <option>Collection name 4</option>
+                <option>Collection name 5</option>
+            </select>
+
+<!--            <input type="text" id="collection" name="collection" size="25" value="" placeholder="--><?php //echo $lang["collection"]; ?><!--" />-->
         </div>
         <div class="menuItem">
             <p><?php echo $lang["COLORS"]; ?></p>
             <input type="text" id="color" name="color" size="25" value="" placeholder="<?php echo $lang["color"]; ?>" />
+            <div class="clearSearchField" id="clearColorsSearch"><img src="images/clearField.svg"></div>
         </div>
         <div class="menuItem reset">
-            <div class="resetAllBtn">RESET ALL</div>
+            <div class="resetAllBtn" id="resetAllSearchFields">RESET ALL</div>
         </div>
     </div>
     <div class="topLogo right">
@@ -43,7 +60,20 @@
     </div>
 </nav>
 
-<section class="toolsBar right"></section>
+<section class="toolsBar right">
+    <div class="toolBtn">
+        <img src="images/print.svg">
+    </div>
+    <div class="toolBtn">
+        <img src="images/mixer.svg">
+    </div>
+    <div class="toolBtn">
+        <img src="images/calcIconV2.svg">
+    </div>
+    <div class="toolBtn" id="showSettingsWindow">
+        <img src="images/settingsIconV2.svg">
+    </div>
+</section>
 
 <section class="colorDetailMain left">
     <div class="colorDetail left">
@@ -53,7 +83,7 @@
         <div class="colorInfo">
             <p class="productName">JubosilColor Silicate (Jubosil FX)</p>
             <p class="collectionName">TNS - Weber Terranova Farben Spectrum</p>
-            <p class="warningInfo"><b>Opozorilo:</b> Izdelek ni/pogojno primeren za zunanjo uporabo v TIS. Izdelek ni/pogojno primeren za zunanjo uporabo v TIS.</p>
+            <p class="warningInfo"><b>Warning:</b> Izdelek ni/pogojno primeren za zunanjo uporabo v TIS. Izdelek ni/pogojno primeren za zunanjo uporabo v TIS.</p>
             <div class="selectCanSize">
                 PLEASE SELECT CAN SIZE: <select>
                     <option>25.00 KG</option>
@@ -65,27 +95,218 @@
         </div>
     </div>
     <div class="componentsList right">
-        <p class="bigPrice">$1.345,03</p>
+        <div class="row priceAndInfo">
+            <div class="infoBtn left" id="showPriceInfoPopup" ><img src="images/moreInfoIconV2.svg"></div>
+            <div class="bigPrice left">$1.345,03</div>
+        </div>
         <div class="components">
             <div class="row tableHeader">
                 <div class="left compNameHeader"><p><?php echo $lang["Component Name"]; ?></p></div>
                 <div class="left compAmount"><p><?php echo $lang["Amount"]; ?></p></div>
+                <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
                 <div class="left compPrice"><p><?php echo $lang["Price/Unit"]; ?></p></div>
             </div>
             <div class="colorantList">
+                <div class='row base'>
+                    <div class='left compColor'>&nbsp;</div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
                     <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
                     <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
+                <div class='row'>
+                    <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
+                <div class='row'>
+                    <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
+                <div class='row'>
+                    <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
+                <div class='row'>
+                    <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
+                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                </div>
+                <div class='row'>
+                    <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
+                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
+                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
+                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
                     <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 
-<!--<section class="availableColors left"></section>-->
+<section class="availableColors left">
+    <div class="availableColorsHideScroller">
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left selectedColorSwatch">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+    </div>
+</section>
+
+<!--Exras - Popups, sideSlides and more-->
+
+<div class="infoPopup" id="priceInfoPopup">
+    <div class="row clearFix">
+        <div class="propertyName left">Price Group</div>
+        <div class="propertyValue left">I - IV</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">Pricelist</div>
+        <div class="propertyValue left">Testni cenik 1Testni ceni  ceni  ceni  ceni</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">VAT Rate</div>
+        <div class="propertyValue left">20%</div>
+    </div>
+    <div class="closeBtn button" id="closePriceInfoPopup">Close</div>
+</div>
+
+<div class="infoPopup" id="printInfoPopup">
+    <div class="row clearFix">
+        <div class="propertyName left">Price Group</div>
+        <div class="propertyValue left">I - IV</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">Pricelist</div>
+        <div class="propertyValue left">Testni cenik 1Testni ceni  ceni  ceni  ceni</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">VAT Rate</div>
+        <div class="propertyValue left">20%</div>
+    </div>
+    <div class="closeBtn button" id="closePriceInfoPopup">Close</div>
+</div>
+
+<div class="infoPopup">
+    <div class="row clearFix">
+        <div class="propertyName left">Price Group</div>
+        <div class="propertyValue left">I - IV</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">Pricelist</div>
+        <div class="propertyValue left">Testni cenik 1Testni ceni  ceni  ceni  ceni</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">VAT Rate</div>
+        <div class="propertyValue left">20%</div>
+    </div>
+    <div class="closeBtn button" id="closePriceInfoPopup">Close</div>
+</div>
+
+<div class="setSettings">
+    <p><?php echo $lang["SETTINGS"]; ?><img id="closeSettingsWithArrow" src="images/arrow-left.png"></p>
+    <div class="language left">
+        <p id="settingsSubTtitle"><?php echo $lang["Select GUI language:"]; ?></p>
+        <?php //echo languageListView(); ?>
+    </div>
+    <div class="deactivateDevice">
+        <div id="deactivateDevice" class="button left"><?php echo $lang["DEACTIVATE THIS DEVICE"]; ?></div>
+    </div>
+    <div class="confirmationLine left">
+        <div id="cancelSettings" class="button left"><?php echo $lang["Cancel"]; ?></div>
+        <div id="saveSettings" class="button left"><?php echo $lang["Save"]; ?></div>
+    </div>
+</div>
+
+
+
+
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<!--<script>-->
+<!--    var lang = --><?php //echo json_encode($lang); ?><!--;-->
+<!--    var langChanage = --><?php //echo json_encode($langChanage); ?><!--;-->
+<!--    var pselectedProd = --><?php //echo $selectedProd; ?><!--;-->
+<!--    var pselectedColl = --><?php //echo $selectedColl; ?><!--;-->
+<!--    var pselectedColor = --><?php //echo $selectedColor; ?><!--;-->
+<!--</script>-->
+<script src="main.js"></script>
+
+</body>
+</html>
+
+<?php
+if (isset($conneciton)) {
+    mysqli_close($conneciton);
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!---->
@@ -336,14 +557,3 @@
 <!--        <div id="setSettings" class="smallIconBtn right"><img src="images/settingsIcon.png"></div>-->
 <!--    </div>-->
 <!--</section>-->
-
-
-</body>
-</html>
-
-<?php
-if (isset($conneciton)) {
-    mysqli_close($conneciton);
-}
-?>
-
