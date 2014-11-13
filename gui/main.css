@@ -65,13 +65,13 @@ body {
             float: left;
             display: inline-block;
             margin: 5px 0 5px 5px;
-            width: 290px;
+            width: 310px;
             padding: 5px;
             background: rgba(255, 255, 255, 0.1);
         }
         .menuItem input[type = "text"] {
             float: left;
-            width: 280px;
+            width: 300px;
             padding: 10px 5px;
             font-size: 0.8em;
             color: #CCCCCC;
@@ -94,24 +94,34 @@ body {
             line-height: normal;
             border-radius: 0px;
             height: 43px;
-            width: 290px;
+            width: 310px;
         }
         .menuItem .clearSearchField {
             float: right;
-            height: 30px;
+            height: 40px;
             width: 40px;
             text-align: center;
-            margin-top: -35px;
+            margin-top: -42px;
+            /*border: 1px solid #ffffff;*/
         }
             .menuItem .clearSearchField img {
-                margin-top: 3px;
+                margin-top: 12px;
                 height: 15px;
                 width: 15px;
                 opacity: 0.6;
             }
-        .menuItem.reset {
-            width: 123px;
+        .reset {
+            float: left;
+            padding: 15px;
+            margin: 5px 0 5px 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
         }
+            .reset img {
+                width: 43px;
+                height: 43px;
+                opacity: 0.3;
+            }
             .menuItem .resetAllBtn {
                 background: rgba(0, 0, 0, 0.3);
                 width: 121px;
@@ -135,50 +145,73 @@ body {
 /* ****************** Color Detail Main ****************** */
 
 .colorDetailMain {
-    width: 1066px;
-    height: 360px;
-    margin: 5px 5px 10px 5px;
-    background: #7ecc46;
-    border-radius: 5px;
+    /*width: 1066px;*/
+    width: 1056px;
+    height: 470px;
+    /*height: 480px;*/
+    margin: 5px 5px 15px 5px;
+    /*background: #7ecc46;*/
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 5px solid #7ecc46;
 }
     .colorDetail {
-        width: 425px;
-        height: 360px;
+        width: 525px;
+        height: 480px;
+        /*background: #ccffcc;*/
     }
-        .selectedColor {
-            width: 420px;
-            height: 150px;
-            border-radius: 5px 0 5px 0;
-            background-image: url("images/bucket.svg");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 120px 120px;
-        }
-            .colorName {
-                display: inline-block;
-                font-size: 0.8em;
-                font-style: italic;
-                margin: 10px;
-                padding: 5px;
-                border-radius: 4px;
-                background: rgba(0, 0, 0, 0.6);
-            }
         .colorInfo {
-            margin: 10px;
-            width: 415px;
-            height: 190px;
+            /*margin: 10px;*/
+            width: 515px;
+            height: 470px;
             border-radius: 5px;
             background: #383838;
         }
             .productName {
-                padding: 15px 15px 10px 15px;
+                padding: 15px 15px 20px 15px;
                 font-size: 1.2em;
                 font-style: italic;
             }
-            .collectionName {
-                padding: 0 15px 10px 15px;
+            .elementName {
+                padding: 0 15px 15px 15px;
                 font-size: 0.9em;
             }
+            .approximateColor {
+                padding: 0 15px 15px 15px;
+                font-size: 0.9em;
+            }
+                .approximateColor .selectedColor {
+                    float: right;
+                    margin-top: 5px;
+                    width: 485px;
+                    height: 150px;
+                    border-radius: 5px;
+                    background: #7ecc46;
+                    background-image: url("images/bucket.svg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: 100px 100px;
+                }
+            .priceInfo {
+                border-top: 1px dotted #8b8b8b;
+            }
+                .priceInfo .row {
+                    padding: 5px 10px;
+                    font-size: 0.9em;
+                }
+                    .priceInfo .mainPrice {
+                        padding: 10px;
+                        font-size: 1.3em;
+                        font-style: italic;
+                        border-bottom: 1px solid #000000;
+                        background: rgba(0, 0, 0, 0.2);
+                        margin-bottom: 7px;
+                    }
+                .priceInfo p {
+                    display: inline-block;
+
+                }
+
             .warningInfo {
                 padding: 5px 15px 10px 15px;
                 font-size: 0.7em;
@@ -186,8 +219,11 @@ body {
                 height: 40px;
             }
             .selectCanSize {
+                height: 64px;
+                line-height: 64px;
                 margin: 0px 15px 15px 15px;
-                padding: 12px;
+                padding: 0 15px;
+                /*padding: 30px;*/
                 font-size: 0.9em;
                 border-radius: 5px;
                 border: 2px solid #7ecc46;
@@ -195,28 +231,33 @@ body {
             }
                 .selectCanSize select {
                     float: right;
-                    margin-right: -6px;
-                    margin-top: -6px;
+                    /*margin-right: -10px;*/
+                    margin-top: 10px;
                     -webkit-appearance: none !important;
                     -webkit-border-radius: 0px;
-                    background-color: rgba(255, 255, 255, 0.2);
-                    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMTJweCIgeT0iMHB4IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIzcHgiIHZpZXdCb3g9IjAgMCA2IDMiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDYgMyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBvbHlnb24gcG9pbnRzPSI1Ljk5MiwwIDIuOTkyLDMgLTAuMDA4LDAgIi8+PC9zdmc+);
-                    background-position: 100% center;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    background-image: url("images/selectArrow.svg");
+                    background-size: 10px 5px;
+                    background-position: 95% center;
                     background-repeat: no-repeat;
-                    border: 1px solid #efefef;
+                    color: #CCCCCC;
+                    border: none;
                     padding: 5px 15px;
-                    font-size: 0.875rem;
-                    color: rgba(0, 0, 0, 0.75);
+                    font-size: 1em;
                     line-height: normal;
-                    border-radius: 3px;
-                    height: 30px;
+                    border-radius: 0px;
+                    height: 43px;
+                    width: 140px;
+                }
+                .numberOfCans select {
+                    width: 80px;
                 }
 
 
     .componentsList {
-        width: 620px;
-        height: 340px;
-        margin: 10px;
+        width: 530px;
+        height: 330px;
+        /*margin: 10px;*/
         border-radius: 5px;
         background: rgba(56, 56, 56, 0.95);
     }
@@ -226,7 +267,7 @@ body {
          width: 100%;
          border-bottom: solid #000000 1px;
          text-align: center;
-     }
+    }
         .row.priceAndInfo {
             height: 60px;
             line-height: 60px;
@@ -242,36 +283,44 @@ body {
                     width: 40px;
                     height: 40px;
                     vertical-align: middle;
-
+                    opacity: 0.4;
                 }
             .bigPrice {
-                width: 500px;
+                width: 400px;
                 line-height: 60px;
                 font-size: 1.5em;
                 text-align: right;
                 border-bottom: 1px solid #000000;
             }
         .components {
-            width: 620px;
+            width: 530px;
             font-size: 0.7em;
         }
                 .tableHeader {
                     font-size: 0.9em;
                     background: rgba(0, 0, 0, 0.3);
+                    /*border-radius: 5px 5px 0 0;*/
                 }
                     .compNameHeader {
-                        width: 310px;
+                        width: 270px;
                         margin-left: 10px;
                         text-align: left;
                     }
-                .base {
+                .row.base {
+                    width: 528px;
                     height: 40px;
                     line-height: 40px;
                     font-size: 1.5em;
-                    background: rgba(255, 255, 255, 0.1);
+                    /*background: rgba(255, 255, 255, 0.2);*/
+                    background: rgba(187, 229, 250, 0.10);
+                    border-left: 1px solid rgba(0, 0, 0, 0.3);
+                    border-right: 1px solid rgba(0, 0, 0, 0.3);
                 }
                 .compColor {
                     width: 35px;
+                }
+                .base .compColor {
+                    width: 33px;
                 }
                     .colorantColor {
                         width: 18px;
@@ -281,15 +330,80 @@ body {
                         background-color: #d9f3ff;
                     }
                 .compName {
-                    width: 285px;
+                    width: 245px;
                     text-align: left;
+                    /*background: #ccffcc;*/
                 }
                 .compAmount,
                 .compVat,
                 .compPrice {
-                    width: 100px;
+                    width: 120px;
+                    /*background: #9b0000;*/
                 }
+    .cansizeSelector {
+        margin-top: 10px;
+        width: 530px;
+        height: 130px;
+        border-radius: 5px 0 5px 0;
+        background: rgba(56, 56, 56, 0.95);
+        /*background: #CCCCCC;*/
+    }
+        .cansizeSelector img {
+            float: left;
+            width: 90px;
+            margin: 5px;
+            opacity: 0.4;
+        }
+        .cansizeSelector p {
+            padding: 20px 20px 10px;
+        }
+        .cansizeSelector .selectionField {
+            margin-left: 10px;
+            padding: 10px;
+        }
+        .cansizeSelector select {
+            -webkit-appearance: none !important;
+            -webkit-border-radius: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            background-image: url("images/selectArrow.svg");
+            background-size: 10px 5px;
+            background-position: 95% center;
+            background-repeat: no-repeat;
+            color: #CCCCCC;
+            border: none;
+            padding: 5px 15px;
+            margin: 0 15px;
+            font-size: 1em;
+            line-height: normal;
+            border-radius: 0px;
+            height: 43px;
+            width: 160px;
+        }
+        .cansizeSelector input[type = "text"] {
+            /*margin-right: 10px;*/
+            float: left;
+            width: 150px;
+            padding: 10px 5px;
+            font-size: 1em;
+            color: #CCCCCC;
+            border: none;
+            background: rgba(0, 0, 0, 0.5);
+        }
 
+        .clearCansizeField {
+            float: left;
+            width: 40px;
+            height: 43px;
+            margin-left: -40px;
+            margin-right: 10px;
+            text-align: center;
+            }
+            .clearCansizeField img {
+                height: 15px;
+                width: 15px;
+                margin-top: 15px;
+                margin-left: 12px;
+            }
 
 /* ************************************ */
 
@@ -328,12 +442,12 @@ body {
 
 .availableColors {
     width: 1076px;
-    height: 250px;
+    height: 130px;
     overflow: hidden;
 }
     .availableColorsHideScroller {
         width: 1120px;
-        height: 260px;
+        height: 130px;
         overflow-x: hidden;
         overflow-y: scroll;
     }
@@ -399,6 +513,32 @@ body {
             padding: 0 5px;
             text-align: right;
         }
+    #printInfoPopup .propertyName {
+        width: 270px;
+    }
+    #printInfoPopup select {
+        -webkit-appearance: none !important;
+        -webkit-border-radius: 0px;
+        background-color: rgba(0, 0, 0, 0.5);
+        background-image: url("images/selectArrow.svg");
+        background-size: 10px 5px;
+        background-position: 95% center;
+        background-repeat: no-repeat;
+        color: #CCCCCC;
+        border: none;
+        padding: 5px 15px;
+        margin: 0 15px;
+        font-size: 1em;
+        line-height: normal;
+        border-radius: 0px;
+        height: 43px;
+        width: 160px;
+    }
+    #printInfoPopup .closeBtn {
+        margin-left: 125px;
+        margin-right: 20px;
+    }
+
 
 .setSettings {
     position: absolute;

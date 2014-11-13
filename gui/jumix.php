@@ -24,35 +24,33 @@
     <div class="menuItems left">
         <div class="menuItem">
             <p><?php echo $lang["PRODUCTS"]; ?></p>
-            <select>
+            <select id="selectProduct">
+                <option></option>
                 <option>Product name 1</option>
                 <option>Product name 2</option>
                 <option>Product name 3</option>
                 <option>Product name 4</option>
                 <option>Product name 5</option>
             </select>
-
-<!--            <input type="text" id="product" name="product" size="25" value="" placeholder="--><?php //echo $lang["product"]; ?><!--" />-->
         </div>
         <div class="menuItem">
             <p><?php echo $lang["COLLECTIONS"]; ?></p>
-            <select>
+            <select id="selectCollection">
+                <option></option>
                 <option>Collection name 1</option>
                 <option>Collection name 2</option>
                 <option>Collection name 3</option>
                 <option>Collection name 4</option>
                 <option>Collection name 5</option>
             </select>
-
-<!--            <input type="text" id="collection" name="collection" size="25" value="" placeholder="--><?php //echo $lang["collection"]; ?><!--" />-->
         </div>
         <div class="menuItem">
             <p><?php echo $lang["COLORS"]; ?></p>
             <input type="text" id="color" name="color" size="25" value="" placeholder="<?php echo $lang["color"]; ?>" />
             <div class="clearSearchField" id="clearColorsSearch"><img src="images/clearField.svg"></div>
         </div>
-        <div class="menuItem reset">
-            <div class="resetAllBtn" id="resetAllSearchFields">RESET ALL</div>
+        <div class="reset">
+            <div class="resetAllBtn" id="resetAllSearchFields"><img src="images/clearIcon.svg"></div>
         </div>
     </div>
     <div class="topLogo right">
@@ -61,10 +59,10 @@
 </nav>
 
 <section class="toolsBar right">
-    <div class="toolBtn">
+    <div class="toolBtn" id="printLabel">
         <img src="images/print.svg">
     </div>
-    <div class="toolBtn">
+    <div class="toolBtn" id="runTintingMachine">
         <img src="images/mixer.svg">
     </div>
     <div class="toolBtn">
@@ -77,86 +75,96 @@
 
 <section class="colorDetailMain left">
     <div class="colorDetail left">
-        <div class="selectedColor">
-            <p class="colorName">6OGM35MGO230FERT</p>
-        </div>
         <div class="colorInfo">
-            <p class="productName">JubosilColor Silicate (Jubosil FX)</p>
-            <p class="collectionName">TNS - Weber Terranova Farben Spectrum</p>
-            <p class="warningInfo"><b>Warning:</b> Izdelek ni/pogojno primeren za zunanjo uporabo v TIS. Izdelek ni/pogojno primeren za zunanjo uporabo v TIS.</p>
-            <div class="selectCanSize">
-                PLEASE SELECT CAN SIZE: <select>
-                    <option>25.00 KG</option>
-                    <option>15.00 KG</option>
-                    <option>20.00 KG</option>
-                    <option>100.00 KG</option>
-                    </select>
+            <p class="productName">Product: JubosilColor Silicate (Jubosil FX)</p>
+            <p class="elementName">Collection: TNS - Weber Terranova Farben Spectrum</p>
+            <p class="elementName">Color name: 6OGM35MGO230FERT</p>
+            <div class="approximateColor clearFix"><div class="selectedColor">&nbsp;</div>
+            </div>
+            <p class="elementName">Substrat: Unigrund, Acrylcolor</p>
+            <div class="warningInfo">
+                <p>Comment:</p>
+                <p>Y = 81 ; ¤ = 7</p>
+            </div>
+            <div class="warningInfo">
+                <p>Warning:</p>
+                <p>Izdelek ni/pogojno primeren za zunanjo uporabo v TIS. Izdelek ni/pogojno primeren za zunanjo uporabo v TIS.</p>
             </div>
         </div>
     </div>
     <div class="componentsList right">
         <div class="row priceAndInfo">
-            <div class="infoBtn left" id="showPriceInfoPopup" ><img src="images/moreInfoIconV2.svg"></div>
-            <div class="bigPrice left">$1.345,03</div>
+            <div class="infoBtn left" id="showPriceInfoPopup" ><img src="images/moreInfoIconV3.svg"></div>
+            <div class="bigPrice left">€1.345,03</div>
         </div>
         <div class="components">
             <div class="row tableHeader">
                 <div class="left compNameHeader"><p><?php echo $lang["Component Name"]; ?></p></div>
                 <div class="left compAmount"><p><?php echo $lang["Amount"]; ?></p></div>
-                <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
                 <div class="left compPrice"><p><?php echo $lang["Price/Unit"]; ?></p></div>
             </div>
             <div class="colorantList">
                 <div class='row base'>
                     <div class='left compColor'>&nbsp;</div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Base NAME</p></div>
+                    <div class='left compAmount'><p>25.00 KG</p></div>
+                    <div class='left compPrice'><p>€1945.23</p></div>
                 </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Colorant Name 234SDF</p></div>
+                    <div class='left compAmount'><p>0.34 ml</p></div>
+                    <div class='left compPrice'><p>€12.45</p></div>
                 </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Colorant Name 234SDF</p></div>
+                    <div class='left compAmount'><p>0.34 ml</p></div>
+                    <div class='left compPrice'><p>€12.45</p></div>
                 </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Colorant Name 234SDF</p></div>
+                    <div class='left compAmount'><p>0.34 ml</p></div>
+                    <div class='left compPrice'><p>€12.45</p></div>
                 </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Colorant Name 234SDF</p></div>
+                    <div class='left compAmount'><p>0.34 ml</p></div>
+                    <div class='left compPrice'><p>€12.45</p></div>
                 </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Colorant Name 234SDF</p></div>
+                    <div class='left compAmount'><p>0.34 ml</p></div>
+                    <div class='left compPrice'><p>€12.45</p></div>
                 </div>
                 <div class='row'>
                     <div class='left compColor'><div class='colorantColor'>&nbsp;</div></div>
-                    <div class='left compName'><p><?php echo $lang["Name"]; ?></p></div>
-                    <div class='left compAmount'><p><?php echo $lang["Qantity"]; ?></p></div>
-                    <div class='left compVat'><p><?php echo $lang["VAT"]; ?></p></div>
-                    <div class='left compPrice'><p><?php echo $lang["Price/Unit"]; ?></p></div>
+                    <div class='left compName'><p>Colorant Name 234SDF</p></div>
+                    <div class='left compAmount'><p>0.34 ml</p></div>
+                    <div class='left compPrice'><p>€12.45</p></div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="cansizeSelector right">
+        <img src="images/paintBucketV2.svg">
+        <p class="left">PLEASE SELECT CAN SIZE</p>
+        <div class="selectionField left">
+            <input type="text" id="customCanSize" name="customCanSize" size="25" value="" placeholder="can size" />
+            <div class="clearCansizeField" id="clearCansize">
+                <img src="images/clearField.svg">
+            </div>
+            OR
+            <select id="selectCanSize">
+                <option></option>
+                <option>25.00 KG</option>
+                <option>15.00 KG</option>
+                <option>20.00 KG</option>
+                <option>100.00 KG</option>
+            </select>
         </div>
     </div>
 </section>
@@ -202,6 +210,12 @@
         <div class="colorSwatch left">
             <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
         </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
+        <div class="colorSwatch left">
+            <div class="colorSwatchName"><?php echo $lang["COLORNAME"]; ?></div>
+        </div>
     </div>
 </section>
 
@@ -209,6 +223,18 @@
 
 <div class="infoPopup" id="priceInfoPopup">
     <div class="row clearFix">
+        <div class="propertyName left">Price Excluding VAT</div>
+        <div class="propertyValue left">€1.034,23</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">VAT</div>
+        <div class="propertyValue left">€235,80</div>
+    </div>
+    <div class="row clearFix">
+        <div class="propertyName left">VAT Rate</div>
+        <div class="propertyValue left">20%</div>
+    </div>
+    <div class="row clearFix">
         <div class="propertyName left">Price Group</div>
         <div class="propertyValue left">I - IV</div>
     </div>
@@ -216,44 +242,64 @@
         <div class="propertyName left">Pricelist</div>
         <div class="propertyValue left">Testni cenik 1Testni ceni  ceni  ceni  ceni</div>
     </div>
-    <div class="row clearFix">
-        <div class="propertyName left">VAT Rate</div>
-        <div class="propertyValue left">20%</div>
-    </div>
     <div class="closeBtn button" id="closePriceInfoPopup">Close</div>
+</div>
+
+<div class="infoPopup" id="selectCanSizeError">
+    <div class="row clearFix">
+        <div class="propertyName left">Error...</div>
+        <div class="propertyValue left">&nbsp;</div>
+    </div>
+    <div class="row clearFix">
+        <div class="freeText left">Please eneter custom can size or select can size from the provided list.</div>
+    </div>
+    <div class="closeBtn button" id="closeSelectCanSizeError">Close</div>
 </div>
 
 <div class="infoPopup" id="printInfoPopup">
     <div class="row clearFix">
-        <div class="propertyName left">Price Group</div>
-        <div class="propertyValue left">I - IV</div>
+        <div class="propertyName left">SELECT NUMBER OF CANS</div>
     </div>
     <div class="row clearFix">
-        <div class="propertyName left">Pricelist</div>
-        <div class="propertyValue left">Testni cenik 1Testni ceni  ceni  ceni  ceni</div>
+        <div class="freeText left">
+            <select id="selectNumberOfCans">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+        </div>
     </div>
-    <div class="row clearFix">
-        <div class="propertyName left">VAT Rate</div>
-        <div class="propertyValue left">20%</div>
-    </div>
-    <div class="closeBtn button" id="closePriceInfoPopup">Close</div>
+    <div class="closeBtn button left" id="closePrintInfoPopup">Cancel</div>
+    <div class="button left" id="printLabelToPrinter">Print</div>
 </div>
 
-<div class="infoPopup">
+<div class="infoPopup" id="printInfoPrintingToPrinter">
     <div class="row clearFix">
-        <div class="propertyName left">Price Group</div>
-        <div class="propertyValue left">I - IV</div>
+        <div class="freeText left">Printing label to printer...</div>
     </div>
     <div class="row clearFix">
-        <div class="propertyName left">Pricelist</div>
-        <div class="propertyValue left">Testni cenik 1Testni ceni  ceni  ceni  ceni</div>
+        <div class="freeText left">This may take a few moments.. approximately 10 sec/label.</div>
     </div>
-    <div class="row clearFix">
-        <div class="propertyName left">VAT Rate</div>
-        <div class="propertyValue left">20%</div>
-    </div>
-    <div class="closeBtn button" id="closePriceInfoPopup">Close</div>
+    <div class="closeBtn button" id="closePrintInfoPrintingToPrinter">OK</div>
 </div>
+
+<div class="infoPopup" id="runTintingMachinePopup">
+    <div class="row clearFix">
+        <div class="freeText left">Mixing colors...</div>
+    </div>
+    <div class="row clearFix">
+        <div class="freeText left">This may take a few moments.. approximately 10 seconds.</div>
+    </div>
+    <div class="closeBtn button" id="closeRunTintingMachinePopup">OK</div>
+</div>
+
 
 <div class="setSettings">
     <p><?php echo $lang["SETTINGS"]; ?><img id="closeSettingsWithArrow" src="images/arrow-left.png"></p>
@@ -301,7 +347,25 @@ if (isset($conneciton)) {
 
 
 
-
+<!--            <div class="selectCanSize">-->
+<!--                PLEASE SELECT CAN SIZE: <select>-->
+<!--                    <option>25.00 KG</option>-->
+<!--                    <option>15.00 KG</option>-->
+<!--                    <option>20.00 KG</option>-->
+<!--                    <option>100.00 KG</option>-->
+<!--                    </select>-->
+<!--            </div>-->
+<!--            <div class="selectCanSize numberOfCans">-->
+<!--                PLEASE SELECT NUMBER OF CANS: <select>-->
+<!--                    <option>1</option>-->
+<!--                    <option>2</option>-->
+<!--                    <option>3</option>-->
+<!--                    <option>4</option>-->
+<!--                    <option>5</option>-->
+<!--                    <option>6</option>-->
+<!--                    <option>7</option>-->
+<!--                </select>-->
+<!--            </div>-->
 
 
 
